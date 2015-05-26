@@ -27,3 +27,8 @@ function register_licensed_product( $params ){
 	$register->register_product( $params );
 
 }
+
+function is_product_licensed( $plugin ){
+	$blackbriar = BlackBriar_Options::get_single( 'blackbriar' );
+	return in_array( $plugin, $blackbriar['licensed'] );
+}

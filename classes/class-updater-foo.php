@@ -46,7 +46,7 @@ if (!class_exists('foolic_update_checker_v1_5')) {
 				return $checked_data;
 			}
 
-			if (!empty($checked_data->response[$this->update_key])) {
+			if (!empty($checked_data->response[$this->update_key]) || !empty( $checked_data->checked[$this->update_key] ) ) {
 				//already done a check - no need to do another one
 				return $checked_data;
 			}

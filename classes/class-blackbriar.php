@@ -284,13 +284,14 @@ class BlackBriar {
 	 */
 	public function print_edd_response( $license_data, $api_params ){
 
-		if( !is_object( $license_data ) || $license_data->license == 'invalid' || $license_data->license == 'item_name_mismatch' ) {
+		if( ( !is_object( $license_data ) || $license_data->license == 'invalid' || $license_data->license == 'item_name_mismatch' ) && $_POST['action'] !== 'blkbr_deactivate_edd_license' ) {
 			echo '<div class="notice notice-error"><p>' . __( 'Invalid Key', 'blackbriar' ) . '</p></div>';
+			echo '<button type="button" data-confirm="' . esc_attr( __( 'Remove this license?', 'blackbriar' ) ) . '"  class="button wp-baldrick" data-id="' . esc_attr( $_POST['id'] ) . '" data-load-element="#key-loading-' . esc_attr( $_POST['id'] ) . '" data-key="' . esc_attr( $api_params['license'] ) . '" data-active-class="disabled" data-target="#license-info-' . esc_attr( $_POST['id'] ) . '" data-item="' . esc_attr( $api_params['item_name'] ) . '" data-url="' . $_POST['url'] . '" data-action="blkbr_deactivate_edd_license">' . __( 'Remove License', 'blackbriar' ) . '</button>';
 			exit;
 		// this license is no longer valid
 		}else{
 
-			if( $license_data->license == 'deactivated' ){
+			if( $license_data->license == 'deactivated' || $_POST['action'] == 'blkbr_deactivate_edd_license' ){
 				// deactivated
 				echo '<button type="button" class="button wp-baldrick" data-autoload="true" data-remove-element=".' . esc_attr( $_POST['id'] ) . '"></button>';
 				echo '<span data-autoload="true" data-before="blkbr_get_config_object" data-load-element="#blackbriar-save-indicator" data-callback="blkbr_handle_save" data-action="blkbr_save_config" class="wp-baldrick"></span>';
@@ -312,6 +313,8 @@ class BlackBriar {
 				
 					echo '<div class="notice-footer" style="margin: 6px -18px -7px -12px; padding: 6px 12px; background: rgb(242, 242, 242) none repeat scroll 0% 0%; border-top: 1px solid rgb(223, 223, 223);">';
 					
+					printf( __( 'Plugin not installed. <a href="%1$s">Install Now</a>.' ), wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=' ) . $license_data->slug, 'install-plugin_' . $license_data->slug ) );
+
 					if( ( $license_data->activations_left === 'unlimited' || (int) $license_data->activations_left > 0 ) && $license_data->license != 'valid' ){
 						echo '<button type="button" class="button wp-baldrick" data-id="' . esc_attr( $_POST['id'] ) . '" data-load-element="#key-loading-' . esc_attr( $_POST['id'] ) . '" data-key="' . esc_attr( $api_params['license'] ) . '" data-active-class="disabled" data-target="#license-info-' . esc_attr( $_POST['id'] ) . '" data-item="' . esc_attr( $api_params['item_name'] ) . '" data-url="' . $_POST['url'] . '" data-action="blkbr_activate_edd_license" data-name="' . esc_attr( $_POST['name'] ) . '">' . __( 'Activate license', 'blackbriar' ) . '</button>';
 					}else{
