@@ -1,0 +1,20 @@
+{
+    "name": "blackbriar/blackbriar",
+    "description": "License Manager for CalderaWP Plugins",
+    "type": "wordpress-plugin",
+    "keywords": [
+        "wordpress"
+    ],
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "David Cramer",
+            "homepage": "https://calderawp.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "calderawp/edd-licensing": "dev-master"
+    }
+}

@@ -1,0 +1,6 @@
+Plugin Name -- BlackBriar
+Text domain -- blackbriar
+Function prefix -- blkbr
+Class prefix -- {{Core_Prefix}}
+Root namespace -- BlackBriar
+Hook Prefix -- blkbr
