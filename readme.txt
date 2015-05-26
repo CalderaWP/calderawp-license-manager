@@ -12,9 +12,8 @@ License Manager for CalderaWP Plugins
 
 == Description ==
 
-License Manager for CalderaWP Plugins
+License Manager for WordPress Plugins. Supports EDD Software License and FooPlugins
 
-BlackBriar is a free plugin by [CalderaWP](https://CalderaWP.com).
 
 == Installation ==
 

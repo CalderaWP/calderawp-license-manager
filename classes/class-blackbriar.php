@@ -313,8 +313,6 @@ class BlackBriar {
 				
 					echo '<div class="notice-footer" style="margin: 6px -18px -7px -12px; padding: 6px 12px; background: rgb(242, 242, 242) none repeat scroll 0% 0%; border-top: 1px solid rgb(223, 223, 223);">';
 					
-					printf( __( 'Plugin not installed. <a href="%1$s">Install Now</a>.' ), wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=' ) . $license_data->slug, 'install-plugin_' . $license_data->slug ) );
-
 					if( ( $license_data->activations_left === 'unlimited' || (int) $license_data->activations_left > 0 ) && $license_data->license != 'valid' ){
 						echo '<button type="button" class="button wp-baldrick" data-id="' . esc_attr( $_POST['id'] ) . '" data-load-element="#key-loading-' . esc_attr( $_POST['id'] ) . '" data-key="' . esc_attr( $api_params['license'] ) . '" data-active-class="disabled" data-target="#license-info-' . esc_attr( $_POST['id'] ) . '" data-item="' . esc_attr( $api_params['item_name'] ) . '" data-url="' . $_POST['url'] . '" data-action="blkbr_activate_edd_license" data-name="' . esc_attr( $_POST['name'] ) . '">' . __( 'Activate license', 'blackbriar' ) . '</button>';
 					}else{

@@ -29,7 +29,7 @@
 	</div>
 
 	<div id="blackbriar-panel-feed" class="blackbriar-editor-panel" {{#is _current_tab value="#blackbriar-panel-feed"}}{{else}} style="display:none;" {{/is}}>
-		<div id="blackbriar-extend" class="wp-baldrick" data-request="https://api.calderaforms.com/1.0/marketing/extensions/?version=1.2.0" data-target="#blackbriar-extend" data-template="#extensions-modal-tmpl" data-event="none" data-autoload="true">
+		<div id="blackbriar-extend" class="wp-baldrick" data-request="https://api.calderaforms.com/1.0/blackbriar/extensions/" data-target="#blackbriar-extend" data-template="#extensions-modal-tmpl" data-event="none" data-autoload="true">
 		</div>
 	</div>
 
