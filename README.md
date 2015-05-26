@@ -1,7 +1,7 @@
 BlackBriar
 =============
 
-# Plugin License Manager for WordPress
+### Plugin License Manager for WordPress
 
 To add BlackBriar support to your plugin:
 
