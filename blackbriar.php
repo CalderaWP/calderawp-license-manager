@@ -24,6 +24,10 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+if( defined( 'BLKBR_VER' ) ){
+	return;
+}
+
 define('BLKBR_PATH',  plugin_dir_path( __FILE__ ) );
 define('BLKBR_URL',  plugin_dir_url( __FILE__ ) );
 define('BLKBR_VER',  '1.0.0' );
