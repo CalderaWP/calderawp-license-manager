@@ -15,6 +15,7 @@ if( function_exists( 'register_licensed_product' ) ){
 		'type'		=>	'plugin', // themes will be supported if this works out
 		'updater'	=>	'edd',
 		'version'	=>	'1.0.0',
+		'key_store'	=>	'myplugin_license',
 		'file'		=> __FILE__
 	);		
 	register_licensed_product( $product_params );

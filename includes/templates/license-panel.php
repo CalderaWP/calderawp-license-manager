@@ -69,7 +69,7 @@
 				<div id="license-info-{{_id}}" style="margin-top: 12px;"></div>
 				{{else}}
 					<input type="hidden" name="{{:name}}[config][active]" value="{{config/active}}">
-					<input data-autoload="true" {{#find @root/plugins config/license_name}} data-url="{{url}}" {{/find}} data-refresh="true" style="width: 250px;" id="key-input-{{_id}}" data-item="{{config/license_name}}" placeholder="License key" class="wp-baldrick key-input" data-load-element="#key-loading-{{_id}}" data-target="#license-info-{{_id}}" data-event="sync" data-action="blkbr_check_license" data-id="{{_id}}" type="hidden" name="{{:name}}[config][license_key]" value="{{config/license_key}}" data-sync="#license_key_{{_id}}" id="blackbriar-key" required>
+					<input data-autoload="true" {{#find @root/plugins config/license_name}} data-url="{{url}}" {{/find}} data-refresh="true" style="width: 250px;" id="key-input-{{_id}}" data-name="{{:name}}[config][active]" data-item="{{config/license_name}}" placeholder="License key" class="wp-baldrick key-input" data-load-element="#key-loading-{{_id}}" data-target="#license-info-{{_id}}" data-event="sync" data-action="blkbr_check_license" data-id="{{_id}}" type="hidden" name="{{:name}}[config][license_key]" value="{{config/license_key}}" data-sync="#license_key_{{_id}}" id="blackbriar-key" required>
 					
 					<div id="license-info-{{_id}}" style="margin-top: 12px;"><span id="key-loading-{{_id}}"> <span style="float: none; margin: 0;" class="spinner"></span></span></div>
 				{{/unless}}

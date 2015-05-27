@@ -147,9 +147,9 @@ class BlackBriar {
 			}
 
 			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
-
-			set_transient( sanitize_key( $license ), $license_data, 18000 ); // 5 min transient on autoloads
-
+			if( !empty( $_POST['autoload'] ) ){
+				set_transient( sanitize_key( $license ), $license_data, 18000 ); // 5 min transient on autoloads
+			}
 		}
 
 		// quick hook to save if active
@@ -369,7 +369,9 @@ class BlackBriar {
 				exit;
 			}
 			$license_data = json_decode( wp_remote_retrieve_body( $response_raw ) );
-			set_transient( sanitize_key( sanitize_key( $plugin['license'] ) ), $license_data, 18000 ); // 5 min transient on autoloads
+			if( !empty( $_POST['autoload'] ) ){
+				set_transient( sanitize_key( sanitize_key( $plugin['license'] ) ), $license_data, 18000 ); // 5 min transient on autoloads
+			}
 		}
 		
 
