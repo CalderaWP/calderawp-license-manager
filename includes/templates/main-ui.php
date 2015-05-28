@@ -26,11 +26,13 @@
 				<?php _e('Licenses', 'calderawp-license_manager') ; ?>
 			</a>
 		</li>
+		<!--
 		<li class="{{#is _current_tab value="#calderawp_license_manager-panel-feed"}}active {{/is}}calderawp_license_manager-nav-tab">
 			<a href="#calderawp_license_manager-panel-feed">
-				<?php _e('Extend', 'calderawp-license-manager') ; ?>
+				<?php //_e('Extend', 'calderawp-license-manager') ; ?>
 			</a>
 		</li>
+		-->
 	</ul>
 </div>
 
