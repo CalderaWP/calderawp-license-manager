@@ -1,33 +1,33 @@
 <?php
 /**
- * BlackBriar Options.
+ * CalderaWP_License_Manager Options.
  *
- * @package   BlackBriar
- * @author    David <david@digilab.co.za>
+ * @package   CalderaWP_License_Manager
+ * @author    David Cramer for CalderaWP LLC<David@CalderaWP.com>
  * @license   GPL-2.0+
  * @link
- * @copyright 2015 David <david@digilab.co.za>
+ * @copyright 2015 David Cramer for CalderaWP LLC<David@CalderaWP.com>
  */
 
 /**
- * BlackBriar_Options class.
+ * CalderaWP_License_Manager_Options class.
  *
- * @package BlackBriar
- * @author  David <david@digilab.co.za>
+ * @package CalderaWP_License_Manager
+ * @author  David Cramer for CalderaWP LLC<David@CalderaWP.com>
  */
-class BlackBriar_Options {
+class CalderaWP_License_Manager_Options {
 
-	public static $option_name = 'blackbriar';
+	public static $option_name = 'calderawp_license_manager';
 
 	/**
-	 * Create a new blackbriar.
+	 * Create a new calderawp_license_manager.
 	 *
 	 * @since 0.0.1
 	 *
-	 * @param string $name Name for blackbriar.
-	 * @param string $slug Slug for blackbriar.
+	 * @param string $name Name for calderawp_license_manager.
+	 * @param string $slug Slug for calderawp_license_manager.
 	 *
-	 * @return array|void Config array for new blackbriar if it exists. Void if not.
+	 * @return array|void Config array for new calderawp_license_manager if it exists. Void if not.
 	 */
 	public static function create( $name, $slug ) {
 		$name = sanitize_text_field( $name );
@@ -57,40 +57,40 @@ class BlackBriar_Options {
 	 *
 	 * @since 0.0.1
 	 *
-	 * @param string $id blackbriar ID
+	 * @param string $id calderawp_license_manager ID
 	 *
-	 * @return bool|array blackbriar config or false if not found.
+	 * @return bool|array calderawp_license_manager config or false if not found.
 	 */
 	public static function get_single( $id ) {
 		$option_name = self::item_option_name( $id );
-		$blackbriar = get_option( $option_name, false );
+		$calderawp_license_manager = get_option( $option_name, false );
 		
 		// try slug based lookup
-		if( false === $blackbriar ){
+		if( false === $calderawp_license_manager ){
 			$registry = self::get_registry();
 			foreach( $registry as $single_id => $single ){
 				if( $single['slug'] === $id ){
 					$option_name = self::item_option_name( $single_id );
-					$blackbriar = get_option( $option_name, false );
+					$calderawp_license_manager = get_option( $option_name, false );
 					break;
 				}
 			}
 		}
 
 		/**
-		 * Filter a blackbriar config before returning
+		 * Filter a calderawp_license_manager config before returning
 		 *
-		 * @param array $blackbriar The config to be returned
+		 * @param array $calderawp_license_manager The config to be returned
 		 * @param string $option_name The name of the option it was stored in.
 		 *
 		 * @since 0.0.1
 		 */
-		return apply_filters( 'blackbriar_get_single', $blackbriar, $option_name );
+		return apply_filters( 'calderawp_license_manager_get_single', $calderawp_license_manager, $option_name );
 
 	}
 
 	/**
-	 * Get the registry of blackbriar.
+	 * Get the registry of calderawp_license_manager.
 	 *
 	 * @since 0.0.1
 	 *
@@ -105,7 +105,7 @@ class BlackBriar_Options {
 		 *
 		 * @since 0.0.1
 		 */
-		return apply_filters( 'blackbriar_get_registry', $registry );
+		return apply_filters( 'calderawp_license_manager_get_registry', $registry );
 
 	}
 
@@ -182,8 +182,8 @@ class BlackBriar_Options {
 	/**
 	 * Save an individual item.
 	 *
-	 * @param string $id blackbriar ID
-	 * @param array $config blackbriar config
+	 * @param string $id calderawp_license_manager ID
+	 * @param array $config calderawp_license_manager config
 	 */
 	protected static function save_single( $id, $config ) {
 		return update_option( self::item_option_name( $id ), $config );
@@ -237,7 +237,7 @@ class BlackBriar_Options {
 	 * @return string
 	 */
 	protected static function create_unique_id() {
-		$slug_parts = explode( '_', 'blackbriar' );
+		$slug_parts = explode( '_', 'calderawp_license_manager' );
 		$slug = '';
 
 		foreach ( $slug_parts as $slug_part ) {

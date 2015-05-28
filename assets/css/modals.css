@@ -1,6 +1,6 @@
 
 /* MODALS */
-.blackbriar-backdrop {
+.calderawp_license_manager-backdrop {
   background: none repeat scroll 0 0 #000000;
   bottom: 0;
   display: block;
@@ -13,7 +13,7 @@
   z-index: 100100;
 }
 
-.blackbriar-modal-wrap {
+.calderawp_license_manager-modal-wrap {
   background-color: #FFFFFF;
   bottom: 15px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
@@ -26,39 +26,39 @@
   width: 500px;
   z-index: 100105;
 }
-.blackbriar-modal-wrap.blackbriar-front-modal-wrap{
+.calderawp_license_manager-modal-wrap.calderawp_license_manager-front-modal-wrap{
   position: fixed;
   bottom: auto;
   width: 600px;
   margin-left: -300px;
   margin-top: 0;
 }
-.blackbriar-modal-title {
+.calderawp_license_manager-modal-title {
   border-bottom: 1px solid #EFEFEF;
 }
 
-.blackbriar-modal-closer {
+.calderawp_license_manager-modal-closer {
   color: #fff;
   float: right;
   font-size: 24px;
   padding: 12px;
   text-decoration: none;
 }
-.blackbriar-modal-closer.blackbriar-front-modal-closer{
+.calderawp_license_manager-modal-closer.calderawp_license_manager-front-modal-closer{
   position: absolute;
   right: 0;
   text-decoration: none;
   color: inherit;
 }
-.blackbriar-modal-closer:hover,
-.blackbriar-modal-closer:active,
-a.blackbriar-modal-closer.blackbriar-front-modal-closer:hover,
-a.blackbriar-modal-closer.blackbriar-front-modal-closer:active{
+.calderawp_license_manager-modal-closer:hover,
+.calderawp_license_manager-modal-closer:active,
+a.calderawp_license_manager-modal-closer.calderawp_license_manager-front-modal-closer:hover,
+a.calderawp_license_manager-modal-closer.calderawp_license_manager-front-modal-closer:active{
   text-decoration: none;
   color: #fff;
   background-color: rgba(0,0,0,0.2);
 }
-.blackbriar-modal-title > h3 {
+.calderawp_license_manager-modal-title > h3 {
   font-weight: 400;
   margin: 0;
   padding: 12px 40px 12px 12px;
@@ -66,7 +66,7 @@ a.blackbriar-modal-closer.blackbriar-front-modal-closer:active{
   background-color: #a3bf61;
 }
 
-.blackbriar-modal-body {
+.calderawp_license_manager-modal-body {
   -moz-box-sizing:    border-box;   /* Firefox 1, probably can drop this */
   -webkit-box-sizing: border-box;   /* Safari 3-4, also probably droppable */
   box-sizing:        border-box;   /* Everything else */
@@ -83,18 +83,18 @@ a.blackbriar-modal-closer.blackbriar-front-modal-closer:active{
 #extend_cf_baldrickModalBody{
   overflow: auto;
 }
-.blackbriar-modal-body.blackbriar-front-modal-body {
+.calderawp_license_manager-modal-body.calderawp_license_manager-front-modal-body {
   bottom: auto;
   position: relative;
   top: auto;
 }
-.blackbriar-modal-body .import-warning{
+.calderawp_license_manager-modal-body .import-warning{
   margin: 0;
   padding: 4px 0;
   color: #ff1111;
 }
 
-.blackbriar-modal-body .form-panel {
+.calderawp_license_manager-modal-body .form-panel {
   bottom: 0;
   left: 12px;
   overflow: auto;
@@ -102,7 +102,7 @@ a.blackbriar-modal-closer.blackbriar-front-modal-closer:active{
   right: 12px;
   top: 0;
 }
-.blackbriar-modal-footer {
+.calderawp_license_manager-modal-footer {
   background: none repeat scroll 0 0 #EFEFEF;
   border-top: 1px solid #E0E0E0;
   bottom: 0;
@@ -112,31 +112,31 @@ a.blackbriar-modal-closer.blackbriar-front-modal-closer:active{
   right: 0;
   text-align: left;
 }
-.tablenav.blackbriar-table-nav {
+.tablenav.calderawp_license_manager-table-nav {
   clear: none;
   float: right;
   margin: -42px 18px 0 0;
 }
-.blackbriar-table-nav .tablenav-pages{
+.calderawp_license_manager-table-nav .tablenav-pages{
   float: left;
 }
-.blackbriar-table-nav .tablenav-pages .current-page{
+.calderawp_license_manager-table-nav .tablenav-pages .current-page{
   width: 45px;
 }
 
-.blackbriar-modal-wrap .modal-body {
+.calderawp_license_manager-modal-wrap .modal-body {
   height: 100%;
   overflow: auto;  
 }
-.blackbriar-modal-wrap .modal-body .modal-list-item-blkbr {
+.calderawp_license_manager-modal-wrap .modal-body .modal-list-item-blkbr {
   border-bottom: 0;
   padding: 5px;
   margin-bottom: 5px;
 }
-.blackbriar-modal-wrap .modal-list-item-blkbr:hover {
+.calderawp_license_manager-modal-wrap .modal-list-item-blkbr:hover {
   background: none repeat scroll 0 0 #EFEFEF;
 }
-.blackbriar-modal-wrap .modal-list-item-blkbr .description {
+.calderawp_license_manager-modal-wrap .modal-list-item-blkbr .description {
   color: #919191;
 }
 

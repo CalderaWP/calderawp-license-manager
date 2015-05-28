@@ -1,20 +1,20 @@
 <?php
 /**
- * BlackBriar Setting.
+ * CalderaWP_License_Manager Setting.
  *
- * @package   BlackBriar
- * @author    David <david@digilab.co.za>
+ * @package   CalderaWP_License_Manager
+ * @author    David Cramer for CalderaWP LLC<David@CalderaWP.com>
  * @license   GPL-2.0+
  * @link
- * @copyright 2015 David <david@digilab.co.za>
+ * @copyright 2015 David Cramer for CalderaWP LLC<David@CalderaWP.com>
  */
 
 /**
  * Plugin class.
- * @package BlackBriar
- * @author  David <david@digilab.co.za>
+ * @package CalderaWP_License_Manager
+ * @author  David Cramer for CalderaWP LLC<David@CalderaWP.com>
  */
-class BlackBriar_Settings extends BlackBriar{
+class CalderaWP_License_Manager_Settings extends CalderaWP_License_Manager{
 
 
 	/**
@@ -32,8 +32,6 @@ class BlackBriar_Settings extends BlackBriar{
 	}
 
 
-
-
 	/**
 	 * Saves a config
 	 *
@@ -43,20 +41,20 @@ class BlackBriar_Settings extends BlackBriar{
 	 */
 	public function save_config(){
 
-		if( empty( $_POST[ 'blackbriar-setup' ] ) || ! wp_verify_nonce( $_POST[ 'blackbriar-setup' ], 'blackbriar' ) ){
+		if( empty( $_POST[ 'calderawp_license_manager-setup' ] ) || ! wp_verify_nonce( $_POST[ 'calderawp_license_manager-setup' ], 'calderawp_license_manager' ) ){
 			if( empty( $_POST['config'] ) ){
 				return;
 			}
 		}
 
-		if( !empty( $_POST[ 'blackbriar-setup' ] ) && empty( $_POST[ 'config' ] ) ){
+		if( !empty( $_POST[ 'calderawp_license_manager-setup' ] ) && empty( $_POST[ 'config' ] ) ){
 			$config = stripslashes_deep( $_POST['config'] );
 
 			set_site_transient( 'update_plugins', null );
 			
-			BlackBriar_Options::update( $config );
+			CalderaWP_License_Manager_Options::update( $config );
 
-			wp_redirect( '?page=blackbriar&updated=true' );
+			wp_redirect( '?page=calderawp_license_manager&updated=true' );
 			exit;
 		}
 
@@ -66,8 +64,8 @@ class BlackBriar_Settings extends BlackBriar{
 			
 			$config = json_decode( stripslashes_deep( $_POST['config'] ), true );
 
-			if(	wp_verify_nonce( $config['blackbriar-setup'], 'blackbriar' ) ){
-				BlackBriar_Options::update( $config );
+			if(	wp_verify_nonce( $config['calderawp_license_manager-setup'], 'calderawp_license_manager' ) ){
+				CalderaWP_License_Manager_Options::update( $config );
 				wp_send_json_success( $config );
 			}
 
@@ -94,13 +92,13 @@ class BlackBriar_Settings extends BlackBriar{
 	 * Deletes an item
 	 *
 	 *
-	 * @uses 'wp_ajax_blkbr_create_blackbriar' action
+	 * @uses 'wp_ajax_blkbr_create_calderawp_license_manager' action
 	 *
 	 * @since 0.0.1
 	 */
-	public function delete_blackbriar(){
+	public function delete_calderawp_license_manager(){
 
-		$deleted = BlackBriar_Options::delete( strip_tags( $_POST['block'] ) );
+		$deleted = CalderaWP_License_Manager_Options::delete( strip_tags( $_POST['block'] ) );
 
 		if ( $deleted ) {
 			wp_send_json_success( $_POST );
@@ -115,12 +113,12 @@ class BlackBriar_Settings extends BlackBriar{
 	/**
 	 * Create a new item
 	 *
-	 * @uses "wp_ajax_blkbr_create_blackbriar"  action
+	 * @uses "wp_ajax_blkbr_create_calderawp_license_manager"  action
 	 *
 	 * @since 0.0.1
 	 */
-	public function create_new_blackbriar(){
-		$new = BlackBriar_Options::create( $_POST[ 'name' ], $_POST[ 'slug' ] );
+	public function create_new_calderawp_license_manager(){
+		$new = CalderaWP_License_Manager_Options::create( $_POST[ 'name' ], $_POST[ 'slug' ] );
 
 		if ( is_array( $new ) ) {
 			wp_send_json_success( $new );
@@ -139,11 +137,15 @@ class BlackBriar_Settings extends BlackBriar{
 	 * @uses "admin_menu" hook
 	 */
 	public function add_settings_pages(){
-		// This page will be under "Settings"
-		
-	
-			$this->plugin_screen_hook_suffix['blackbriar'] =  add_submenu_page( 'options-general.php', __( 'BlackBriar', $this->plugin_slug ), __( 'BlackBriar', $this->plugin_slug ), 'manage_options', 'blackbriar', array( $this, 'create_admin_page' ) );
-			add_action( 'admin_print_styles-' . $this->plugin_screen_hook_suffix['blackbriar'], array( $this, 'enqueue_admin_stylescripts' ) );
+		$this->plugin_screen_hook_suffix['calderawp_license_manager'] =  add_submenu_page(
+			'options-general.php',
+			__( 'CalderaWP_License_Manager', 'calderawp-license-manger' ),
+			__( 'CalderaWP_License_Manager', 'calderawp-license-manger' ),
+			'manage_options', 'calderawp_license_manager',
+			array( $this, 'create_admin_page' )
+		);
+
+		add_action( 'admin_print_styles-' . $this->plugin_screen_hook_suffix[ 'calderawp_license_manager'], array( $this, 'enqueue_admin_stylescripts' ) );
 
 	}
 
@@ -158,12 +160,12 @@ class BlackBriar_Settings extends BlackBriar{
 		$base = array_search($screen->id, $this->plugin_screen_hook_suffix);
 			
 		// include main template
-		include BLKBR_PATH .'includes/edit.php';
+		include CALDERA_WP_LICENSE_MANAGER_PATH .'includes/edit.php';
 
 		// php based script include
-		if( file_exists( BLKBR_PATH .'assets/js/inline-scripts.php' ) ){
+		if( file_exists( CALDERA_WP_LICENSE_MANAGER_PATH .'assets/js/inline-scripts.php' ) ){
 			echo "<script type=\"text/javascript\">\r\n";
-				include BLKBR_PATH .'assets/js/inline-scripts.php';
+				include CALDERA_WP_LICENSE_MANAGER_PATH .'assets/js/inline-scripts.php';
 			echo "</script>\r\n";
 		}
 
@@ -173,6 +175,6 @@ class BlackBriar_Settings extends BlackBriar{
 }
 
 if( is_admin() ) {
-	global $settings_blackbriar;
-	$settings_blackbriar = new BlackBriar_Settings();
+	global $settings_calderawp_license_manager;
+	$settings_calderawp_license_manager = new CalderaWP_License_Manager_Settings();
 }

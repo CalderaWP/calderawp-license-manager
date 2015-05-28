@@ -8,7 +8,7 @@
 /* {margin:0;padding:0;}*/
 
 
-.blackbriar-modal-content {
+.calderawp_license_manager-modal-content {
   background: none repeat scroll 0 0 #FFFFFF;
   bottom: 0;
   left: 0;
@@ -21,13 +21,13 @@
   top: 0;
   width: 100%;
 }
-.blackbriar-options-form {
+.calderawp_license_manager-options-form {
   position: relative;
 }
-.blackbriar-options-form .submit {
+.calderawp_license_manager-options-form .submit {
   clear: both;
 }
-.blackbriar-settings-config-content {
+.calderawp_license_manager-settings-config-content {
   background-color: #fff;
   padding-right: 10px;
   width: 450px;
@@ -36,70 +36,70 @@
   position: inherit;
   float: left;
 }
-.blackbriar-settings-config-content.full{
+.calderawp_license_manager-settings-config-content.full{
   margin-left: 0;
   border-left: 0;
   padding-left: 0;
   width: 500px;
 }
-.blackbriar_widget_label,.blackbriar_settings_label {
+.calderawp_license_manager_widget_label,.calderawp_license_manager_settings_label {
   cursor: pointer;
   display: inline-block;
   min-width: 80px;
 }
-.blackbriar-metabox-config-content {
+.calderawp_license_manager-metabox-config-content {
   margin-left: 122px;
   border-left: 1px solid #F5F5F5;
   padding-left: 10px;
 }
-.blackbriar-metabox-config-content.full{
+.calderawp_license_manager-metabox-config-content.full{
   margin-left: 0;
   border-left: 0;
   padding-left: 0;
 }
-.meta-box-sortables .blackbriar-metabox-config-content select {
+.meta-box-sortables .calderawp_license_manager-metabox-config-content select {
   max-width: 100%;
   width: 100%;
 }
-.blackbriar-widget-config-content {
+.calderawp_license_manager-widget-config-content {
   margin-left: 130px;
   max-height: 500px;
   max-height: 500px;
   overflow: auto;
   width: 363px;
 }
-.customize-control .blackbriar-widget-config-content{
+.customize-control .calderawp_license_manager-widget-config-content{
   height: 500px;
 }
-.blackbriar-widget-config-content.full {
+.calderawp_license_manager-widget-config-content.full {
   margin-left: -9px;
   max-height: 100%;
   overflow: visible;
   width: auto;
 }
-.blackbriar-settings-config-content h3 ,
-.blackbriar-metabox-config-content h3 ,
-.blackbriar-widget-config-content h3 {
+.calderawp_license_manager-settings-config-content h3 ,
+.calderawp_license_manager-metabox-config-content h3 ,
+.calderawp_license_manager-widget-config-content h3 {
   border-bottom: 1px solid #DFDFDF;
   font-weight: normal;
   margin: 0 0 10px 0;
   padding: 10px 0 5px;
 }
-.blackbriar-metabox-config-content h3.metaheader {
+.calderawp_license_manager-metabox-config-content h3.metaheader {
   padding: 7px 0 !important;
   font-weight: bold;
   cursor: default !important;
 }
-.blackbriar-groupbox {
+.calderawp_license_manager-groupbox {
   padding: 1px 0 0 10px;
 }
-.blackbriar-field-row {
+.calderawp_license_manager-field-row {
   margin: 0 0 15px 0;
 }
-.full .blackbriar-groupbox {
+.full .calderawp_license_manager-groupbox {
   border: none;
 }
-.blackbriar-groupbox .groupitems {
+.calderawp_license_manager-groupbox .groupitems {
   margin-bottom: 5px;
   position: relative;
 }
@@ -108,7 +108,7 @@
   border-bottom: 1px solid #DFDFDF;
   margin: 10px 0 5px;
 }
-.blackbriar-modal-modal {
+.calderawp_license_manager-modal-modal {
   bottom: 30px;
   left: 30px;
   position: fixed;
@@ -116,7 +116,7 @@
   top: 30px;
   z-index: 159995;
 }
-.blackbriar-modal-footer {
+.calderawp_license_manager-modal-footer {
   background-color: #F1F1F1;
   border-top: 1px solid #E1E1E1;
   bottom: 0;
@@ -126,22 +126,22 @@
   right: 0;
   text-align: right;
 }
-.blackbriar-modal-header > h2 {
+.calderawp_license_manager-modal-header > h2 {
   border-bottom: 1px solid #EFEFEF;
   font-weight: 300;
   margin: 0 0 5px;
   padding: 0 0 10px;
 }
-.blackbriar-modal-header > h2 small{
+.calderawp_license_manager-modal-header > h2 small{
   font-size: 14px;
   color: #BCBCBC;
 }
-.blackbriar-shortcode-name {
+.calderawp_license_manager-shortcode-name {
   font-weight: 300;
   margin: 0 0 5px;
   padding: 3px 0 10px 1px; 
 }
-.blackbriar-shortcode-config {
+.calderawp_license_manager-shortcode-config {
   border-top: 1px solid #EFEFEF;
   bottom: 50px;
   left: 15px;
@@ -150,7 +150,7 @@
   top: 85px;
 }
 
-.blackbriar-shortcode-config-content {
+.calderawp_license_manager-shortcode-config-content {
   border-left: 1px solid #EFEFEF;
   bottom: 0;
   overflow: auto;
@@ -160,125 +160,125 @@
   top: 0;
   width: 495px;
 }
-h3.blackbriar-config-header{
+h3.calderawp_license_manager-config-header{
   border-bottom: 1px solid #F5F5F5;
   font-weight: 300;
   margin: 7px 0;
   padding-bottom: 7px;  
 }
 
-.blackbriar-settings-config-nav {
+.calderawp_license_manager-settings-config-nav {
   float: left;
   margin-left: -22px;
   top: 0;
   width: 170px;
 }
-.blackbriar-widget-config-nav {
+.calderawp_license_manager-widget-config-nav {
   bottom: 0;
   left: -15px;
   position: absolute;
   top: 0;
   width: 145px;
 }
-.blackbriar-shortcode-config-nav,
-.blackbriar-metabox-config-nav {
+.calderawp_license_manager-shortcode-config-nav,
+.calderawp_license_manager-metabox-config-nav {
   bottom: 0;
   left: 0;
   position: absolute;
   top: 0;
   width: 145px;
 }
-.blackbriar-metabox-config-nav {
+.calderawp_license_manager-metabox-config-nav {
   width: 135px;
 }
-.blackbriar-settings-config-nav > ul,
-.blackbriar-widget-config-nav > ul,
-.blackbriar-metabox-config-nav > ul,
-.blackbriar-shortcode-config-nav > ul {
+.calderawp_license_manager-settings-config-nav > ul,
+.calderawp_license_manager-widget-config-nav > ul,
+.calderawp_license_manager-metabox-config-nav > ul,
+.calderawp_license_manager-shortcode-config-nav > ul {
   margin: 5px 0 0;
 }
-.blackbriar-settings-config-nav a,
-.blackbriar-widget-config-nav a,
-.blackbriar-metabox-config-nav a,
-.blackbriar-shortcode-config-nav a {
+.calderawp_license_manager-settings-config-nav a,
+.calderawp_license_manager-widget-config-nav a,
+.calderawp_license_manager-metabox-config-nav a,
+.calderawp_license_manager-shortcode-config-nav a {
   display: block;
   font-weight: 300;
   padding: 7px 0 6px 15px;
   text-decoration: none;
 }
-.blackbriar-settings-config-nav a {
+.calderawp_license_manager-settings-config-nav a {
   padding: 7px 0 6px 22px;
 }
-.blackbriar-settings-config-nav li,
-.blackbriar-widget-config-nav li,
-.blackbriar-metabox-config-nav li,
-.blackbriar-shortcode-config-nav li {
+.calderawp_license_manager-settings-config-nav li,
+.calderawp_license_manager-widget-config-nav li,
+.calderawp_license_manager-metabox-config-nav li,
+.calderawp_license_manager-shortcode-config-nav li {
   margin: 0;
 }
-.blackbriar-shortcode-config-nav li.current {
+.calderawp_license_manager-shortcode-config-nav li.current {
   background: none repeat scroll 0 0 #efefef;
 }
-.blackbriar-settings-config-nav li.current{
+.calderawp_license_manager-settings-config-nav li.current{
   background: none repeat scroll 0 0 #fff;
 }
-.blackbriar-metabox-config-nav li.current,
-.blackbriar-widget-config-nav li.current {
+.calderawp_license_manager-metabox-config-nav li.current,
+.calderawp_license_manager-widget-config-nav li.current {
   background: none repeat scroll 0 0 #f5f5f5;
   box-shadow: none;
 }
-.blackbriar-shortcode-config-content .rowGroup {
+.calderawp_license_manager-shortcode-config-content .rowGroup {
   border-bottom: 1px dashed #EFEFEF;
   margin: 0 0 10px;
 }
-.blackbriar-addRow {
+.calderawp_license_manager-addRow {
   padding: 5px 0 10px;
 }
 .toolrow {
   margin-bottom: 5px;
 }
-.blackbriar-shortcode-config-content .form-table th {
+.calderawp_license_manager-shortcode-config-content .form-table th {
   width: 100px;
 }
-.blackbriar-shortcode-config-content input.regular-text {
+.calderawp_license_manager-shortcode-config-content input.regular-text {
   width: 23em;
 }
-.blackbriar-shortcode-config-content textarea.regular-text.full,
-.blackbriar-shortcode-config-content input.regular-text.full {
+.calderawp_license_manager-shortcode-config-content textarea.regular-text.full,
+.calderawp_license_manager-shortcode-config-content input.regular-text.full {
   width: 99%;
 }
-.blackbriar-settings-config-content label {
+.calderawp_license_manager-settings-config-content label {
   margin: 0 0 3px;
 }
-#side-sortables .blackbriar-metabox-config-content{
+#side-sortables .calderawp_license_manager-metabox-config-content{
   margin-left: 0;
   border-left: 0;
   padding-left: 0;
 }
 
 @media only screen and (min-width: 850px) {
-  #side-sortables .blackbriar-metabox-config-nav {
+  #side-sortables .calderawp_license_manager-metabox-config-nav {
     clear: both;
     position: relative;
     width: 100%;
   }
-  #side-sortables .blackbriar-metabox-config-nav li{
+  #side-sortables .calderawp_license_manager-metabox-config-nav li{
     display: inline-block;
     width: auto;
   }
-  #side-sortables .blackbriar-metabox-config-nav li a{
+  #side-sortables .calderawp_license_manager-metabox-config-nav li a{
     padding-right: 15px;
   }
-  #side-sortables .blackbriar-metabox-config-content .metaheader{
+  #side-sortables .calderawp_license_manager-metabox-config-content .metaheader{
     display: none;
   }
-  #side-sortables .blackbriar-metabox-config-nav {
+  #side-sortables .calderawp_license_manager-metabox-config-nav {
     border-bottom: 1px solid #EFEFEF;
     }
-  #side-sortables .blackbriar-metabox-config-content.group {
+  #side-sortables .calderawp_license_manager-metabox-config-content.group {
     margin: 0;
   }
-  #side-sortables .blackbriar-metabox-config-content.group table th,
-  #side-sortables .blackbriar-metabox-config-content.group table td {
+  #side-sortables .calderawp_license_manager-metabox-config-content.group table th,
+  #side-sortables .calderawp_license_manager-metabox-config-content.group table td {
     display: inline-block;
     min-width: 70px;
     width: auto;
@@ -286,8 +286,8 @@ h3.blackbriar-config-header{
   }
 }
 @media only screen and (max-width: 850px) {
-  #side-sortables .blackbriar-metabox-config-content.group table th,
-  #side-sortables .blackbriar-metabox-config-content.group table td {
+  #side-sortables .calderawp_license_manager-metabox-config-content.group table th,
+  #side-sortables .calderawp_license_manager-metabox-config-content.group table td {
     display: inline-block;
     min-width: 170px;
     height: 30px;
@@ -503,7 +503,7 @@ textarea.regular-text.full{ width: 300px;}
   max-width: 450px;
   
 }
-.imgpreview .blackbriar_media_select {
+.imgpreview .calderawp_license_manager_media_select {
   display: inline-block;
   margin-top: 47px;
 }
@@ -534,7 +534,7 @@ textarea.regular-text.full{ width: 300px;}
     background-color: rgba(255, 255, 255, 0.9);
 }
 .widget-table .imgpreview {margin-bottom: 15px; }
-.filechanger-btn.blackbriar_media_select {
+.filechanger-btn.calderawp_license_manager_media_select {
   display: none;
 }
 .imgpreview:hover .sizes,
@@ -555,7 +555,7 @@ img.filepreview {
   top: 49px;
   left: 0;
 }
-.filechanger-btn.blackbriar_uploader {
+.filechanger-btn.calderawp_license_manager_uploader {
     margin-left: 10px;
 }
 

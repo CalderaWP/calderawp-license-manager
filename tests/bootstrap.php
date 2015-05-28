@@ -17,9 +17,9 @@ tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
 require $_tests_dir . '/includes/bootstrap.php';
 
-activate_plugin( 'cy_blackbriar/plugincore.php' );
+activate_plugin( 'cy_calderawp_license_manager/plugincore.php' );
 
-echo "Installing BlackBriar...\n";
+echo "Installing CalderaWP_License_Manager...\n";
 
 global $current_user;
 

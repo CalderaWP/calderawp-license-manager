@@ -1,15 +1,15 @@
 // General panel scripts .
-function blackbriar_randomUUID() {
+function calderawp_license_manager_randomUUID() {
 		var s = [], itoh = '0123456789ABCDEF';
 		for (var i = 0; i <6; i++) s[i] = Math.floor(Math.random()*0x10);
 		return s.join('');
 }
-var blackbriar_field_callbacks = [];
+var calderawp_license_manager_field_callbacks = [];
 jQuery('document').ready(function($){
 	// add row
-	$('body').on('click', '.blackbriar-add-group-row', function(){
+	$('body').on('click', '.calderawp_license_manager-add-group-row', function(){
 		var clicked = $( this ),
-			rowid = blackbriar_randomUUID(),
+			rowid = calderawp_license_manager_randomUUID(),
 			template = $( '#' + clicked.data('rowtemplate')).html().replace(/{{id}}/g, rowid);
 			if(clicked.data('field')){	
 				var ref = clicked.data('field').split('-');
@@ -19,20 +19,20 @@ jQuery('document').ready(function($){
 			template = template.replace(/\_\_count\_\_/g, clicked.parent().parent().find('.groupitems').length);
 			clicked.parent().before(template);
 
-			for(var callback in blackbriar_field_callbacks){
-				if( typeof window[blackbriar_field_callbacks[callback]] === 'function'){
-					window[blackbriar_field_callbacks[callback]]();
+			for(var callback in calderawp_license_manager_field_callbacks){
+				if( typeof window[calderawp_license_manager_field_callbacks[callback]] === 'function'){
+					window[calderawp_license_manager_field_callbacks[callback]]();
 				}
 			}
 
 	});
-	$('body').on('click', '.blackbriar-removeRow', function(){
+	$('body').on('click', '.calderawp_license_manager-removeRow', function(){
 		$(this).next().remove();
 		$(this).remove();
 		////console.log(this);
 	});
 	// tabs
-	$('body').on('click', '.blackbriar-metabox-config-nav li a, .blackbriar-shortcode-config-nav li a, .blackbriar-settings-config-nav li a, .blackbriar-widget-config-nav li a', function(){
+	$('body').on('click', '.calderawp_license_manager-metabox-config-nav li a, .calderawp_license_manager-shortcode-config-nav li a, .calderawp_license_manager-settings-config-nav li a, .calderawp_license_manager-widget-config-nav li a', function(){
 		$(this).parent().parent().find('.current').removeClass('current');
 		$(this).parent().parent().parent().parent().find('.group').hide();
 		$(''+$(this).attr('href')+'').show();
@@ -45,12 +45,12 @@ jQuery('document').ready(function($){
 
 	// initcallbacks
 	setInterval(function(){
-		$('.blackbriar-init-callback').each(function(k,v){
+		$('.calderawp_license_manager-init-callback').each(function(k,v){
 			var callback = $(this);
 			if( typeof window[callback.data('init')] === 'function'){
 				console.log(callback.data('init'));
 				window[callback.data('init')]();
-				callback.removeClass('blackbriar-init-callback');
+				callback.removeClass('calderawp_license_manager-init-callback');
 			}
 		});
 	}, 100);

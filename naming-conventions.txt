@@ -1,6 +1,6 @@
-Plugin Name -- BlackBriar
-Text domain -- blackbriar
-Function prefix -- blkbr
-Class prefix -- {{Core_Prefix}}
-Root namespace -- BlackBriar
-Hook Prefix -- blkbr
+Plugin Name -- CalderaWP License Manager
+Text domain -- calderawp-license-manger
+Function prefix -- cwp_license_manager
+Class prefix -- CalderaWP_License_Manager
+Root namespace -- n/a
+Hook Prefix -- cwp_license_manager

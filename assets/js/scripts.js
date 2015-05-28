@@ -1,4 +1,4 @@
-var blackbriar_canvas = false,
+var calderawp_license_manager_canvas = false,
 	blkbr_get_config_object,
 	blkbr_record_change,
 	blkbr_canvas_init,
@@ -56,7 +56,7 @@ jQuery( function($){
 				magictag.css('borderBottom', 'none');
 			}
 
-			if(input.hasClass('blackbriar-conditional-value-field')){
+			if(input.hasClass('calderawp_license_manager-conditional-value-field')){
 				wrapper.width('auto');
 			}
 
@@ -75,22 +75,22 @@ jQuery( function($){
 	// internal function declarationas
 	blkbr_get_config_object = function(el){
 		// new sync first
-		$('#blackbriar-id').trigger('change');
+		$('#calderawp_license_manager-id').trigger('change');
 		var clicked 	= $(el),
-			config 		= $('#blackbriar-live-config').val(),
+			config 		= $('#calderawp_license_manager-live-config').val(),
 			required 	= $('[required]'),
 			clean		= true;
 
 		for( var input = 0; input < required.length; input++ ){
 			if( required[input].value.length <= 0 && $( required[input] ).is(':visible') ){
-				$( required[input] ).addClass('blackbriar-input-error');
+				$( required[input] ).addClass('calderawp_license_manager-input-error');
 				clean = false;
 			}else{
-				$( required[input] ).removeClass('blackbriar-input-error');
+				$( required[input] ).removeClass('calderawp_license_manager-input-error');
 			}
 		}
 		if( clean ){
-			blackbriar_canvas = config;
+			calderawp_license_manager_canvas = config;
 		}
 		clicked.data( 'config', config );
 		return clean;
@@ -99,42 +99,42 @@ jQuery( function($){
 	blkbr_record_change = function(){
 		// hook and rebuild the fields list
 		jQuery(document).trigger('record_change');
-		jQuery('#blackbriar-id').trigger('change');
+		jQuery('#calderawp_license_manager-id').trigger('change');
 		if( config_object ){
-			jQuery('#blackbriar-field-sync').trigger('refresh');
+			jQuery('#calderawp_license_manager-field-sync').trigger('refresh');
 		}
 	}
 	
 	blkbr_canvas_init = function(){
 
-		if( !blackbriar_canvas ){
+		if( !calderawp_license_manager_canvas ){
 			// bind changes
-			jQuery('#blackbriar-main-canvas').on('keydown keyup change','input, select, textarea', function(e) {
-				config_object = jQuery('#blackbriar-main-form').formJSON(); // perhaps load into memory to keep it live.
-				jQuery('#blackbriar-live-config').val( JSON.stringify( config_object ) ).trigger('change');
+			jQuery('#calderawp_license_manager-main-canvas').on('keydown keyup change','input, select, textarea', function(e) {
+				config_object = jQuery('#calderawp_license_manager-main-form').formJSON(); // perhaps load into memory to keep it live.
+				jQuery('#calderawp_license_manager-live-config').val( JSON.stringify( config_object ) ).trigger('change');
 			});
 
-			blackbriar_canvas = jQuery('#blackbriar-live-config').val();
-			config_object = JSON.parse( blackbriar_canvas ); // perhaps load into memory to keep it live.
+			calderawp_license_manager_canvas = jQuery('#calderawp_license_manager-live-config').val();
+			config_object = JSON.parse( calderawp_license_manager_canvas ); // perhaps load into memory to keep it live.
 		}
 		if( $('.color-field').length ){
 			$('.color-field').wpColorPicker({
 				change: function(obj){
-					$('#blackbriar-id').trigger('change');
+					$('#calderawp_license_manager-id').trigger('change');
 				}
 			});
 		}
-		if( $('.blackbriar-group-wrapper').length ){
-			$( ".blackbriar-group-wrapper" ).sortable({
+		if( $('.calderawp_license_manager-group-wrapper').length ){
+			$( ".calderawp_license_manager-group-wrapper" ).sortable({
 				handle: ".sortable-item",
 				update: function(){
-					jQuery('#blackbriar-id').trigger('change');
+					jQuery('#calderawp_license_manager-id').trigger('change');
 				}
 			});
-			$( ".blackbriar-fields-list" ).sortable({
+			$( ".calderawp_license_manager-fields-list" ).sortable({
 				handle: ".sortable-item",
 				update: function(){
-					jQuery('#blackbriar-id').trigger('change');
+					jQuery('#calderawp_license_manager-id').trigger('change');
 				}
 			});
 		}
@@ -196,8 +196,8 @@ jQuery( function($){
 				break;				
 		}
 
-		jQuery('#blackbriar-live-config').val( JSON.stringify( config_object ) );
-		jQuery('#blackbriar-field-sync').trigger('refresh');
+		jQuery('#calderawp_license_manager-live-config').val( JSON.stringify( config_object ) );
+		jQuery('#calderawp_license_manager-field-sync').trigger('refresh');
 	}
 	// sutocomplete category
 	$.widget( "custom.catcomplete", $.ui.autocomplete, {
@@ -245,7 +245,7 @@ jQuery( function($){
 					var system_tags = [
 						'autocomplete_item',
 					];					
-					category = $('#blackbriar-label-tags').text();
+					category = $('#calderawp_license_manager-label-tags').text();
 					for( f = 0; f < system_tags.length; f++ ){
 						magic_tags.push( { label: '{' + system_tags[f] + '}', category: category }  );
 					}							
@@ -272,9 +272,9 @@ jQuery( function($){
 	}	
 
 	// trash 
-	$(document).on('click', '.blackbriar-card-actions .confirm a', function(e){
+	$(document).on('click', '.calderawp_license_manager-card-actions .confirm a', function(e){
 		e.preventDefault();
-		var parent = $(this).closest('.blackbriar-card-content');
+		var parent = $(this).closest('.calderawp_license_manager-card-content');
 			actions = parent.find('.row-actions');
 
 		actions.slideToggle(300);
@@ -334,7 +334,7 @@ jQuery( function($){
 	});	
 
 	// bind tabs
-	$(document).on('click', '.blackbriar-nav-tabs a', function(e){
+	$(document).on('click', '.calderawp_license_manager-nav-tabs a', function(e){
 		
 		e.preventDefault();
 		var clicked 	= $(this),
@@ -344,21 +344,21 @@ jQuery( function($){
 
 		for( var input = 0; input < required.length; input++ ){
 			if( required[input].value.length <= 0 && $( required[input] ).is(':visible') ){
-				$( required[input] ).addClass('blackbriar-input-error');
+				$( required[input] ).addClass('calderawp_license_manager-input-error');
 				clean = false;
 			}else{
-				$( required[input] ).removeClass('blackbriar-input-error');
+				$( required[input] ).removeClass('calderawp_license_manager-input-error');
 			}
 		}
 		if( !clean ){
 			return;
 		}
 
-		$('.blackbriar-editor-panel').hide();
+		$('.calderawp_license_manager-editor-panel').hide();
 
-		$('.blackbriar-nav-tabs .current').removeClass('current');
-		$('.blackbriar-nav-tabs .active').removeClass('active');
-		$('.blackbriar-nav-tabs .nav-tab-active').removeClass('nav-tab-active');
+		$('.calderawp_license_manager-nav-tabs .current').removeClass('current');
+		$('.calderawp_license_manager-nav-tabs .active').removeClass('active');
+		$('.calderawp_license_manager-nav-tabs .nav-tab-active').removeClass('nav-tab-active');
 		if( clicked.parent().is('li') ){
 			clicked.parent().addClass('active');			
 		}else if( clicked.parent().is('div') ){
@@ -370,7 +370,7 @@ jQuery( function($){
 
 		$( tab_id ).show();
 
-		jQuery('#blackbriar-active-tab').val(tab_id).trigger('change');
+		jQuery('#calderawp_license_manager-active-tab').val(tab_id).trigger('change');
 
 	});
 

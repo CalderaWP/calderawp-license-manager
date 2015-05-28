@@ -1,15 +1,15 @@
 {
-  "name": "blackbriar",
+  "name": "calderawp-license-manager",
   "version": "1.0.0",
   "description": "License Manager for CalderaWP Plugins",
   "repository": {
     "type": "git",
-    "url": "https://github.com/CalderaWP/blackbriar"
+    "url": "https://github.com/CalderaWP/calderawp-license-manager"
   },
   "author": "CalderaWP",
   "license": "GPLv2+",
   "bugs": {
-    "url": "https://github.com/CalderaWP/blackbriar/issues"
+    "url": "https://github.com/CalderaWP/calderawp-license-manager/issues"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

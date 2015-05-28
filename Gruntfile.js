@@ -90,7 +90,7 @@ module.exports = function (grunt) {
                     allowEmpty: true
                 },
                 files: {
-                    src: [ 'package.json', 'blackbriar.php', 'plugincore.php', 'releases/<%= pkg.name %>-<%= pkg.version %>.zip' ]
+                    src: [ 'package.json', 'core.php', 'plugincore.php', 'releases/<%= pkg.name %>-<%= pkg.version %>.zip' ]
                 }
             }
         },
@@ -111,8 +111,8 @@ module.exports = function (grunt) {
                     from: /Version:\s*(.*)/,
                     to: "Version: <%= pkg.version %>"
                 }, {
-                    from: /define\(\s*'BLKBR_VER',\s*'(.*)'\s*\);/,
-                    to: "define( 'BLKBR_VER', '<%= pkg.version %>' );"
+                    from: /define\(\s*'CALDERA_WP_LICENSE_MANAGER_VER',\s*'(.*)'\s*\);/,
+                    to: "define( 'CALDERA_WP_LICENSE_MANAGER_VER', '<%= pkg.version %>' );"
                 }]
             }
         }

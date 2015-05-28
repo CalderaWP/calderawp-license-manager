@@ -2,11 +2,11 @@
 /**
  * CalderaWP licensing helper functions
  *
- * @package   blackbriar
- * @author    David <david@digilab.co.za>
+ * @package   calderawp_license_manager
+ * @author    David Cramer for CalderaWP LLC<David@CalderaWP.com>
  * @license   GPL-2.0+
  * @link      
- * @copyright 2015 David <david@digilab.co.za>
+ * @copyright 2015 David Cramer for CalderaWP LLC<David@CalderaWP.com>
  */
 
 /**
@@ -15,7 +15,7 @@
  * @since 0.0.1
  *
  */
-function register_licensed_product( $params ){
+function cwp_license_manager_register_licensed_product( $params ){
 
 	$defaults = array(
 		'type'	=>	'plugin'
@@ -23,12 +23,12 @@ function register_licensed_product( $params ){
 
 	$params = array_merge( $defaults, (array) $params );
 
-	$register = BlackBriar::get_instance();
+	$register = CalderaWP_License_Manager::get_instance();
 	$register->register_product( $params );
 
 }
 
-function is_product_licensed( $plugin ){
-	$blackbriar = BlackBriar_Options::get_single( 'blackbriar' );
-	return in_array( $plugin, $blackbriar['licensed'] );
+function cwp_license_manager_is_product_licensed( $plugin ){
+	$calderawp_license_manager = CalderaWP_License_Manager_Options::get_single( 'calderawp_license_manager' );
+	return in_array( $plugin, $calderawp_license_manager['licensed'] );
 }

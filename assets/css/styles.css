@@ -1,7 +1,7 @@
-.blackbriar-input-error,
-input.blackbriar-input-error,
-select.blackbriar-input-error,
-textarea.blackbriar-input-error {
+.calderawp_license_manager-input-error,
+input.calderawp_license_manager-input-error,
+select.calderawp_license_manager-input-error,
+textarea.calderawp_license_manager-input-error {
   border: 1px solid #df8080 !important;
   box-shadow: 0 0 2px #ff6060 !important;
 }
@@ -10,22 +10,22 @@ h4 > small.description {
   font-style: italic;
   font-weight: normal;
 }
-.blackbriar-main-headerbrickroad,
-.blackbriar-main-headercaldera {
+.calderawp_license_manager-main-headerbrickroad,
+.calderawp_license_manager-main-headercaldera {
 	background: none repeat scroll 0 0 #fff;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08), 8px 0 0 #a3bf61 inset;
 	margin: -10px -20px 10px -22px;
 	padding: 0 0 8px 22px;
 	overflow: hidden;
 }
-.blackbriar-sub-headercaldera {
+.calderawp_license_manager-sub-headercaldera {
   background: none repeat scroll 0 0 #f8f8f8;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04), 8px 0 0 #a3bf61 inset;
   margin: -10px -20px 10px -22px;
   padding: 0 0 0 8px;
   overflow: hidden;
 }
-.blackbriar-sub-headerbrickroad {
+.calderawp_license_manager-sub-headerbrickroad {
   background: none repeat scroll 0 0 #f8f8f8;
   border-radius: 0 0 6px;
   bottom: 32px;
@@ -37,22 +37,22 @@ h4 > small.description {
   top: 64px;
   width: 140px;
 }
-.blackbriar-subline,
-.blackbriar-version {
+.calderawp_license_manager-subline,
+.calderawp_license_manager-version {
   color: #9f9f9f;
   font-size: 0.55em;
   line-height: 0;
 }
 
-.blackbriar-main-headerbrickroad h2,
-.blackbriar-main-headercaldera h2 {
+.calderawp_license_manager-main-headerbrickroad h2,
+.calderawp_license_manager-main-headercaldera h2 {
 	color: #4f4f4f;
 	font-size: 20px;
 	font-weight: 300;
   float: left;
 }
-.blackbriar-main-headerbrickroad .logo-icon,
-.blackbriar-main-headercaldera .logo-icon{
+.calderawp_license_manager-main-headerbrickroad .logo-icon,
+.calderawp_license_manager-main-headercaldera .logo-icon{
 	color: #a3bf61;
   font-size: 72px;
   margin: -18px 20px 0 -60px;
@@ -60,12 +60,12 @@ h4 > small.description {
   padding: 0 15px 0 0;
 }
 
-.blackbriar-main-headerwordpress .error_notice_box,
-.blackbriar-main-headerwordpress .updated_notice_box,
-.blackbriar-main-headerbrickroad .error_notice_box,
-.blackbriar-main-headerbrickroad .updated_notice_box,
-.blackbriar-main-headercaldera .error_notice_box,
-.blackbriar-main-headercaldera .updated_notice_box {
+.calderawp_license_manager-main-headerwordpress .error_notice_box,
+.calderawp_license_manager-main-headerwordpress .updated_notice_box,
+.calderawp_license_manager-main-headerbrickroad .error_notice_box,
+.calderawp_license_manager-main-headerbrickroad .updated_notice_box,
+.calderawp_license_manager-main-headercaldera .error_notice_box,
+.calderawp_license_manager-main-headercaldera .updated_notice_box {
   background: #fff;
   border-left: 8px solid rgb(175, 175, 0);
   color: #333;
@@ -77,160 +77,160 @@ h4 > small.description {
   box-shadow: 0 3px 5px rgba(0,0,0,0.2);
 }
 
-.blackbriar-main-headerwordpress .error_notice_box,
-.blackbriar-main-headerbrickroad .error_notice_box,
-.blackbriar-main-headercaldera .error_notice_box {
+.calderawp_license_manager-main-headerwordpress .error_notice_box,
+.calderawp_license_manager-main-headerbrickroad .error_notice_box,
+.calderawp_license_manager-main-headercaldera .error_notice_box {
   border-left: 8px solid rgb(175, 0, 0);
 }
-.blackbriar-general-delete-link{
+.calderawp_license_manager-general-delete-link{
   color: #a00;
 }
-.blackbriar-general-delete-link:hover{
+.calderawp_license_manager-general-delete-link:hover{
   color: red;
 }
-.subsubsub.blackbriar-nav-tabs a:last-child{
+.subsubsub.calderawp_license_manager-nav-tabs a:last-child{
   display: none;
 }
-.wrap .blackbriar-main-headerbrickroad .add-new-h2,
-.wrap .blackbriar-main-headercaldera .add-new-h2{
+.wrap .calderawp_license_manager-main-headerbrickroad .add-new-h2,
+.wrap .calderawp_license_manager-main-headercaldera .add-new-h2{
 	font-size: 12px;
 	margin: 13px;
 	cursor: pointer;
 }
-.blackbriar-main-headerbrickroad .add-new-h2:hover,
-.blackbriar-main-headercaldera .add-new-h2:hover {
+.calderawp_license_manager-main-headerbrickroad .add-new-h2:hover,
+.calderawp_license_manager-main-headercaldera .add-new-h2:hover {
 	background: none repeat scroll 0 0 #a3bf61;
 }
 
-.blackbriar-main-headerbrickroad .blackbriar-header-tabs,
-.blackbriar-main-headercaldera .blackbriar-header-tabs {
+.calderawp_license_manager-main-headerbrickroad .calderawp_license_manager-header-tabs,
+.calderawp_license_manager-main-headercaldera .calderawp_license_manager-header-tabs {
   float: left;
   margin: 0 0 0 25px;
   padding: 0;
 }
-.blackbriar-sub-headerbrickroad .blackbriar-sub-tabs,
-.blackbriar-sub-headercaldera .blackbriar-sub-tabs {
+.calderawp_license_manager-sub-headerbrickroad .calderawp_license_manager-sub-tabs,
+.calderawp_license_manager-sub-headercaldera .calderawp_license_manager-sub-tabs {
   margin: 0;
   padding: 0;
 }
 
-.blackbriar-main-headerbrickroad .blackbriar-header-tabs > li,
-.blackbriar-main-headercaldera .blackbriar-header-tabs > li{
+.calderawp_license_manager-main-headerbrickroad .calderawp_license_manager-header-tabs > li,
+.calderawp_license_manager-main-headercaldera .calderawp_license_manager-header-tabs > li{
   float: left;
 }
-.blackbriar-main-headerbrickroad .blackbriar-header-tabs > li > a,
-.blackbriar-main-headercaldera .blackbriar-header-tabs > li > a{
+.calderawp_license_manager-main-headerbrickroad .calderawp_license_manager-header-tabs > li > a,
+.calderawp_license_manager-main-headercaldera .calderawp_license_manager-header-tabs > li > a{
   display: inline-block;
   margin: 0 0 -15px;
   padding: 16px 20px 20px;
   text-decoration: none;
   color:#a3bf61;
 }
-.blackbriar-main-headercaldera .blackbriar-header-tabs > li > a:hover{
+.calderawp_license_manager-main-headercaldera .calderawp_license_manager-header-tabs > li > a:hover{
   background-color: #efefef;
 }
-.blackbriar-main-headercaldera .blackbriar-header-tabs > li.active > a{
+.calderawp_license_manager-main-headercaldera .calderawp_license_manager-header-tabs > li.active > a{
   background-color: #a3bf61;
   color: #fff;
 }
-.blackbriar-main-headerbrickroad .blackbriar-header-tabs > li.active > a {
+.calderawp_license_manager-main-headerbrickroad .calderawp_license_manager-header-tabs > li.active > a {
   background-color: #a3bf61;
   color: #fff;
 }
-.blackbriar-sub-headercaldera .blackbriar-sub-tabs > li {
+.calderawp_license_manager-sub-headercaldera .calderawp_license_manager-sub-tabs > li {
   float: left;
   margin: 0;
 }
-.blackbriar-sub-headerbrickroad .blackbriar-sub-tabs > li {
+.calderawp_license_manager-sub-headerbrickroad .calderawp_license_manager-sub-tabs > li {
   float: left;
   margin: 0;
   width: 100%;
 }
-.blackbriar-sub-headercaldera .blackbriar-sub-tabs > li > a{
+.calderawp_license_manager-sub-headercaldera .calderawp_license_manager-sub-tabs > li > a{
   display: inline-block;
   margin: 0;
   padding: 6px 14px 8px;
   text-decoration: none;
   color:#a3bf61;
 }
-.blackbriar-sub-headerbrickroad .blackbriar-sub-tabs > li > a {
+.calderawp_license_manager-sub-headerbrickroad .calderawp_license_manager-sub-tabs > li > a {
   color: #a3bf61;
   display: block;
   margin: 0;
   padding: 6px 14px 8px;
   text-decoration: none;
 }
-.blackbriar-sub-headercaldera .blackbriar-sub-tabs > li > a:hover{
+.calderawp_license_manager-sub-headercaldera .calderawp_license_manager-sub-tabs > li > a:hover{
   background-color: #efefef;
 }
-.blackbriar-sub-headercaldera .blackbriar-sub-tabs > li.active > a{
+.calderawp_license_manager-sub-headercaldera .calderawp_license_manager-sub-tabs > li.active > a{
   background-color: #a3bf61;
   color: #fff;
 }
-.blackbriar-sub-headerbrickroad .blackbriar-sub-tabs > li.active > a {
+.calderawp_license_manager-sub-headerbrickroad .calderawp_license_manager-sub-tabs > li.active > a {
   background-color: #646464;
   color: #fff;
 }
-.blackbriar-split-panel {
+.calderawp_license_manager-split-panel {
   margin-left: 300px;
 }
-.blackbriar-side-list {
+.calderawp_license_manager-side-list {
   float: left;
   margin-left: -300px;
   width: 280px;
 }
-.blackbriar-side-list > label{
+.calderawp_license_manager-side-list > label{
 	display: block;
 }
-.blackbriar-side-list > select {
+.calderawp_license_manager-side-list > select {
 	width: 100%;
 	margin-bottom: 2px;
 }
 
-.blackbriar-footer-bar {
+.calderawp_license_manager-footer-bar {
   border-top: 1px solid #e6e6e6;
   margin: 30px -20px 0 -22px;
   padding: 20px;
 }
 
-.blackbriar-main-list {
+.calderawp_license_manager-main-list {
   float: left;
   min-height: 100px;
   width: 550px;
   position: relative;
 }
 
-.blackbriar-config-group {
+.calderawp_license_manager-config-group {
   margin-bottom: 6px;
 }
-.blackbriar-config-group > label {
+.calderawp_license_manager-config-group > label {
   display: inline-block;
   margin: 6px 0 0;
   vertical-align: top;
   width: 180px;
 }
-.blackbriar-config-group .invalid {
+.calderawp_license_manager-config-group .invalid {
   border: 1px solid #c00 !important;
   box-shadow: 0 0 5px -1px #c00 !important;
 }
 /* groups wrappers */
-.blackbriar-add-group-btn {
+.calderawp_license_manager-add-group-btn {
   color: #777;
   cursor: pointer;
   float: left;
   font-size: 1.5em;
   width: 40px;
 }
-.blackbriar-group-wrapper {
+.calderawp_license_manager-group-wrapper {
   float: left;
   margin-right: 12px;
   width: 280px;
 }
-.blackbriar-group-wrapper .sortable-placeholder {
+.calderawp_license_manager-group-wrapper .sortable-placeholder {
   display: block;
   float: left;
 }
-.blackbriar-field-group {
+.calderawp_license_manager-field-group {
   background: none repeat scroll 0 0 #fff;
   border: 1px solid #e5e5e5;
   box-sizing: border-box;
@@ -239,7 +239,7 @@ h4 > small.description {
   padding: 6px 12px;
   position: relative;
 }
-.blackbriar-field-item {
+.calderawp_license_manager-field-item {
   background: none repeat scroll 0 0 #fff;
   border: 1px solid #e5e5e5;
   box-sizing: border-box;
@@ -249,7 +249,7 @@ h4 > small.description {
   padding: 6px 0 6px 6px;
   position: relative;
 }
-.blackbriar-field-group-config {
+.calderawp_license_manager-field-group-config {
   background: none repeat scroll 0 0 rgb(248, 248, 248);
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.18);
   height: 130px;
@@ -257,7 +257,7 @@ h4 > small.description {
   overflow: hidden;
   padding: 6px 6px 0;
 }
-.blackbriar-field-config-wrapper {
+.calderawp_license_manager-field-config-wrapper {
   float: left;
   width: 550px;
 }
@@ -281,7 +281,7 @@ h4 > small.description {
   max-height: 380px;
   overflow: auto;
 }
-.blackbriar-card-item {
+.calderawp_license_manager-card-item {
   background: none repeat scroll 0 0 #fff;
   border: 1px solid #e5e5e5;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04), 50px 0 0 #f8f8f8 inset;
@@ -296,7 +296,7 @@ h4 > small.description {
   position: relative;
   width: 250;
 }
-.blackbriar-card-sub-item {
+.calderawp_license_manager-card-sub-item {
   background: none repeat scroll 0 0 #fcfcfc;
   border: 1px solid #e5e5e5;
   box-shadow: -39px 0 0 #f8f8f8 inset,-40px 0 0 #dfdfdf inset;
@@ -308,7 +308,7 @@ h4 > small.description {
   position: relative;
 }
 
-.blackbriar-card-item .blackbriar-card-icon {
+.calderawp_license_manager-card-item .calderawp_license_manager-card-icon {
   float: left;
   font-size: 95px;
   height: 100%;
@@ -319,10 +319,10 @@ h4 > small.description {
   width: 49px;
   line-height: 84px;
 }
-.blackbriar-card-item .blackbriar-card-icon:before {
+.calderawp_license_manager-card-item .calderawp_license_manager-card-icon:before {
   opacity: 0.2;
 }
-.blackbriar-card-content {
+.calderawp_license_manager-card-content {
   box-sizing: padding-box;
   border-left: 1px solid #dfdfdf;
   padding: 6px 12px;
@@ -331,30 +331,30 @@ h4 > small.description {
   overflow: hidden;
   white-space: nowrap;
 }
-.ui-sortable-helper .blackbriar-card-content{
+.ui-sortable-helper .calderawp_license_manager-card-content{
   overflow: visible;
 }
 .ui-sortable-helper .dashicons{
   display: none;
 }
-.blackbriar-card-item .blackbriar-card-content > h4{
+.calderawp_license_manager-card-item .calderawp_license_manager-card-content > h4{
 	margin: 0;
 }
 
-.blackbriar-card-content input[type="text"] {
+.calderawp_license_manager-card-content input[type="text"] {
   width: 100%;
 }
-.blackbriar-card-content .description {
+.calderawp_license_manager-card-content .description {
   color: #8f8f8f;
   font-size: 11px;
 }
-.blackbriar-card-content .blackbriar-card-actions {
+.calderawp_license_manager-card-content .calderawp_license_manager-card-actions {
   padding: 0;
 }
-.blackbriar-card-content .blackbriar-card-actions .row-actions{
+.calderawp_license_manager-card-content .calderawp_license_manager-card-actions .row-actions{
 	visibility: visible;
 }
-.blackbriar-card-content .blackbriar-card-actions .row-actions a{
+.calderawp_license_manager-card-content .calderawp_license_manager-card-actions .row-actions a{
 	text-decoration: none;
 }
 .loading .spinner,
@@ -375,40 +375,40 @@ h4 > small.description {
 .baldrick-modal-title .modal-label{
   background-color: #a3bf61;
 }
-.blackbriar-main-headercaldera .loading{
+.calderawp_license_manager-main-headercaldera .loading{
 	top: -2px;
-}.blackbriar-module-side {
+}.calderawp_license_manager-module-side {
   float: left;
   margin-right: 22px;
   width: 250px;
 }
 
-.blackbriar-module-tabs {
+.calderawp_license_manager-module-tabs {
   background: none repeat scroll 0 0 #f4f4f4;  
   margin: 0 0 0 -22px;
   padding: 0;
   overflow: hidden;
 }
-.blackbriar-module-tab {
+.calderawp_license_manager-module-tab {
   margin: 0;
   box-shadow: -1px 0 0 #cfcfcf inset;
 }
-.blackbriar-module-tab > a{
+.calderawp_license_manager-module-tab > a{
   display: block;
   margin: 0;
   padding: 9px 10px 9px 22px;
   text-decoration: none;
   color:#444;
 }
-.blackbriar-module-tab > a:hover{
+.calderawp_license_manager-module-tab > a:hover{
   background-color: rgba(0, 0, 0, 0.05);
 }
-.blackbriar-module-tab.active > a{
+.calderawp_license_manager-module-tab.active > a{
   background-color: #a3bf61;
   color: #fff;
 }
 
-.blackbriar-editor-panel h2{
+.calderawp_license_manager-editor-panel h2{
   color: inherit;
   font-size: 1.1em;
   margin: 0;

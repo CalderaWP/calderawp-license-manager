@@ -1,26 +1,26 @@
 <?php
-$blackbriar = BlackBriar_Options::get_single( 'blackbriar' );
+$calderawp_license_manager = CalderaWP_License_Manager_Options::get_single( 'calderawp_license_manager' );
 
 ?>
-<div class="wrap" id="blackbriar-main-canvas">
-	<span class="wp-baldrick spinner" style="float: none; display: block;" data-target="#blackbriar-main-canvas" data-callback="blkbr_canvas_init" data-type="json" data-request="#blackbriar-live-config" data-event="click" data-template="#main-ui-template" data-autoload="true"></span>
+<div class="wrap" id="calderawp_license_manager-main-canvas">
+	<span class="wp-baldrick spinner" style="float: none; display: block;" data-target="#calderawp_license_manager-main-canvas" data-callback="blkbr_canvas_init" data-type="json" data-request="#calderawp_license_manager-live-config" data-event="click" data-template="#main-ui-template" data-autoload="true"></span>
 </div>
 
 <div class="clear"></div>
 
-<input type="hidden" class="clear" autocomplete="off" id="blackbriar-live-config" style="width:100%;" value="<?php echo esc_attr( json_encode($blackbriar) ); ?>">
+<input type="hidden" class="clear" autocomplete="off" id="calderawp_license_manager-live-config" style="width:100%;" value="<?php echo esc_attr( json_encode($calderawp_license_manager) ); ?>">
 
 <script type="text/html" id="main-ui-template">
 	<?php
-	// pull in the join table card template
-	include BLKBR_PATH . 'includes/templates/main-ui.php';
+		// pull in the join table card template
+		include CALDERA_WP_LICENSE_MANAGER_PATH . 'includes/templates/main-ui.php';
 	?>	
 </script>
 
 
 <script type="text/html" id="nav-items-tmpl">
 	{{#each channels}}
-		<li class="{{#is _current_tab value="#blackbriar-panel-license"}}active {{/is}}blackbriar-nav-tab"><a href="#blackbriar-panel-feed">{{name}}</a></li>
+		<li class="{{#is _current_tab value="#calderawp_license_manager-panel-license"}}active {{/is}}calderawp_license_manager-nav-tab"><a href="#calderawp_license_manager-panel-feed">{{name}}</a></li>
 	{{/each}}
 </script>
 
@@ -47,35 +47,5 @@ $blackbriar = BlackBriar_Options::get_single( 'blackbriar' );
 {{else}}
 	<div class="alert error"><p><?php echo __('Unable to connect or no extensions available.', 'caldera-forms'); ?></p></div>
 {{/if}}
-{{/if}}
-</script>
-<script type="text/html" id="nav-items-tmpl">
-{{#if channels}}
-	{{#each channels}}
-	<li id="tab_extend_{{channel}}" 
-	data-load-class="spinner" 
-	data-group="main-nav" 
-	data-callback="update_existing" 
-	data-before="cf_clear_panel" 
-	data-target="#form-extend-viewer" 
-	data-error="extend_fail_notice" 
-	{{#if content}}
-		data-request="{{content}}"
-	{{else}}
-			{{#if url}}
-				data-request="{{url}}"
-			{{else}}
-				data-request="<?php echo CFCORE_EXTEND_URL . '{{location}}/?version=' . CFCORE_VER; ?>"
-			{{/if}}
-			{{#if template}}
-				data-template-url="{{template}}"
-			{{else}}
-				data-template="#extensions-modal-tmpl"
-			{{/if}}
-	{{/if}}
-	class="wp-baldrick{{#if class}} {{class}}{{/if}} blackbriar-nav-tab" {{#if attributes}}{{{attributes}}}{{/if}}
-	><a href="#blackbriar-panel-feed">{{name}}</a>
-	</li>
-	{{/each}}
 {{/if}}
 </script>

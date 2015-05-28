@@ -1,7 +1,7 @@
 {
-    "name": "desertsnowman/blackbriar",
-    "description": "License Manager for WordPress Plugins",
-    "type": "wordpress-library",
+    "name": "calderawp/calderawp-license-manager",
+    "description": "License Manager for CalderaWP plugins",
+    "type": "wordpress-plugin",
     "keywords": [
         "wordpress"
     ],
@@ -15,9 +15,5 @@
     ],
     "require": {
         "php": ">=5.3.0"
-    },
-    "autoload": {
-        "files" : [ "blackbriar.php" ]
     }
-
 }
