@@ -1,6 +1,6 @@
 <div class="calderawp_license_manager-main-headercaldera">
 	<h2>
-		<?php _e( 'CalderaWP_License_Manager License Manager', 'calderawp-license-manager' ); ?>
+		<?php _e( 'CalderaWP License Manager', 'calderawp-license-manager' ); ?>
 		<span class="calderawp_license_manager-version">
 			<?php echo CALDERA_WP_LICENSE_MANAGER_VER; ?>
 		</span>
