@@ -10,8 +10,8 @@
 	</h2>
 
 	<div class="updated_notice_box">
-		<?php _e( 'Updated Successfully', 'calderawp-license-manager' ); ?><
-		/div>
+		<?php _e( 'Updated Successfully', 'calderawp-license-manager' ); ?>
+	</div>
 	<div class="error_notice_box">
 		<?php _e( 'Could not save changes.', 'calderawp-license-manager' ); ?>
 	</div>
