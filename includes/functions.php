@@ -30,5 +30,8 @@ function cwp_license_manager_register_licensed_product( $params ){
 
 function cwp_license_manager_is_product_licensed( $plugin ){
 	$calderawp_license_manager = CalderaWP_License_Manager_Options::get_single( 'calderawp_license_manager' );
+	if( empty( $calderawp_license_manager ) || !isset( $calderawp_license_manager['licensed'] ) ){
+		return false;
+	}
 	return in_array( $plugin, $calderawp_license_manager['licensed'] );
 }
