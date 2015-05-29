@@ -51,6 +51,7 @@
 				<?php _e( 'Add License', 'calderawp_license_manager' ); ?>
 			</button>
 		</li>
+		<li class="calderawp_license_manager-module-tab" style="border-bottom: 1px solid rgb(207, 207, 207);"><a href="https://calderawp.com/checkout/purchase-history/" title="<?php _e( 'Purchase History', 'calderawp-license-manager' ); ?>" target="_blank"><?php _e( 'Purchase History at CalderaWP.com', 'calderawp-license-manager' ); ?></a></li>
 	</ul>
 
 </div>
