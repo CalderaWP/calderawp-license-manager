@@ -26,9 +26,9 @@
 				</select></a>
 			{{else}}
 				<a href="#" class="sortable-item calderawp_license_manager-edit-license" data-id="{{_id}}">
-					<span class="license_title_{{_id}}">{{config/license_name}}{{#if config/active}}<span class="dashicons dashicons-yes"></span>{{/if}}</span>
+					<span class="license_title_{{_id}}">{{config/license_name}}{{#if config/active}}<span class="dashicons {{#is config/active value="expired"}}dashicons-no-alt{{else}}dashicons-yes{{/is}}"></span>{{/if}}</span>
 					{{#if config/active}}<p id="license_key_{{_id}}" class="description" style="{{#is @root/active_edit_license value=_id}}color: rgba(255, 255, 255, 0.6); {{/is}}font-size: 0.9em;">
-						<?php echo __('Expires', 'calderawp_license_manager'); ?>: {{config/active}}</p>
+						{{#is config/active value="expired"}}<?php echo __('Expired', 'calderawp_license_manager'); ?>{{else}}<?php echo __('Expires', 'calderawp_license_manager'); ?>: {{config/active}}{{/is}}</p>
 					{{/if}}
 					<input type="hidden" value="{{config/license_name}}" name="licensed[]">
 				</a>
@@ -86,9 +86,9 @@
 				<button type="button" style="float:right;" class="button button-primary wp-baldrick" data-for="#key-input-{{_id}}"><?php _e( 'Verify License', 'calderawp_license_manager' ); ?></button>
 				<div id="license-info-{{_id}}" style="margin-top: 12px;"></div>
 				{{else}}
-					<input type="hidden" name="{{:name}}[config][active]" value="{{config/active}}">
-					<input data-autoload="true" {{#find @root/plugins config/license_name}} data-url="{{url}}" {{/find}} data-refresh="true" style="width: 250px;" id="key-input-{{_id}}" data-name="{{:name}}[config][active]" data-item="{{config/license_name}}" placeholder="License key" class="wp-baldrick key-input" data-load-element="#key-loading-{{_id}}" data-target="#license-info-{{_id}}" data-event="sync" data-action="calderawp_license_manager_check_license" data-id="{{_id}}" type="hidden" name="{{:name}}[config][license_key]" value="{{config/license_key}}" data-sync="#license_key_{{_id}}" id="calderawp_license_manager-key" required>
-					
+					<input id="current-active-plugin" type="hidden" data-live-sync="true" name="{{:name}}[config][active]" value="{{config/active}}">
+					<input data-autoload="true" {{#find @root/plugins config/license_name}} data-url="{{url}}" {{/find}} {{#is config/active value="expired"}}data-nosave="true"{{/is}} data-refresh="true" style="width: 250px;" id="key-input-{{_id}}" data-name="{{:name}}[config][active]" data-item="{{config/license_name}}" placeholder="License key" class="wp-baldrick key-input" data-load-element="#key-loading-{{_id}}" data-target="#license-info-{{_id}}" data-event="sync" data-action="calderawp_license_manager_check_license" data-id="{{_id}}" type="hidden" name="{{:name}}[config][license_key]" value="{{config/license_key}}" data-sync="#license_key_{{_id}}" id="calderawp_license_manager-key" required>
+
 					<div id="license-info-{{_id}}" style="margin-top: 12px;">
 						<span id="key-loading-{{_id}}">
 							<span style="float: none; margin: 0;" class="spinner"></span>
@@ -125,5 +125,7 @@ jQuery('.autofocus-input').focus().on('blur', function(){
 		blkbr_record_change();
 	}
 });
-
+jQuery(document).on('click','.reset-current-key', function(){
+	jQuery('#current-active-plugin').val('').trigger('change');
+});
 {{/script}}

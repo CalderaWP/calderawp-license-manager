@@ -309,7 +309,7 @@ class CalderaWP_License_Manager {
 	 * @since 0.0.1
 	 */
 	public function print_edd_response( $license_data, $api_params ){
-
+		//var_dump( $license_data );
 		if( ( !is_object( $license_data ) || $license_data->license == 'invalid' || $license_data->license == 'item_name_mismatch' ) && $_POST['action'] !== 'cwp_license_manager_deactivate_edd_license' ) {
 			echo '<div class="notice notice-error"><p>' . __( 'Invalid Key', 'calderawp-license-manager' ) . '</p></div>';
 			echo '<button type="button" data-confirm="' . esc_attr( __( 'Remove this license?', 'calderawp_license_manager' ) ) . '"  class="button wp-baldrick" data-id="' . esc_attr( $_POST['id'] ) . '" data-load-element="#key-loading-' . esc_attr( $_POST['id'] ) . '" data-key="' . esc_attr( $api_params['license'] ) . '" data-active-class="disabled" data-target="#license-info-' . esc_attr( $_POST['id'] ) . '" data-item="' . esc_attr( $api_params['item_name'] ) . '" data-url="' . $_POST['url'] . '" data-action="cwp_license_manager_deactivate_edd_license">' . __( 'Remove License', 'calderawp_license_manager' ) . '</button>';
@@ -328,18 +328,24 @@ class CalderaWP_License_Manager {
 			if( $license_data->activations_left === 'unlimited' || $license_data->activations_left > 0 || $license_data->license == 'valid' ){
 				$class = 'notice-success';
 			}
+			if( $license_data->license == 'expired' ){
+				$class = 'notice-error';
+			}
 
 			echo '<div class="notice ' . $class . '"><div style="padding:6px 6px 6px 0;">';
 			
-				echo '<span style="width: 85px; display: inline-block;">' . __( 'Licensed To', 'calderawp-license-manager' ) . '</span><strong>' . $license_data->customer_name . '</strong> <small style="display:inline; opacity:.7;" class="description">' . $license_data->customer_email . '</small><br>';
-				echo '<span style="width: 85px; display: inline-block;">' . __( 'Activations', 'calderawp-license-manager' ) . '</span><strong>' . $license_data->site_count . '</strong><br>';
-				echo '<span style="width: 85px; display: inline-block;">' . __( 'Remaining', 'calderawp-license-manager' ) . '</span><strong>' . ucwords( $license_data->activations_left ) . '</strong><br>';
-				echo '<span style="width: 85px; display: inline-block;">' . __( 'Expires', 'calderawp-license-manager' ) . '</span><strong>' . date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $license_data->expires ) ) . '</strong><br>';
-				
+				if( $license_data->license == 'expired' ){
+					echo '<span style="width: 85px; display: inline-block;">' . __( 'Expired', 'calderawp-license-manager' ) . '</span><strong>' . date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $license_data->expires ) ) . '</strong><br>';
+				}else{
+					echo '<span style="width: 85px; display: inline-block;">' . __( 'Licensed To', 'calderawp-license-manager' ) . '</span><strong>' . $license_data->customer_name . '</strong> <small style="display:inline; opacity:.7;" class="description">' . $license_data->customer_email . '</small><br>';
+					echo '<span style="width: 85px; display: inline-block;">' . __( 'Activations', 'calderawp-license-manager' ) . '</span><strong>' . $license_data->site_count . '</strong><br>';
+					echo '<span style="width: 85px; display: inline-block;">' . __( 'Remaining', 'calderawp-license-manager' ) . '</span><strong>' . ucwords( $license_data->activations_left ) . '</strong><br>';
+					echo '<span style="width: 85px; display: inline-block;">' . __( 'Expires', 'calderawp-license-manager' ) . '</span><strong>' . date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $license_data->expires ) ) . '</strong><br>';
+				}
 				
 					echo '<div class="notice-footer" style="margin: 6px -18px -7px -12px; padding: 6px 12px; background: rgb(242, 242, 242) none repeat scroll 0% 0%; border-top: 1px solid rgb(223, 223, 223);">';
 					
-					if( ( $license_data->activations_left === 'unlimited' || (int) $license_data->activations_left > 0 ) && $license_data->license != 'valid' ){
+					if( ( $license_data->activations_left === 'unlimited' || (int) $license_data->activations_left > 0 ) && $license_data->license != 'valid' && $license_data->license != 'expired' ){
 						echo '<button type="button" class="button wp-baldrick" data-id="' . esc_attr( $_POST['id'] ) . '" data-load-element="#key-loading-' . esc_attr( $_POST['id'] ) . '" data-key="' . esc_attr( $api_params['license'] ) . '" data-active-class="disabled" data-target="#license-info-' . esc_attr( $_POST['id'] ) . '" data-item="' . esc_attr( $api_params['item_name'] ) . '" data-url="' . $_POST['url'] . '" data-action="cwp_license_manager_activate_edd_license" data-name="' . esc_attr( $_POST['name'] ) . '">' . __( 'Activate license', 'calderawp-license-manager' ) . '</button>';
 					}else{
 						if( $license_data->license == 'valid' ){
@@ -348,8 +354,24 @@ class CalderaWP_License_Manager {
 								echo '<span data-autoload="true" data-before="blkbr_get_config_object" data-load-element="#calderawp_license_manager-save-indicator" data-callback="blkbr_handle_save" data-action="blkbr_save_config" class="wp-baldrick"></span>';
 							}
 							echo '<button type="button" data-confirm="' . esc_attr( __( 'Remove this license?', 'calderawp_license_manager' ) ) . '"  class="button wp-baldrick" data-id="' . esc_attr( $_POST['id'] ) . '" data-load-element="#key-loading-' . esc_attr( $_POST['id'] ) . '" data-key="' . esc_attr( $api_params['license'] ) . '" data-active-class="disabled" data-target="#license-info-' . esc_attr( $_POST['id'] ) . '" data-item="' . esc_attr( $api_params['item_name'] ) . '" data-url="' . $_POST['url'] . '" data-action="cwp_license_manager_deactivate_edd_license">' . __( 'Deactivate License', 'calderawp_license_manager' ) . '</button>';
+
 						}else{
-							echo '<button type="button" class="button disabled" disabled="disabled">' . __( 'Activation limit reached', 'calderawp-license-manager' ) . '</button>';
+							if( $license_data->license == 'expired' ){
+								if( !empty( $_POST['autoload'] ) ){
+									echo '<button style="float:right;" type="button" class="button button-primary reset-current-key" >' . __( 'Add New License', 'calderawp_license_manager' ) . '</button>';
+									if( empty( $_POST['nosave'] ) ){
+										echo '<span data-autoload="true" data-before="blkbr_get_config_object" data-action="blkbr_save_config" class="wp-baldrick"></span>';
+									}
+									?><script>
+									if( jQuery('#current-active-plugin').val() !== 'expired' ){
+											jQuery('#current-active-plugin').val('expired').trigger('change');
+										}</script><?php
+								}
+								echo '<button type="button" data-confirm="' . esc_attr( __( 'Remove this license?', 'calderawp_license_manager' ) ) . '"  class="button wp-baldrick" data-id="' . esc_attr( $_POST['id'] ) . '" data-load-element="#key-loading-' . esc_attr( $_POST['id'] ) . '" data-key="' . esc_attr( $api_params['license'] ) . '" data-active-class="disabled" data-target="#license-info-' . esc_attr( $_POST['id'] ) . '" data-item="' . esc_attr( $api_params['item_name'] ) . '" data-url="' . $_POST['url'] . '" data-action="cwp_license_manager_deactivate_edd_license">' . __( 'Remove License', 'calderawp_license_manager' ) . '</button>';
+
+							}else{
+								echo '<button type="button" class="button disabled" disabled="disabled">' . __( 'Activation limit reached', 'calderawp-license-manager' ) . '</button>';
+							}
 						}
 
 					}
