@@ -139,8 +139,8 @@ class CalderaWP_License_Manager_Settings extends CalderaWP_License_Manager{
 	public function add_settings_pages(){
 		$this->plugin_screen_hook_suffix['calderawp_license_manager'] =  add_submenu_page(
 			'options-general.php',
-			__( 'CalderaWP_License_Manager', 'calderawp-license-manger' ),
-			__( 'CalderaWP_License_Manager', 'calderawp-license-manger' ),
+			__( 'CalderaWP License Manager', 'calderawp-license-manger' ),
+			__( 'CalderaWP Licenses', 'calderawp-license-manger' ),
 			'manage_options', 'calderawp_license_manager',
 			array( $this, 'create_admin_page' )
 		);
