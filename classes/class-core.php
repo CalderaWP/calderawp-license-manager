@@ -498,13 +498,13 @@ class CalderaWP_License_Manager {
 	 */
 	public function edd_update_setup( $plugin ){
 		// include the updater
-		if( ! class_exists( 'EDD_SL_Plugin_Updater' ) ){
+		if( ! class_exists( 'CWP_EDD_SL_Plugin_Updater' ) ){
 			require_once( CALDERA_WP_LICENSE_MANAGER_PATH . "classes/class-updater-edd.php" );
 		}
 		//get the key
 		$plugin['license_key'] = trim( get_option( $plugin['key_store'] ) ); 
 		// setup the updater
-		new EDD_SL_Plugin_Updater( $plugin['url'], $plugin['file'], array(
+		new CWP_EDD_SL_Plugin_Updater( $plugin['url'], $plugin['file'], array(
 			'version'	=> $plugin['version'],
 			'license'	=> $plugin['license_key'],
 			'item_name'	=> $plugin['name'],
