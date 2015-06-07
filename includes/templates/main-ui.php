@@ -26,13 +26,13 @@
 				<?php _e('Licenses', 'calderawp-license_manager') ; ?>
 			</a>
 		</li>
-		<!--
+
 		<li class="{{#is _current_tab value="#calderawp_license_manager-panel-feed"}}active {{/is}}calderawp_license_manager-nav-tab">
 			<a href="#calderawp_license_manager-panel-feed">
-				<?php //_e('Extend', 'calderawp-license-manager') ; ?>
+				<?php _e( 'Learn More About CalderaWP', 'calderawp-license-manager') ; ?>
 			</a>
 		</li>
-		-->
+
 		<!--
 		<li class="calderawp_license_manager-nav-tab" style="margin-left: 4px">
 			<?php printf( 'See your purchase history at %s', sprintf(
@@ -63,6 +63,16 @@
 			include CALDERA_WP_LICENSE_MANAGER_PATH . 'includes/templates/license-panel.php';
 		?>
 	</div>
+
+	<?php
+		//Pull in products via the API
+	?>
+	<div id="calderawp_license_manager-panel-feed" class="calderawp_license_manager-editor-panel" {{#is _current_tab value="#calderawp_license_manager-panel-feed"}}{{else}} style="display:none;" {{/is}}>
+
+		<div id="calderawp_license_manager-extend" class="wp-baldrick" data-request="<?php esc_url( admin_url( 'admin-ajax.php') ); ?>" data-target="#calderawp_license_manager-extend" data-action="cwp_license_manager_featured" data-event="none" data-autoload="true" data-template="#featured-modal-tmpl">
+		</div>
+	</div>
+
 
 	<div class="clear"></div>
 

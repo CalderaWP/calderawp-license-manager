@@ -3,7 +3,7 @@
  * @package   CalderaWP_License_Manager
  * @author    David Cramer for CalderaWP LLC<David@CalderaWP.com>
  * @license   GPL-2.0+
- * @link      
+ * @link
  * @copyright 2015 David Cramer for CalderaWP LLC<David@CalderaWP.com>
  *
  * @wordpress-plugin
@@ -35,6 +35,7 @@ define('CALDERA_WP_LICENSE_MANAGER_VER',  '1.0.0' );
 // load internals
 require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/class-core.php' );
 require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/class-options.php' );
+require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/class-feed.php' );
 
 require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/class-settings.php' );require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'includes/functions.php' );
 

@@ -35,3 +35,18 @@ function cwp_license_manager_is_product_licensed( $plugin ){
 	}
 	return in_array( $plugin, $calderawp_license_manager['licensed'] );
 }
+
+
+/**
+ * Get featured plugins via API
+ */
+add_action( 'wp_ajax_cwp_license_manager_featured', function() {
+	$key = 'cwp_license_manager_featured_api_feed';
+	if ( false == ( $data = get_transient( $key ) ) ) {
+		$data = CalderaWP_License_Manager_Feed::get_data( 'products/featured' );
+
+		set_transient( $data, HOUR_IN_SECONDS );
+	}
+
+	die( $data );
+});
