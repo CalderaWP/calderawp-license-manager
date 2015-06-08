@@ -50,3 +50,15 @@ add_action( 'wp_ajax_cwp_license_manager_featured', function() {
 
 	die( $data );
 });
+
+add_action( 'wp_ajax_cwp_license_manager_signups', function(){
+	$key = 'cwp_license_manager_signups_api_feed';
+	if ( false == ( $data = get_transient( $key ) ) ) {
+		$data = CalderaWP_License_Manager_Feed::get_data( 'util' );
+		die( $data );
+
+		set_transient( $data, HOUR_IN_SECONDS );
+	}
+
+	die( $data );
+});

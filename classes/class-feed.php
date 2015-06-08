@@ -39,11 +39,14 @@ class CalderaWP_License_Manager_Feed {
 		$data = '';
 		if ( ! is_wp_error( $request ) ) {
 			$data = wp_remote_retrieve_body( $request );
+			$_data[ 'items' ] = json_decode( $data );
+			$data = json_encode( $_data );
 		}
 
 		return $data;
 
 	}
+
 
 
 }
