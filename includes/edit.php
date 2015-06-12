@@ -28,18 +28,11 @@ $calderawp_license_manager = CalderaWP_License_Manager_Options::get_single( 'cal
 <script type="text/html" id="featured-modal-tmpl">
 	{{#if items}}
 		{{#each items}}
-			<div {{#if slug}}class="panel_{{slug}}"{{/if}} style="margin: 10px; width: 200px; float: left; height: 200px; overflow: auto; border: 1px solid rgba(0, 0, 0, 0.15); box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); position: relative; background-color:white;">
+			<div class="calderawp_license_manager-featured-plugin">
 				{{#if image_src}}
 					<a href="{{link}}" target="_blank">
 						<img src="{{image_src}}" style="width:100%;vertical-align: top;">{{/if}}
 					</a>
-				{{#if name}}
-					<h2>
-						<a href="{{link}}" target="_blank">
-							{{name}}
-						</a>
-					</h2>
-				{{/if}}
 
 				{{#if tagline}}
 					<div style="margin: 0px; padding: 6px 7px;">
