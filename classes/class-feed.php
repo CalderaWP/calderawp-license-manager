@@ -16,11 +16,9 @@ class CalderaWP_License_Manager_Feed {
 	 *
 	 * @since 1.0.1
 	 *
-	 * @TODO Real URL
-	 *
 	 * @var string
 	 */
-	protected static  $api_url = 'http://local.wordpress.dev/wp-json/calderawp_api/v2/';
+	protected static  $api_url = 'https://calderawp.com/wp-json/calderawp_api/v2/';
 
 	/**
 	 * Get the data for the request.
