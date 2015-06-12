@@ -72,11 +72,11 @@
 			<div id="calderawp_license_manager-extend" class="wp-baldrick" data-request="<?php esc_url( admin_url( 'admin-ajax.php') ); ?>" data-target="#calderawp_license_manager-featured-plugins" data-action="cwp_license_manager_featured" data-event="none" data-autoload="true" data-template="#featured-modal-tmpl"></div>
 			<div id="calderawp_license_manager-featured-plugins"></div>
 			<div class="clear"></div>
-
-			<div id="calderawp_license_manager-signups" class="wp-baldrick" data-request="<?php esc_url( admin_url( 'admin-ajax.php') ); ?>" data-target="#calderawp_license_manager-signups-forms" data-action="cwp_license_manager_signups" data-event="none" data-autoload="true" data-template="#signups-modal-tmpl"></div>
+<!--
+			<div id="calderawp_license_manager-signups" class="wp-baldrick" data-request="<?php //esc_url( admin_url( 'admin-ajax.php') ); ?>" data-target="#calderawp_license_manager-signups-forms" data-action="cwp_license_manager_signups" data-event="none" data-autoload="true" data-template="#signups-modal-tmpl"></div>
 			<div id="calderawp_license_manager-signups-forms" style="background-color: white; padding: 10px 0 10px 3%; max-width: 830px; margin-left: 10px;"></div>
 			<div class="clear"></div>
-
+-->
 	</div>
 
 
