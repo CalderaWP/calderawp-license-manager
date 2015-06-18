@@ -219,7 +219,7 @@ class CalderaWP_License_Manager {
 			'item_name' => urlencode( $item_name ),
 			'url'       => urlencode( home_url() )
 		);
-		$url = add_query_arg( $api_params, $store_url );
+		$url = add_query_arg( $api_params, 'https://calderawp.com' );
 
 		// Call the custom API.
 		$response = wp_remote_get( $url, array( 'timeout' => 15, 'sslverify' => false ) );
