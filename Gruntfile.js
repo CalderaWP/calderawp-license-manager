@@ -105,7 +105,7 @@ module.exports = function (grunt) {
         },
         replace: {
             core_file: {
-                src: [ 'plugincore.php' ],
+                src: [ 'core.php' ],
                 overwrite: true,
                 replacements: [{
                     from: /Version:\s*(.*)/,
