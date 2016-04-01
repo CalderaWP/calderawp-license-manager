@@ -148,11 +148,27 @@ class CalderaWP_License_Manager_Settings extends CalderaWP_License_Manager{
 			$page,
 			__( 'CalderaWP License Manager', 'calderawp-license-manger' ),
 			__( 'CalderaWP Licenses', 'calderawp-license-manger' ),
-			'manage_options', 'calderawp_license_manager',
+			'manage_options',
+			'calderawp_license_manager',
 			array( $this, 'create_admin_page' )
 		);
 
-		add_action( 'admin_print_styles-' . $this->plugin_screen_hook_suffix[ 'calderawp_license_manager'], array( $this, 'enqueue_admin_stylescripts' ) );
+
+
+		if( 'caldera-forms' == $page ){
+			$this->plugin_screen_hook_suffix['calderawp_license_manager_support'] =  add_submenu_page(
+				$page,
+				__( 'Support', 'calderawp-license-manger' ),
+				__( 'Support', 'calderawp-license-manger' ),
+				'manage_options',
+				'calderawp_license_manager_support',
+				array( 'CalderaWP_License_Manager_Support', 'page' )
+			);
+			add_action( 'admin_print_styles-' . $this->plugin_screen_hook_suffix[ 'calderawp_license_manager_support'],  array( 'CalderaWP_License_Manager_Support', 'load_assets' ) );
+		}
+
+
+
 
 	}
 

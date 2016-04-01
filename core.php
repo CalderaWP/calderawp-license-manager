@@ -37,7 +37,11 @@ require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/class-core.php' );
 require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/class-options.php' );
 require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/class-feed.php' );
 
-require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/class-settings.php' );require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'includes/functions.php' );
+require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/class-settings.php' );
+require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/class-support.php' );
+
+
+require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'includes/functions.php' );
 
 // Load instance
 add_action( 'plugins_loaded', array( 'CalderaWP_License_Manager', 'get_instance' ) );
