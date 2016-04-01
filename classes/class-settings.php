@@ -25,7 +25,7 @@ class CalderaWP_License_Manager_Settings extends CalderaWP_License_Manager{
 	public function __construct(){
 
 		// add admin page
-		add_action( 'admin_menu', array( $this, 'add_settings_pages' ), 25 );
+		add_action( 'admin_menu', array( $this, 'add_settings_pages' ), 55 );
 		// save config
 		add_action( 'wp_ajax_blkbr_save_config', array( $this, 'save_config') );
 
@@ -137,8 +137,15 @@ class CalderaWP_License_Manager_Settings extends CalderaWP_License_Manager{
 	 * @uses "admin_menu" hook
 	 */
 	public function add_settings_pages(){
+		global $_registered_pages;
+		if( in_array( 'toplevel_page_caldera-forms', $_registered_pages ) ){
+			$page = 'caldera-forms';
+		}else{
+			$page = 'options-general.php';
+		}
+
 		$this->plugin_screen_hook_suffix['calderawp_license_manager'] =  add_submenu_page(
-			'options-general.php',
+			$page,
 			__( 'CalderaWP License Manager', 'calderawp-license-manger' ),
 			__( 'CalderaWP Licenses', 'calderawp-license-manger' ),
 			'manage_options', 'calderawp_license_manager',
