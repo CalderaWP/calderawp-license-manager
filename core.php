@@ -28,16 +28,22 @@ if( defined( 'CALDERA_WP_LICENSE_MANAGER_VER' ) ){
 	return;
 }
 
-define('CALDERA_WP_LICENSE_MANAGER_PATH',  plugin_dir_path( __FILE__ ) );
-define('CALDERA_WP_LICENSE_MANAGER_URL',  plugin_dir_url( __FILE__ ) );
-define('CALDERA_WP_LICENSE_MANAGER_VER',  '1.1.0' );
+define( 'CALDERA_WP_LICENSE_MANAGER_PATH', plugin_dir_path( __FILE__ ) );
+define( 'CALDERA_WP_LICENSE_MANAGER_URL', plugin_dir_url( __FILE__ ) );
+define( 'CALDERA_WP_LICENSE_MANAGER_VER', '1.1.0' );
+define( 'CALDERA_WP_LICENSE_MANAGER_BASENAME', plugin_basename( __FILE__ ) );
 
 // load internals
 require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/class-core.php' );
 require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/class-options.php' );
 require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/class-feed.php' );
 
-require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/class-settings.php' );require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'includes/functions.php' );
+require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/class-settings.php' );
+require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'includes/functions.php' );
+
+require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/updater/class-updater.php' );
+require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/updater/class-plugin-updates.php' );
+require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/updater/class-updater-options.php' );
 
 // Load instance
 add_action( 'plugins_loaded', array( 'CalderaWP_License_Manager', 'get_instance' ) );

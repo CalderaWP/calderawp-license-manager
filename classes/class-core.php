@@ -97,6 +97,8 @@ class CalderaWP_License_Manager {
 
 		// deactivate Foo license key		
 		add_action( 'wp_ajax_calderawp_license_manager_deactivate_foo_license', array( $this, 'deactivate_foo_license') );
+
+		new CalderaWP_License_Manager_Plugin_Updates();
 	}
 
 	/**
