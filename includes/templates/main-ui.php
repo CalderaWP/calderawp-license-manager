@@ -33,6 +33,12 @@
 			</a>
 		</li>
 
+		<li class="{{#is _current_tab value="#calderawp_license_manager-panel-feed"}}active {{/is}}calderawp_license_manager-nav-tab">
+			<a href="#calderawp_license_manager-panel-beta">
+				<?php _e( 'Beta Updates', 'calderawp-license-manager') ; ?>
+			</a>
+		</li>
+
 		<!--
 		<li class="calderawp_license_manager-nav-tab" style="margin-left: 4px">
 			<?php printf( 'See your purchase history at %s', sprintf(
@@ -79,6 +85,21 @@
 -->
 	</div>
 
+	<div id="calderawp_license_manager-panel-beta" class="calderawp_license_manager-editor-panel" {{#is _current_tab value="#calderawp_license_manager-panel-beta"}}{{else}} style="display:none;" {{/is}}>
+	<h4>
+		<?php
+			esc_html_e(' Caldera Forms Beta', 'calderawp-license-manager') ;
+		?>
+		<small class="description">
+			<?php esc_html_e('Get The Latest Caldera Forms', 'calderawp-license-manager') ; ?>
+		</small>
+	</h4>
+	<?php
+	// pull in the general settings template
+	include CALDERA_WP_LICENSE_MANAGER_PATH . 'includes/templates/beta-panel.php';
+	?>
+	</div>
+
 
 	<div class="clear"></div>
 
@@ -91,4 +112,30 @@
 		});
 	{{/script}}
 {{/unless}}
+<script>
+	jQuery( '#calderawp_license_manager-cf-always-beta' ).click(function(){
+		jQuery( '#calderawp_license_manager-cf-beta-spinner' ).attr( 'aria-hidden', false ).css( 'visibility', 'visible' ).show();
+		var nonce = jQuery('#calderawp_license_manager-cf-always-beta-nonce' ).val();
+		var state = jQuery( this ).attr( 'data-beta-state' );
+		var data = {
+			action: 'cf_beta_state',
+			_nonce: nonce,
+			state: state
+		};
+
+		jQuery.post( ajaxurl, data, function(response) {
+			jQuery( '#calderawp_license_manager-cf-beta-spinner' ).attr( 'aria-hidden', true ).css( 'visibility', 'hidden' ).hide();
+			if( true == response.data ){
+				jQuery( '#calderawp_license_manager-cf-always-beta' ).val( jQuery( '#calderawp_license_manager-cf-always-beta-enabled-val' ).val() );
+				jQuery( '#calderawp_license_manager-cf-always-beta' ).attr( 'data-beta-state', 1 );
+			}else{
+				jQuery( '#calderawp_license_manager-cf-always-beta' ).val( jQuery( '#calderawp_license_manager-cf-always-beta-disabled-val' ).val() );
+				jQuery( '#calderawp_license_manager-cf-always-beta' ).attr( 'data-beta-state', 0 );
+			}
+		});
+
+	});
+</script>
+
+
 
