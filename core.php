@@ -30,7 +30,7 @@ if( defined( 'CALDERA_WP_LICENSE_MANAGER_VER' ) ){
 
 define( 'CALDERA_WP_LICENSE_MANAGER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'CALDERA_WP_LICENSE_MANAGER_URL', plugin_dir_url( __FILE__ ) );
-define( 'CALDERA_WP_LICENSE_MANAGER_VER', '1.1.0' );
+define( 'CALDERA_WP_LICENSE_MANAGER_VER', '1.2.0' );
 define( 'CALDERA_WP_LICENSE_MANAGER_BASENAME', plugin_basename( __FILE__ ) );
 
 // load internals
