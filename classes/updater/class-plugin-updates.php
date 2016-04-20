@@ -122,6 +122,10 @@ class CalderaWP_License_Manager_Plugin_Updates {
 	 * @return string
 	 */
 	public static  function update_url(){
+		if( ! defined( 'CFCORE_BASENAME' ) ){
+			wp_die( __( 'Beta updates for Caldera Forms are only supported in Caldera Forms 1.3.5 or later', 'calderawp-license-manager' ) );
+		}
+		
 		$action = 'upgrade-plugin_'. CFCORE_BASENAME;
 		$url = add_query_arg( array(
 			'action' => 'upgrade-plugin',
