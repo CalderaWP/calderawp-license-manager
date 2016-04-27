@@ -132,6 +132,7 @@
 				jQuery( '#calderawp_license_manager-cf-always-beta' ).val( jQuery( '#calderawp_license_manager-cf-always-beta-disabled-val' ).val() );
 				jQuery( '#calderawp_license_manager-cf-always-beta' ).attr( 'data-beta-state', 0 );
 			}
+			
 		});
 
 	});

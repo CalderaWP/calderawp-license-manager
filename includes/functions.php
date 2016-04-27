@@ -62,3 +62,14 @@ add_action( 'wp_ajax_cwp_license_manager_signups', function(){
 
 	die( $data );
 });
+
+/**
+ * Load dismissable notices -- functions.php has logic to prevent double load
+ *
+ * @uses "plugins_loaded"
+ *
+ * @since 1.2.1
+ */
+function cwp_license_manager_load_dismissible_notices(){
+	include_once( dirname( __FILE__ ) . '/dismissible-notice/functions.php' );
+}
