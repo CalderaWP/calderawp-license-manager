@@ -311,10 +311,18 @@ class CalderaWP_License_Manager {
 	 * @since 0.0.1
 	 */
 	public function print_edd_response( $license_data, $api_params ){
-		//var_dump( $license_data );
 		if( ( !is_object( $license_data ) || $license_data->license == 'invalid' || $license_data->license == 'item_name_mismatch' ) && $_POST['action'] !== 'cwp_license_manager_deactivate_edd_license' ) {
 			echo '<div class="notice notice-error"><p>' . __( 'Invalid Key', 'calderawp-license-manager' ) . '</p></div>';
 			echo '<button type="button" data-confirm="' . esc_attr( __( 'Remove this license?', 'calderawp_license_manager' ) ) . '"  class="button wp-baldrick" data-id="' . esc_attr( $_POST['id'] ) . '" data-load-element="#key-loading-' . esc_attr( $_POST['id'] ) . '" data-key="' . esc_attr( $api_params['license'] ) . '" data-active-class="disabled" data-target="#license-info-' . esc_attr( $_POST['id'] ) . '" data-item="' . esc_attr( $api_params['item_name'] ) . '" data-url="' . $_POST['url'] . '" data-action="cwp_license_manager_deactivate_edd_license">' . __( 'Remove License', 'calderawp_license_manager' ) . '</button>';
+			$pattern = '<div id="license-fail-reason">%s</div>';
+			if( ! is_object( $license_data ) ){
+				printf( $pattern, esc_html__( 'Response from server invalid', 'calderawp-license-manager' ) );
+			}elseif( $license_data->license == 'invalid' ){
+				printf( $pattern, esc_html__( 'Item name mismatch', 'calderawp-license-manager' ) );
+			}
+			echo '<pre>';
+			echo var_export( $license_data );
+			echo '</pre>';
 			exit;
 		// this license is no longer valid
 		}else{
