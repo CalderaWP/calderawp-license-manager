@@ -10,7 +10,7 @@
  * Plugin Name: CalderaWP License Manager
  * Plugin URI:  http://CalderaWP.com
  * Description: License manager for CalderaWP Plugins
- * Version:     1.2.1
+ * Version:     1.2.2
  * Author:      David Cramer for CalderaWP LLC<David@CalderaWP.com>
  * Author URI:  http://digilab.co.za/
  * Text Domain: calderawp-license-manager
@@ -30,7 +30,7 @@ if( defined( 'CALDERA_WP_LICENSE_MANAGER_VER' ) ){
 
 define( 'CALDERA_WP_LICENSE_MANAGER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'CALDERA_WP_LICENSE_MANAGER_URL', plugin_dir_url( __FILE__ ) );
-define( 'CALDERA_WP_LICENSE_MANAGER_VER', '1.2.1' );
+define( 'CALDERA_WP_LICENSE_MANAGER_VER', '1.2.2' );
 define( 'CALDERA_WP_LICENSE_MANAGER_BASENAME', plugin_basename( __FILE__ ) );
 
 // load internals
