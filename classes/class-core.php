@@ -325,7 +325,14 @@ class CalderaWP_License_Manager {
 			echo '</pre>';
 			exit;
 		// this license is no longer valid
-		}else{
+		}elseif( ! is_object( $license_data ) ) {
+			echo '<div class="notice notice-error"><p>' . esc_html__( 'Unknown Error', 'calderawp-license-manager' ) . '</p></div>';
+			echo '<pre>';
+			echo var_export( $license_data );
+			echo '</pre>';
+			exit;
+
+		}else {
 
 			if( $license_data->license == 'deactivated' || $_POST['action'] == 'cwp_license_manager_deactivate_edd_license' ){
 				// deactivated
