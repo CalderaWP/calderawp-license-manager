@@ -9,59 +9,7 @@
  * @copyright 2015 David Cramer for CalderaWP LLC<David@CalderaWP.com>
  */
 
-/**
- * Register a plugin as a licence product.
- *
- * @since 0.0.1
- *
- */
-function cwp_license_manager_register_licensed_product( $params ){
 
-	$defaults = array(
-		'type'	=>	'plugin'
-	);
-
-	$params = array_merge( $defaults, (array) $params );
-
-	$register = CalderaWP_License_Manager::get_instance();
-	$register->register_product( $params );
-
-}
-
-function cwp_license_manager_is_product_licensed( $plugin ){
-	$calderawp_license_manager = CalderaWP_License_Manager_Options::get_single( 'calderawp_license_manager' );
-	if( empty( $calderawp_license_manager ) || !isset( $calderawp_license_manager['licensed'] ) ){
-		return false;
-	}
-	return in_array( $plugin, $calderawp_license_manager['licensed'] );
-}
-
-
-/**
- * Get featured plugins via API
- */
-add_action( 'wp_ajax_cwp_license_manager_featured', function() {
-	$key = 'cwp_license_manager_featured_api_feed';
-	if ( false == ( $data = get_transient( $key ) ) ) {
-		$data = CalderaWP_License_Manager_Feed::get_data( 'products/featured' );
-
-		set_transient( $data, HOUR_IN_SECONDS );
-	}
-
-	die( $data );
-});
-
-add_action( 'wp_ajax_cwp_license_manager_signups', function(){
-	$key = 'cwp_license_manager_signups_api_feed';
-	if ( false == ( $data = get_transient( $key ) ) ) {
-		$data = CalderaWP_License_Manager_Feed::get_data( 'util' );
-		die( $data );
-
-		set_transient( $data, HOUR_IN_SECONDS );
-	}
-
-	die( $data );
-});
 
 /**
  * Load dismissable notices -- functions.php has logic to prevent double load
@@ -73,3 +21,29 @@ add_action( 'wp_ajax_cwp_license_manager_signups', function(){
 function cwp_license_manager_load_dismissible_notices(){
 	include_once( dirname( __FILE__ ) . '/dismissible-notice/functions.php' );
 }
+
+
+
+function cwp_license_manager_install_plugin( $download_link ) {
+
+
+	include_once ABSPATH . 'wp-admin/includes/admin.php';
+	include_once ABSPATH . 'wp-admin/includes/upgrade.php';
+	include_once ABSPATH . 'wp-includes/update.php';
+	require_once ( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
+	include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+
+	$upgrader = new Plugin_Upgrader();
+
+	$result = $upgrader->install( $download_link );
+	if ( is_wp_error( $result ) ){
+		return $result;
+	} elseif ( ! $result ) {
+		return new WP_Error( 'plugin-install', __( 'Unknown error installing plugin.', 'calderawp-license-manager' ) );
+	}
+
+
+	return true;
+	
+}
+

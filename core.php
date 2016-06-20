@@ -33,15 +33,19 @@ define( 'CALDERA_WP_LICENSE_MANAGER_URL', plugin_dir_url( __FILE__ ) );
 define( 'CALDERA_WP_LICENSE_MANAGER_VER', '2.0.0-a-1' );
 define( 'CALDERA_WP_LICENSE_MANAGER_BASENAME', plugin_basename( __FILE__ ) );
 
-// load internals
+if( ! defined( 'CALDERA_WP_LICENSE_MANAGER_API' ) ){
+	define( 'CALDERA_WP_LICENSE_MANAGER_API', 'https://calderawp.com/wp-json' );
+}
 
-require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'includes/functions.php' );
+/**
+ * Load plugin
+ */
+//@TODO PHP version check
+include CALDERA_WP_LICENSE_MANAGER_PATH . '/bootstrap.php';
 
-require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/updater/class-updater.php' );
-require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/updater/class-plugin-updates.php' );
-require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/updater/class-updater-options.php' );
 
 
 
-//load dissmissable notices
-add_action( 'plugins_loaded', 'cwp_license_manager_load_dismissible_notices', 0 );
+function wpdocs_my_custom_submenu_page_callback() {
+	return \calderawp\licensemanager\ui\make::the_ui();
+}
