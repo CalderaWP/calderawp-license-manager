@@ -1,9 +1,12 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: josh
- * Date: 6/18/16
- * Time: 9:09 PM
+ * Handle account update
+ *
+ * @package   calderawp-license-manager
+ * @author    Josh Pollock <Josh@CalderaWP.com>
+ * @license   GPL-2.0+
+ * @link
+ * @copyright 2016 CalderaWP LLC
  */
 
 namespace calderawp\licensemanager\ui;
@@ -12,7 +15,6 @@ namespace calderawp\licensemanager\ui;
 use calderawp\licensemanager\account\remote_user;
 use calderawp\licensemanager\api\auth;
 use calderawp\licensemanager\lm;
-use calderawp\licensemanager\plugins;
 
 class save{
 
@@ -21,7 +23,7 @@ class save{
 	protected $nonce;
 
 	public function __construct(){
-		if(  'logout' != $_POST[ 'type' ] || ! in_array( $_POST[ 'type' ], ui::tabs() )  ){
+		if(  'account' == $_POST[ 'type' ] ) {
 
 			$this->type = $_POST[ 'type' ];
 			$this->nonce = $_POST[ 'cwp-lm-save' ];
@@ -30,7 +32,8 @@ class save{
 				$this->response( 403 );
 			}
 
-			call_user_func( array( $this, $this->type ) );
+			
+			$this->account();
 		}
 
 		$this->response( 500 );

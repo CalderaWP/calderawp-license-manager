@@ -3,29 +3,57 @@
 namespace calderawp\licensemanager\api;
 
 /**
- * Created by PhpStorm.
- * User: josh
- * Date: 6/18/16
- * Time: 5:00 PM
+ * Base clase for API client
+ *
+ * @package   calderawp-license-manager
+ * @author    Josh Pollock <Josh@CalderaWP.com>
+ * @license   GPL-2.0+
+ * @link
+ * @copyright 2016 CalderaWP LLC
  */
 abstract class base {
 
-
+	/**
+	 * JWT Auth token
+	 * 
+	 * @since 2.0.0
+	 * 
+	 * @var string|bool
+	 */
 	protected $token;
 
+	/**
+	 * base constructor.
+	 *
+	 * @since 2.0.0
+	 *
+	 * 
+	 * @param string $root API Root
+	 * @param bool|string $token Optional. JWT Auth token. Required for authenticated requests. Default is false.
+	 */
 	public function __construct( $root, $token = false ){
 		$this->root = trailingslashit( $root );
 		$this->token = $token;
 	}
 
-
+	/**
+	 * Make remote request
+	 * 
+	 * @since 2.0.0
+	 * 
+	 * @param string $url Request URL 
+	 * @param array $args Optional. Request args. 
+	 * @param string $method Optional. Default is 'GET'. Options: GET|POST|DELETE|PUT
+	 * @param array $headers Optional. Headers. If token property is set, authorization header is added automatically.
+	 *
+	 * @return object|string|int
+	 */
 	public function request( $url, array $args = array(), $method = 'GET', array $headers = array() ){
 		$url = $this->root . $url;
 		if( ! empty( $this->token ) && ! isset( $headers [ 'Authorization' ]) ){
 			$headers = $this->add_auth_header( $headers );
 		}
 		
-
 		switch( $method ){
 			case 'POST' :
 				$request = wp_remote_post( $url, array(
@@ -85,6 +113,12 @@ abstract class base {
 	}
 
 	/**
+	 * Authorization header
+	 * 
+	 * BTW: This is in a separate method to decouple this class from JWT if needed.
+	 * 
+	 * @since 2.0.0
+	 * 
 	 * @param array $headers
 	 *
 	 * @return array
@@ -94,6 +128,5 @@ abstract class base {
 
 		return $headers;
 	}
-
-
+	
 }

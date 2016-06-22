@@ -1,7 +1,20 @@
 <?php
+/**
+ * Main view 
+ *
+ * @package   calderawp-license-manager
+ * @author    Josh Pollock <Josh@CalderaWP.com>
+ * @license   GPL-2.0+
+ * @link
+ * @copyright 2016 CalderaWP LLC
+ */
 namespace calderawp\licensemanager\ui;
-//wp_enqueue_script( ui::plugin_slug );
+
 use calderawp\licensemanager\plugin;
+
+if( ! defined( 'ABSPATH' ) ){
+	exit;
+}
 
 $current_tab = isset( $_GET[ 'cwp-lm-tab' ]) ? $tab = $_GET[ 'cwp-lm-tab' ] : $current_tab = 'account';
 $tabs        = ui::tabs();

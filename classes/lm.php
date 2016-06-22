@@ -1,9 +1,12 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: josh
- * Date: 6/19/16
- * Time: 2:31 PM
+ * Base class -- the master singleton
+ *
+ * @package   calderawp-license-manager
+ * @author    Josh Pollock <Josh@CalderaWP.com>
+ * @license   GPL-2.0+
+ * @link
+ * @copyright 2016 CalderaWP LLC
  */
 
 namespace calderawp\licensemanager;
@@ -37,6 +40,7 @@ class lm extends base {
 	 */
 	protected static $instance;
 	
+	/** @var  bool */
 	protected $loaded;
 
 	/**
@@ -48,13 +52,26 @@ class lm extends base {
 	 * @var plugin
 	 */
 	protected $plugin;
-	
 
+	/**
+	 * __construct
+	 * 
+	 * @since 2.0.0
+	 */
 	public function __construct(){
 		$this->init();
 		
 	}
-	
+
+	/**
+	 * Allow for getting objects of other classes contained in this object
+	 * 
+	 * @since 2.0.0
+	 * 
+	 * @param string $prop Property name
+	 *
+	 * @return object
+	 */
 	public function __get( $prop ){
 		if( is_object( $this->$prop ) ){
 			return $this->$prop;
@@ -64,7 +81,9 @@ class lm extends base {
 	/**
 	 * Listen for our various requests
 	 * 
+	 * @since 2.0.0
 	 * 
+	 * @uses "admin_init"
 	 */
 	public function listeners(){
 		
@@ -80,6 +99,8 @@ class lm extends base {
 	 * 
 	 * Is not a true singleton, but if initialized twice, will need to set props manually.
 	 * 
+	 * @since 2.0.0
+	 * 
 	 * @return lm
 	 */
 	public static function get_instance(){
@@ -89,7 +110,14 @@ class lm extends base {
 		
 		return self::$instance;
 	}
-	
+
+	/**
+	 * Get auth token
+	 * 
+	 * @since 2.0.0
+	 * 
+	 * @return bool|string
+	 */
 	public function get_token(){
 		$token = $this->account->get_token();
 		if ( ! empty($token ) ){
@@ -97,12 +125,24 @@ class lm extends base {
 		}
 		return false;
 	}
-	
+
+	/**
+	 * Are we logged in to CalderaWP?
+	 * 
+	 * @since 2.0.0
+	 * 
+	 * @return bool
+	 */
 	public function logged_in(){
 		return is_string( $this->get_token() );
+		
 	}
 
-	
+	/**
+	 * Init if not already
+	 * 
+	 * @since 2.0.0
+	 */
 	public function init(){
 		if( true !== $this->loaded ){
 			add_action( 'admin_init', array( $this, 'listeners' ) );

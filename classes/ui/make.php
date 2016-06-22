@@ -1,9 +1,12 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: josh
- * Date: 6/18/16
- * Time: 5:58 PM
+ * Make the admin UI go
+ *
+ * @package   calderawp-license-manager
+ * @author    Josh Pollock <Josh@CalderaWP.com>
+ * @license   GPL-2.0+
+ * @link
+ * @copyright 2016 CalderaWP LLC
  */
 
 namespace calderawp\licensemanager\ui;

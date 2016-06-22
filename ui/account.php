@@ -1,8 +1,21 @@
 <?php
+/**
+ * Account tab 
+ *
+ * @package   calderawp-license-manager
+ * @author    Josh Pollock <Josh@CalderaWP.com>
+ * @license   GPL-2.0+
+ * @link
+ * @copyright 2016 CalderaWP LLC
+ */
 
 namespace calderawp\licensemanager\ui;
 
 use calderawp\licensemanager\lm;
+
+if( ! defined( 'ABSPATH' ) ){
+	exit;
+}
 
 $token = lm::get_instance()->get_token();
 if( ! $token ) :

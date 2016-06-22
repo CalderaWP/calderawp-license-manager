@@ -4,6 +4,8 @@
 
 /**
  * Include files
+ *
+ * @since 2.0.0
  */
 add_action( 'plugins_loaded', function(){
 
@@ -17,44 +19,35 @@ add_action( 'plugins_loaded', function(){
 }, 1 );
 
 /**
- * Register autoloader
+ * Register PSR-4 autoloader
+ *
+ * @since 2.0.0
  */
 add_action( 'plugins_loaded', function(){
 
 	spl_autoload_register( function ($class) {
-
-
 		$prefix = 'calderawp\\licensemanager\\';
-
-		// base directory for the namespace prefix
 		$base_dir = CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/';
-
-		// does the class use the namespace prefix?
 		$len = strlen($prefix);
 		if (strncmp($prefix, $class, $len) !== 0) {
 			// no, move to the next registered autoloader
 			return;
 		}
 
-		// get the relative class name
 		$relative_class = substr($class, $len);
-
-		// replace the namespace prefix with the base directory, replace namespace
-		// separators with directory separators in the relative class name, append
-		// with .php
 		$file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
 
 		// if the file exists, require it
 		if (file_exists($file)) {
 			require $file;
-		}else{
-			$x = 1;
 		}
 	});
 }, 2 );
 
 /**
  * Add our menu
+ *
+ * @since 2.0.0
  */
 add_action( 'admin_menu', function() {
 	if( defined( '-CFCORE_VER' ) ) {
@@ -77,19 +70,17 @@ add_action( 'admin_menu', function() {
 
 /**
  * Make Plugin go
+ *
+ * @since 2.0.0
  */
 add_action( 'admin_init', function(){
-
-
-
 	$make = new \calderawp\licensemanager\ui\make();
 	add_action( 'admin_enqueue_scripts', array( $make, 'register_script' ), 35 );
 	\calderawp\licensemanager\lm::get_instance();
-	
-	
+
 }, 1 );
 
-
+//REST API? Probbly not doing this...
 add_action( '---rest_api_init', function(){
 	$api = new \calderawp\licensemanager\api\internal\views();
 	$api->add_routes();

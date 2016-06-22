@@ -1,29 +1,62 @@
 <?php
+/**
+ * Helper functions for constructing our UI
+ *
+ * @package   calderawp-license-manager
+ * @author    Josh Pollock <Josh@CalderaWP.com>
+ * @license   GPL-2.0+
+ * @link
+ * @copyright 2016 CalderaWP LLC
+ */
 
 namespace calderawp\licensemanager\ui;
 use calderawp\licensemanager\base;
 use calderawp\licensemanager\license;
 use calderawp\licensemanager\lm;
-use calderawp\licensemanager\plugins;
 
-/**
- * Created by PhpStorm.
- * User: josh
- * Date: 6/18/16
- * Time: 4:28 PM
- */
+
+
 class ui extends base {
-    
+
+	/**
+	 * URL to submit admin form against
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return string
+	 */
     public static function submit_url(){
 	  
         return admin_url( );
     }
-    
+
+	/**
+	 * URl for main admin
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return string
+	 */
     public static function main_url(){
         $url = add_query_arg( 'page', 'cwp-lm', admin_url( make::menu_parent() ) );
+
+	    /**
+	     * Filter URL for main admin
+	     *
+	     * @since 2.0.0
+	     */
         return apply_filters( 'calderawp_license_manage_main_url', $url );
     }
 
+	/**
+	 * URL for a tab
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $tab Tab name
+	 *
+	 * @return string
+	 */
     public static function tab_url( $tab ){
         $url = self::main_url();
         if( array_key_exists( $tab, self::tabs() ) ){
@@ -33,19 +66,35 @@ class ui extends base {
         return $url;
         
     }
-    
+
+	/**
+	 * Get tab_name => tab description
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return array
+	 */
     public static function tabs(){
 
-        $tabs = array(
-            'account' => __( 'Account', 'calderawp-license-manager' ),
-            'caldera-forms' => __( 'Caldera Forms Add-ons', 'calderawp-license-manager' ),
-            'caldera-other' =>  __( 'Other CalderaWP Plugins', 'calderawp-license-manager' ),
-            'beta' =>  __( 'Beta', 'calderawp-license-manager' ),
-        );
-        return $tabs;
+	    $tabs = array(
+		    'account'       => __( 'Account', 'calderawp-license-manager' ),
+		    'caldera-forms' => __( 'Caldera Forms Add-ons', 'calderawp-license-manager' ),
+		    'caldera-other' => __( 'Other CalderaWP Plugins', 'calderawp-license-manager' ),
+		    'beta'          => __( 'Beta', 'calderawp-license-manager' ),
+	    );
+
+	    return $tabs;
     }
-	
-	
+
+	/**
+	 * Get HTML for a plugin in admin UI
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param \stdClass $plugin Plugin object
+	 *
+	 * @return mixed|string|void
+	 */
 	public static function plugin_view( $plugin ){
 		if( ! is_object( $plugin ) || ! property_exists( $plugin, 'name' ) ){
 			return;
@@ -66,7 +115,6 @@ class ui extends base {
 			}
 
 		}
-		
 
 		ob_start();
 		include CALDERA_WP_LICENSE_MANAGER_PATH . 'ui/plugin.php';
@@ -83,6 +131,20 @@ class ui extends base {
 		return $template;
 	}
 
+	/**
+	 * Make the buttons
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param \stdClass $plugin Plugin object
+	 * @param bool $installed Is plugin installed?
+	 * @param bool $active Is plugin active?
+	 * @param license|null $license License object or null if not found.
+	 * @param bool $has_activations Are activations available?
+	 * @param string $activations Activations text
+	 *
+	 * @return mixed|string
+	 */
 	protected static function button_markup( $plugin, $installed, $active, license $license = null, $has_activations, $activations ){
 		if( ! $installed && null !== $license ){
 			$button = self::button(
@@ -125,7 +187,17 @@ class ui extends base {
 
 		return $button;
 	}
-	
+
+	/**
+	 * Make an install button HTML
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param \stdClass $plugin Plugin object
+	 * @param license|null $license Optional. License object or null if it isn't availble
+	 *
+	 * @return mixed|string
+	 */
 	protected static function install_button( $plugin, license $license = null ){
 		if( null !== $license ){
 			$link = install::link( $license->license, $license->download, false );
@@ -152,10 +224,34 @@ class ui extends base {
 
 	}
 
+	/**
+	 * Create an activation link
+	 *
+	 * @since 2.0.0
+	 *
+	 * @todo MAKE THIS WORK!
+	 *
+	 * @param $plugin
+	 *
+	 * @return string|void
+	 */
 	protected static  function activation_link( $plugin ){
 		return home_url();
 	}
 
+	/**
+	 * Make a button
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $text Text for link
+	 * @param string $link URL
+	 * @param bool $right Optional. If true, the default, button is aligned right. Else alignment is to the left.
+	 * @param bool $primary Optional. If true, button is a primary button. Default is false.
+	 * @param string $other Optional. Additional markup to put inside main element before link element.
+	 *
+	 * @return mixed|string
+	 */
 	protected static function button( $text, $link, $right = true, $primary = false, $other = '' ){
 		ob_start();
 		include CALDERA_WP_LICENSE_MANAGER_PATH . 'ui/button.php';
@@ -177,9 +273,6 @@ class ui extends base {
 		$template = str_replace( '{{other}}', $other, $template );
 		$template = str_replace( '{{class}}', $class, $template );
 		return $template;
-
-
-
 
 	}
 	

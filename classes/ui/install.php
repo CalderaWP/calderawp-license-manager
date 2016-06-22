@@ -1,9 +1,12 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: josh
- * Date: 6/21/16
- * Time: 9:20 PM
+ * Handler for plugin installation HTTP requests
+ *
+ * @package   calderawp-license-manager
+ * @author    Josh Pollock <Josh@CalderaWP.com>
+ * @license   GPL-2.0+
+ * @link
+ * @copyright 2016 CalderaWP LLC
  */
 
 namespace calderawp\licensemanager\ui;
