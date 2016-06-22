@@ -2,9 +2,9 @@
 
 namespace calderawp\licensemanager\ui;
 
-use calderawp\licensemanager\plugin;
+use calderawp\licensemanager\lm;
 
-$token = plugin::get_instance()->get_token();
+$token = lm::get_instance()->get_token();
 if( ! $token ) :
 ?>
 <form id="cwp-lm-account" action="<?php echo esc_url( ui::submit_url() ); ?>" method="post">
@@ -29,7 +29,7 @@ if( ! $token ) :
 </form>
 <?php
 else :
-	$display_name = plugin::get_instance()->account->get_displayname();
+	$display_name = lm::get_instance()->account->get_displayname();
 ?>
 	<div class="calderawp_license_manager-config-group">
 		<?php printf( 'You are logged in to CalderaWP as %s', $display_name ); ?>

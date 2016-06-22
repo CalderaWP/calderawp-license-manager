@@ -21,8 +21,8 @@ abstract class base {
 
 	public function request( $url, array $args = array(), $method = 'GET', array $headers = array() ){
 		$url = $this->root . $url;
-		if( ! empty( $this->token ) && ! isset( $headers['Authorization' ]) ){
-			$headers =  $headers['Authorization' ] = $this->auth_header();
+		if( ! empty( $this->token ) && ! isset( $headers [ 'Authorization' ]) ){
+			$headers = $this->add_auth_header( $headers );
 		}
 		
 
@@ -84,8 +84,16 @@ abstract class base {
 
 	}
 
-	public function auth_header(){
-		return  'Bearer ' . $this->token;
+	/**
+	 * @param array $headers
+	 *
+	 * @return array
+	 */
+	protected function add_auth_header( array $headers ) {
+		$headers['Authorization'] = 'Bearer ' . $this->token;
+
+		return $headers;
 	}
+
 
 }

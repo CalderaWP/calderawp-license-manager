@@ -12,14 +12,14 @@ namespace calderawp\licensemanager\api;
 class cwp extends base {
 
 	public function all(){
-		$plugins = $this->request( $this->root . 'calderawp_api/v2/products', array(
+		$plugins = $this->request( 'calderawp_api/v2/products', array(
 			'per_page' => 1000
 		) );
 		return $plugins;
 	}
 
 	public function cf_addons(){
-		$plugins = $this->request( $this->root . 'calderawp_api/v2/products/cf-addons', array(
+		$plugins = $this->request( 'calderawp_api/v2/products/cf-addons', array(
 			'per_page' => 1000
 		) );
 		return $plugins;
@@ -31,7 +31,7 @@ class cwp extends base {
 	}
 
 	public function cf_bundles(){
-		$plugins = $this->request( $this->root . 'calderawp_api/v2/products/cf-bundles' );
+		$plugins = $this->request( 'calderawp_api/v2/products/cf-bundles' );
 		return $plugins;
 
 	}

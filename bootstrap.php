@@ -1,10 +1,12 @@
 <?php
 
 
+
 /**
  * Include files
  */
 add_action( 'plugins_loaded', function(){
+
 	require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'includes/functions.php' );
 
 	//require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/updater/class-updater.php' );
@@ -18,6 +20,7 @@ add_action( 'plugins_loaded', function(){
  * Register autoloader
  */
 add_action( 'plugins_loaded', function(){
+
 	spl_autoload_register( function ($class) {
 
 
@@ -76,14 +79,15 @@ add_action( 'admin_menu', function() {
  * Make Plugin go
  */
 add_action( 'admin_init', function(){
+
+
+
 	$make = new \calderawp\licensemanager\ui\make();
 	add_action( 'admin_enqueue_scripts', array( $make, 'register_script' ), 35 );
-	\calderawp\licensemanager\plugin::get_instance();
+	\calderawp\licensemanager\lm::get_instance();
 	
-	if( isset( $_POST, $_POST[ 'cwp-lm-save' ] ) ){
-		new \calderawp\licensemanager\ui\save();
-	}
-});
+	
+}, 1 );
 
 
 add_action( '---rest_api_init', function(){

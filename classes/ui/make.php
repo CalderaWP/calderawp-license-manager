@@ -14,7 +14,7 @@ use calderawp\licensemanager\base;
 class make extends base{
 
 	public static  function menu_parent(){
-
+		add_thickbox();
 		if( defined( '-CFCORE_VER' ) ) {
 			$page = 'caldera-forms';
 		}else {

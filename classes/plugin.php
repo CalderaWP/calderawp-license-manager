@@ -2,98 +2,149 @@
 /**
  * Created by PhpStorm.
  * User: josh
- * Date: 6/19/16
- * Time: 2:31 PM
+ * Date: 6/20/16
+ * Time: 9:16 PM
  */
 
 namespace calderawp\licensemanager;
 
 
-use calderawp\licensemanager\account\account;
-
-use calderawp\licensemanager\api\cwp;
-use calderawp\licensemanager\api\sl;
-
-class plugin extends base {
-
-	/**
-	 * @var sl
-	 */
-	protected $sl_api;
-
-	/**
-	 * @var cwp
-	 */
-	protected $cwp_api;
+class plugin {
 
 	/**
 	 * @var plugins
 	 */
 	protected $plugins;
 
-	/**
-	 * @var plugin
-	 */
-	protected static $instance;
+	protected $names = array(
+		'cf' => array(),
+		'search' => array(),
+		'licensed' => array(),
+		'installed' => array(),
+	);
 	
-	protected $loaded;
-
-	/**
-	 * @var account
-	 */
-	protected $account;
-	
-	
-
-	public function __construct(){
-		$this->init();
-	}
-	
-	public function __get( $prop ){
-		if( is_object( $this->$prop ) ){
-			return $this->$prop;
-		}
+	public function __construct( plugins $plugins ) {
+		$this->plugins = $plugins;
+		$this->set_names();
 	}
 
-	/**
-	 * Get main plugin instance
-	 * 
-	 * Is not a true singleton, but if initialized twice, will need to set props manually.
-	 * 
-	 * @return plugin
-	 */
-	public static function get_instance(){
-		if( null == self::$instance ){
-			self::$instance = new self();
+	public function is_active( $basename ){
+		return is_plugin_active( $basename );
+	}
+	
+	public function is_installed( $name ){
+
+
+		if( empty( $this->names[ 'installed' ] ) ){
+			return false;
 		}
 		
-		return self::$instance;
-	}
-	
-	public function get_token(){
-		$token = $this->account->get_token();
-		if ( ! empty($token ) ){
-			return $token;
+		$name = sanitize_key( $name );
+
+
+		if( array_key_exists( $name, $this->names[ 'installed' ] ) ){
+			return $this->names[ 'installed' ][ $name ];
 		}
+
 		return false;
-	}
-	
-	public function logged_in(){
-		return is_string( $this->get_token() );
+
 	}
 
-	
-	public function init(){
-		if( true !== $this->loaded ){
-			$this->account = new account( null );
+	public function get_license( $name ){
+		$id = $this->has_license( $name );
+		if( $id ){
 
-			$this->sl_api = new sl( CALDERA_WP_LICENSE_MANAGER_API, $this->account->get_token() );
-			$this->cwp_api = new cwp( CALDERA_WP_LICENSE_MANAGER_API, $this->account->get_token()  );
+			$licenses = $this->plugins->get_plugins( 'licensed' );
+			if( isset( $licenses[ $id ] ) ){
+				return $licenses[ $id ];
+			}
 
-			$this->plugins = new plugins( $this->cwp_api, $this->sl_api );
-			$this->loaded = true;
+			
 		}
 		
 	}
+	
+	public function get_basename( $name ){
+		
+	}
+	
+	
 
+	public function has_license( $name ){
+
+		if( empty( $this->names[ 'licensed' ] ) ){
+			return 0;
+		}
+
+		$name = sanitize_key( $name );
+
+
+		if(  array_key_exists( $name, $this->names[ 'licensed'  ] ) ){
+			return $this->names[ 'licensed' ][ $name ];
+		}else{
+			return 0;
+		}
+		
+	}
+	
+	public function activations_remaining( license $license ){
+		if( true == $license->unlimited || -1 == $license->limit ){
+			$remaining =  __( 'Unlimited Activations', 'calderawp-license-manager');
+		}else{
+			$remaining = $license->license - $license->activations;
+			$remaining = sprintf( __( '%s Activations Remaining', 'calderawp-license-manager' ) );
+		}
+		
+		return $remaining;
+		
+		
+	}
+
+	public function has_activations( license $license ){
+		if( false != $license->at_limit ){
+			return true;
+		}
+		
+		return false;
+
+	}
+
+	public function install( $slug ){
+		$id =  $this->find_id( $slug );
+
+	}
+
+	protected function find_id( $slug ){
+		return 42;
+	}
+
+	protected function set_names() {
+		$all = $this->plugins->get_plugins_array();
+
+		foreach( array( 'cf', 'search', 'licensed', 'installed' ) as $key ){
+			if( 'installed' == $key ){
+				$name_field = 'Name';
+			}elseif( 'licensed' == $key ){
+				$name_field = 'title';
+			}else{
+				$name_field = 'name';
+			}
+
+			if( ! empty( $all[ $key ] ) ){
+				foreach ( $all[ $key ] as $id => $item ){
+					if( is_object( $item ) && property_exists( $item, $name_field ) ){
+						$this->names[ $key ][ $id ] = sanitize_key( $item->$name_field );
+					}
+
+				}
+
+				$this->names[ $key ] = array_flip( $this->names[ $key ] );
+
+			}else{
+				$this->names[ $key ] = array();
+			}
+		}
+
+	}
+	
 }

@@ -23,27 +23,18 @@ function cwp_license_manager_load_dismissible_notices(){
 }
 
 
-
-function cwp_license_manager_install_plugin( $download_link ) {
-
-
-	include_once ABSPATH . 'wp-admin/includes/admin.php';
-	include_once ABSPATH . 'wp-admin/includes/upgrade.php';
-	include_once ABSPATH . 'wp-includes/update.php';
-	require_once ( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
-	include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-
-	$upgrader = new Plugin_Upgrader();
-
-	$result = $upgrader->install( $download_link );
-	if ( is_wp_error( $result ) ){
-		return $result;
-	} elseif ( ! $result ) {
-		return new WP_Error( 'plugin-install', __( 'Unknown error installing plugin.', 'calderawp-license-manager' ) );
+function cwp_license_manager_response( $code = 200, $type, $message = '', $error = false ){
+	status_header( $code );
+	$url = \calderawp\licensemanager\ui\ui::tab_url( $type );
+	if( ! empty( $message ) ){
+		$url = add_query_arg( 'cwp-lm-message', urlencode( $message ), $url );
+	}
+	
+	if( $error ){
+		$url = add_query_arg( 'cwp-lm-error', 1, $url );
 	}
 
-
-	return true;
-	
+	wp_redirect(  $url );
+	exit;
 }
 

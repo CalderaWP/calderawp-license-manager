@@ -28,7 +28,7 @@ class plugins {
 		'installed' => array()
 	);
 	
-	protected $names;
+	
 
 	/**
 	 * @var bool string
@@ -41,70 +41,42 @@ class plugins {
 		
 		$this->get_remote();
 		$this->get_licensed();
-		$this->get_installed_plugins();
+		$this->find_installed_plugins();
 
 	}
 
-	public function get_plugins( $cf = true ){
-		if( $cf && ! empty( $this->plugins[ 'cf' ] ) ){
-			return $this->plugins[ 'cf' ];
-		}elseif( ! empty( $this->plugins[ 'search' ] ) ){
-			return $this->plugins[ 'search' ];
-		}
-
-
-		return false;
-	}
-
-	public function is_installed( $name ){
-		if( null == $this->names ){
-			$this->set_names( );
-		}
-
-		if( empty( $this->names[ 'installed' ] ) ){
+	public function get_plugins( $type = 'cf' ){
+		if( ! isset( $this->plugins[ $type ] ) ){
+			return false;
+		}elseif( ! empty( $this->plugins[ $type ] ) ){
+			return $this->plugins[ $type ];
+		}else{
 			return false;
 		}
 
-		if( array_key_exists( $name, $this->names[ 'installed' ] ) ){
-			return $this->names[ 'installed' ][ $name ];
-		}
-
-		return false;
-
+	}
+	
+	public function get_plugins_array(){
+		return $this->plugins;
 	}
 
-	public function is_active( $basename ){
 
-	}
 
-	public function activate( $basename ){
+	
 
-	}
-
-	public function install( $slug ){
-		$id =  $this->find_id( $slug );
-		$file = $this->sl_api->get_file( $id );
-	}
-
-	protected function find_id( $slug ){
-		return 42;
-	}
-
-	protected function get_installed_plugins(){
+	protected function find_installed_plugins(){
 		$this->plugins[ 'installed' ] = get_plugins();
 	}
 
 
-
-
 	protected function get_remote(){
 
-		if( false == ( $this->plugins[ 'cf' ]  = get_transient( $this->cache_key( 'cf' ) ) ) || is_string( $this->plugins[ 'cf' ] ) ){
+		if( false == ( $this->plugins[ 'cf' ]  = get_transient( $this->cache_key( 'xcf' ) ) ) || is_string( $this->plugins[ 'cf' ] ) ){
 			$this->plugins[ 'cf' ] = $this->cwp_api->cf_addons();
 			if( is_wp_error( $this->plugins[ 'cf' ] ) ){
 				$this->plugins[ 'cf' ] = false;
 			}else{
-				set_transient( $this->cache_key( 'cf' ), $this->plugins[ 'cf' ], WEEK_IN_SECONDS );
+				set_transient( $this->cache_key( 'xcf' ), $this->plugins[ 'cf' ], WEEK_IN_SECONDS );
 			}
 
 
@@ -117,7 +89,7 @@ class plugins {
 		if( false == ( $this->plugins[ 'search' ]  = get_transient( $this->cache_key( 'psearch' ) ) ) || is_string( $this->plugins[ 'search' ]) ){
 			$this->plugins[ 'search' ] = $this->cwp_api->caldera_search();
 			if( is_wp_error( $this->plugins[ 'search' ] ) ){
-				$this->plugins[ 'cf' ] = false;
+				$this->plugins[ 'search' ] = false;
 			}else{
 				set_transient( $this->cache_key( 'psearch' ), $this->plugins[ 'search' ], WEEK_IN_SECONDS );
 			}
@@ -125,8 +97,8 @@ class plugins {
 
 		}
 
-		if( is_object( $this->plugins[ 'cf' ] ) ){
-			$this->plugins[ 'cf' ] = (array) $this->plugins[ 'search' ];
+		if( is_object( $this->plugins[ 'search' ] ) ){
+			$this->plugins[ 'search' ] = (array) $this->plugins[ 'search' ];
 		}
 
 
@@ -137,9 +109,22 @@ class plugins {
 	protected function get_licensed(){
 		
 		$plugins = $this->sl_api->get_licensed();
-		if( ! is_wp_error( $plugins ) ){
+		if( ! is_wp_error( $plugins ) && ! is_string( $plugins )  ){
 
 			$this->plugins[ 'licensed' ]  =  $plugins;
+			if ( ! empty( $this->plugins[ 'licensed' ] ) ){
+				$_plugins = (array) $this->plugins[ 'licensed' ];
+				$this->plugins[ 'licensed' ] = array();
+				foreach ( $_plugins as $i => $plugin ){
+					if( is_array( $plugin ) ){
+						$plugin = (object) $plugin;
+					}
+					$_plugins[ $i ] = new license( $plugin );
+				}
+
+				$this->plugins[ 'licensed' ] = $_plugins;
+			}
+			
 		}else{
 
 			$this->plugins[ 'licensed' ]  =  false;
@@ -159,21 +144,6 @@ class plugins {
 	}
 
 
-	protected function set_names() {
-		if( ! empty( $this->plugins[ 'installed' ] ) ){
-			$this->names[ 'installed' ] = array_flip( wp_list_pluck( $this->plugins[ 'installed' ], 'Name' ) );
-		}else{
-			$this->names[ 'installed' ] = array();
-		}
-		foreach( array( 'cf', 'search' ) as $key ){
-			if( ! empty( $this->plugins[ $key ]) ){
-				$this->names[ $key ]        = wp_list_pluck( $this->plugins[ 'cf' ], 'name' );
-			}else{
-				$this->names[ $key ] = array();
-			}
-		}
-
-	}
 
 
 }

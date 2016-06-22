@@ -28,6 +28,7 @@ if( defined( 'CALDERA_WP_LICENSE_MANAGER_VER' ) ){
 	return;
 }
 
+
 define( 'CALDERA_WP_LICENSE_MANAGER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'CALDERA_WP_LICENSE_MANAGER_URL', plugin_dir_url( __FILE__ ) );
 define( 'CALDERA_WP_LICENSE_MANAGER_VER', '2.0.0-a-1' );
@@ -46,6 +47,3 @@ include CALDERA_WP_LICENSE_MANAGER_PATH . '/bootstrap.php';
 
 
 
-function wpdocs_my_custom_submenu_page_callback() {
-	return \calderawp\licensemanager\ui\make::the_ui();
-}
