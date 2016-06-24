@@ -72,6 +72,12 @@ class plugin {
 			return $this->names[ 'installed' ][ $name ];
 		}
 
+		$name = str_replace( 'add-on', '', $name );
+
+		if( array_key_exists( $name, $this->names[ 'installed' ] ) ){
+			return $this->names[ 'installed' ][ $name ];
+		}
+
 		return false;
 
 	}
