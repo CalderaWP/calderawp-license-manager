@@ -10,6 +10,7 @@
  */
 
 namespace calderawp\licensemanager\ui;
+use calderawp\licensemanager\api\deactivate;
 use calderawp\licensemanager\base;
 use calderawp\licensemanager\license;
 use calderawp\licensemanager\lm;
@@ -195,13 +196,14 @@ class ui extends base {
 	 *
 	 * @param \stdClass $plugin Plugin object
 	 * @param license|null $license Optional. License object or null if it isn't availble
+	 * @param bool $right Optional. Align right? Default is false
 	 *
 	 * @return mixed|string
 	 */
-	protected static function install_button( $plugin, license $license = null ){
+	protected static function install_button( $plugin, license $license = null, $right = false ){
 		if( null !== $license ){
 			$link = install::link( $license->license, $license->download, false );
-			return self::button( 'Install', $link, false, true );
+			return self::button( 'Install', $link, $right, true );
 		}else{
 			$link = add_query_arg(
 				array(
@@ -222,21 +224,6 @@ class ui extends base {
 		}
 
 
-	}
-
-	/**
-	 * Create an activation link
-	 *
-	 * @since 2.0.0
-	 *
-	 * @todo MAKE THIS WORK!
-	 *
-	 * @param $plugin
-	 *
-	 * @return string|void
-	 */
-	protected static  function activation_link( $plugin ){
-		return home_url();
 	}
 
 	/**
@@ -274,6 +261,45 @@ class ui extends base {
 		$template = str_replace( '{{class}}', $class, $template );
 		return $template;
 
+	}
+	
+	
+	public static function license( license $license ){
+		ob_start();
+		include CALDERA_WP_LICENSE_MANAGER_PATH . 'ui/license.php';
+		$template = ob_get_clean();
+		$sites = esc_html__( 'License not active on any site', 'calderawp-license-manger' );
+		if( ! empty( $license->sites ) ){
+			$sites = array();
+			$pattern = '<li><a class="button right" href="%s" title="%s"><pre style="display: inline">%s</pre> %s</a></li>';
+			foreach( $license->sites as $site ){
+				$sites[] = sprintf( $pattern,
+					esc_url( deactivate::link( $license->license, $license->download, home_url() ) ),
+					esc_attr__( 'Click to deactivate license', 'calderawp-license-manager' ),
+					esc_url( $site ),
+					esc_html__( 'Deactivate License On Site', 'calderawp-license-manager' )
+				);
+			}
+
+			$sites = sprintf( '<ul class="sites"><h5>%s</h5>%s</ul>',
+				esc_html__( 'Active Sites', 'calderawp-license-manger' ),
+				implode( "\n\n", $sites )
+			);
+		}
+
+		$install_here = '';
+		$installed = lm::get_instance()->plugin->is_installed( $license->title );
+		if( ! $installed ){
+			$install_here = self::install_button( $license->obj, $license, true );
+		}
+				
+		$title = $license->title;
+		
+		foreach( array( 'title', 'install_here','sites' ) as $substitution ){
+			$template = str_replace( '{{' . $substitution . '}}', $$substitution, $template );
+		}
+		
+		return $template;
 	}
 	
 }

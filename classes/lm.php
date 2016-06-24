@@ -15,6 +15,7 @@ namespace calderawp\licensemanager;
 use calderawp\licensemanager\account\account;
 
 use calderawp\licensemanager\api\cwp;
+use calderawp\licensemanager\api\deactivate;
 use calderawp\licensemanager\api\sl;
 use calderawp\licensemanager\ui\install;
 
@@ -86,11 +87,13 @@ class lm extends base {
 	 * @uses "admin_init"
 	 */
 	public function listeners(){
-		
+
 		if( isset( $_GET[ install::ARG ] ) ){
 			install::do_install( $_GET[ install::ARG ] );
 		}elseif( isset( $_POST, $_POST[ 'cwp-lm-save' ] ) ){
 			new \calderawp\licensemanager\ui\save();
+		}elseif( isset( $_GET[ deactivate::ARG ] ) ){
+			deactivate::do_deactivation();
 		}
 	}
 
@@ -152,7 +155,7 @@ class lm extends base {
 			$this->sl_api = new sl( CALDERA_WP_LICENSE_MANAGER_API, $this->account->get_token() );
 			$this->cwp_api = new cwp( CALDERA_WP_LICENSE_MANAGER_API, $this->account->get_token()  );
 
-			$this->plugins = new plugins( $this->cwp_api, $this->sl_api );
+			$this->plugins = new plugins( $this->cwp_api, $this->sl_api, $this->account->get_token() );
 			$this->plugin = new plugin( $this->plugins );
 			
 			$this->loaded = true;

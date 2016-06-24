@@ -64,5 +64,19 @@ else :
 
 
 	</form>
+	<div style="clear: both"></div>
 
-<?php endif;
+	<?php
+	$plugins = \calderawp\licensemanager\lm::get_instance()->plugins->get_plugins( 'licensed' );
+	if( is_array( $plugins ) && ! empty( $plugins ) ) {
+		foreach( $plugins as $licencse ){
+			echo ui::license( $licencse );
+		}
+
+	}
+
+
+
+
+endif;
+

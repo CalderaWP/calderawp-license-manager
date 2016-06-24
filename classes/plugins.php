@@ -42,10 +42,11 @@ class plugins {
 	 * @param cwp $cwp_api CWP API client
 	 * @param sl $sl_api EDD SL API client
 	 */
-	public function __construct( cwp $cwp_api, sl $sl_api ) {
+	public function __construct( cwp $cwp_api, sl $sl_api, $token = '' ) {
 		$this->cwp_api = $cwp_api;
 		$this->sl_api = $sl_api;
-		
+		$this->token = $token;
+
 		$this->find_remote();
 		$this->find_licensed();
 		$this->find_installed_plugins();
@@ -100,12 +101,13 @@ class plugins {
 	 */
 	protected function find_remote(){
 
-		if( false == ( $this->plugins[ 'cf' ]  = get_transient( $this->cache_key( 'xcf' ) ) ) || is_string( $this->plugins[ 'cf' ] ) ){
+		$key = 'cfaddons';
+		if( false == ( $this->plugins[ 'cf' ]  = get_transient( $this->cache_key( $key) ) ) || is_string( $this->plugins[ 'cf' ] ) ){
 			$this->plugins[ 'cf' ] = $this->cwp_api->cf_addons();
 			if( is_wp_error( $this->plugins[ 'cf' ] ) ){
 				$this->plugins[ 'cf' ] = false;
 			}else{
-				set_transient( $this->cache_key( 'xcf' ), $this->plugins[ 'cf' ], WEEK_IN_SECONDS );
+				set_transient( $this->cache_key( $key ), $this->plugins[ 'cf' ], WEEK_IN_SECONDS );
 			}
 
 		}
@@ -114,12 +116,13 @@ class plugins {
 			$this->plugins[ 'cf' ] = (array) $this->plugins[ 'cf' ];
 		}
 
-		if( false == ( $this->plugins[ 'search' ]  = get_transient( $this->cache_key( 'psearch' ) ) ) || is_string( $this->plugins[ 'search' ] ) ){
+		$key = 'csearch';
+		if( false == ( $this->plugins[ 'search' ]  = get_transient( $this->cache_key( $key ) ) ) || is_string( $this->plugins[ 'search' ] ) ){
 			$this->plugins[ 'search' ] = $this->cwp_api->caldera_search();
 			if( is_wp_error( $this->plugins[ 'search' ] ) ){
 				$this->plugins[ 'search' ] = false;
 			}else{
-				set_transient( $this->cache_key( 'psearch' ), $this->plugins[ 'search' ], WEEK_IN_SECONDS );
+				set_transient( $this->cache_key( $key ), $this->plugins[ 'search' ], WEEK_IN_SECONDS );
 			}
 
 		}
@@ -146,18 +149,18 @@ class plugins {
 			$plugins = $this->sl_api->get_licensed();
 			if ( ! is_wp_error( $plugins ) && ! is_string( $plugins ) ) {
 
-				$this->plugins['licensed'] = $plugins;
-				if ( ! empty( $this->plugins['licensed'] ) ) {
-					$_plugins                  = (array) $this->plugins['licensed'];
-					$this->plugins['licensed'] = array();
-					foreach ( $_plugins as $i => $plugin ) {
+				if ( ! empty( $plugins ) ) {
+					$_plugins = array();
+
+					foreach ( (array) $plugins as $i => $plugin ) {
 						if ( is_array( $plugin ) ) {
 							$plugin = (object) $plugin;
 						}
+
 						$_plugins[ $i ] = new license( $plugin );
 					}
 
-					$this->plugins['licensed'] = $_plugins;
+					$this->plugins[ 'licensed' ] = $_plugins;
 					set_transient( $this->cache_key( 'licensed'), $this->plugins[ 'licensed' ], 59 );
 				}
 

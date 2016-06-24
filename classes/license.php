@@ -34,7 +34,7 @@ class license {
 	 * @param \stdClass $obj
 	 */
 	public function set_from_std( \stdClass $obj ){
-		
+		$this->obj = $obj;
 		foreach( array_keys( get_object_vars( $this ) ) as $prop ){
 			if( property_exists( $obj, $prop ) ){
 				$this->$prop = $obj->$prop;
@@ -133,6 +133,11 @@ class license {
 	 * @var int
 	 */
 	public $limit;
+
+	/**
+	 * @var \stdClass
+	 */
+	public $obj;
 	
 
 }

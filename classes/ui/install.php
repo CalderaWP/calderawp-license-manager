@@ -21,7 +21,12 @@ class install {
 	const DOWNLOAD_ARG = 'cwp-lm-install-download';
 	
 	const NONCE_ARG = 'cwp-lm-install-nonce';
-	
+
+	/**
+	 * @param int $input For first request is license ID.
+	 * @param bool $download_id
+	 * @param bool $nonce
+	 */
 	public static function do_install( $input, $download_id = false, $nonce = false ){
 		if( false == $nonce && isset( $_GET[ self::NONCE_ARG ]) ) {
 			$nonce = $_GET[ self::NONCE_ARG ];
@@ -33,7 +38,8 @@ class install {
 		}
 
 		if( wp_verify_nonce( $nonce, self::ARG ) ){
-			if( is_numeric( $input ) ){
+			//check if we have license ID not file (license id of 1 is a sign that we had a problem with URL encode on file path.
+			if( is_numeric( $input ) && 1 < absint( $input ) ){
 				$file = self::get_download_link( $input, $download_id );
 				if( filter_var( $file, FILTER_VALIDATE_URL ) ){
 					
@@ -43,6 +49,7 @@ class install {
 					cwp_license_manager_response( 403, esc_html__( 'Could not install. Please try again.', 'calderawp-license-manager' ), true );
 					exit;
 				}
+			//valid install file?
 			}elseif ( filter_var( $input, FILTER_VALIDATE_URL ) ){
 				$installed = self::install_plugin( $input );
 				if( $installed ){
@@ -60,10 +67,21 @@ class install {
 		
 		
 	}
-	
+
+	/**
+	 * Create install link
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param int|string $input ID of licnese ($file should be false) or File URL ($file should be true)
+	 * @param int $download_id Download ID
+	 * @param bool $file Optional. If is link for file. Default is false
+	 *
+	 * @return string
+	 */
 	public static function link( $input, $download_id, $file = false ){
 		if( $file ){
-			$input = urlencode( $file );
+			$input = urlencode( $input );
 		}else{
 			$input = absint( $input );
 		}
@@ -76,13 +94,27 @@ class install {
 		
 		return add_query_arg( $args, admin_url() );
 	}
-	
+
+	/**
+	 * Create a nonce for these requests
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return string
+	 */
 	public static function nonce(){
 		return wp_create_nonce( self::ARG );
 	}
 
-
-
+	/**
+	 * Install a plugin
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $download_link Link to zip to install from
+	 *
+	 * @return bool|\WP_Error
+	 */
 	public static function install_plugin( $download_link ) {
 		include_once ABSPATH . 'wp-admin/includes/admin.php';
 		include_once ABSPATH . 'wp-admin/includes/upgrade.php';
@@ -102,7 +134,17 @@ class install {
 		return true;
 
 	}
-	
+
+	/**
+	 * Get download link from remote API
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param $license_id
+	 * @param $download_id
+	 *
+	 * @return mixed
+	 */
 	public static function get_download_link( $license_id, $download_id ){
 		$api = lm::get_instance()->sl_api;
 		$error = esc_html__( 'Could not install. Please try again.', 'calderawp-license-manager' );

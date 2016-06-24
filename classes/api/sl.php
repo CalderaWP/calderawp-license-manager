@@ -15,7 +15,16 @@ namespace calderawp\licensemanager\api;
 class sl extends base {
 
 	protected $endpoint = 'edd-sl-api/v1';
-	
+
+	/**
+	 * Get all licensed plugins for current user
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param bool $details
+	 *
+	 * @return int|object|string
+	 */
 	public function get_licensed( $details = true ){
 		$url = $this->endpoint . '/licenses';
 		if( $details ){
@@ -27,24 +36,61 @@ class sl extends base {
 		return $plugins;
 	}
 
+	/**
+	 * Activate a license
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param int $license_id ID of license
+	 * @param string $url URL of site
+	 * @param int $download_id Download ID
+	 *
+	 * @return array|int|mixed|string|\WP_Error
+	 */
 	public function activate_license( $license_id, $url, $download_id ){
 		return $this->update_license( $license_id, $url, $download_id, true );
 	}
 
+	/**
+	 * Deactivate a license
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param int $license_id ID of license
+	 * @param string $url URL of site
+	 * @param int $download_id Download ID
+	 *
+	 * @return array|int|mixed|string|\WP_Error
+	 */
 	public function deactivate_license( $license_id, $url, $download_id ){
 		return $this->update_license( $license_id, $url, $download_id, false );
 	}
-	
+
+	/**
+	 * Get an install file
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param int $license_id ID of license
+	 * @param string $url URL of site
+	 * @param int $download_id Download ID
+	 *
+	 * @return int|object|string
+	 */
 	public function get_file( $license_id, $url, $download_id ){
 		$endpoint = $this->endpoint . '/licenses/' . absint( $license_id ) . '/file';
 		return $this->request( $endpoint, array( 'url' => urlencode( $url ), 'download' => absint( $download_id )  ) );
 	}
 
 	/**
-	 * @param int $license_id
-	 * @param string $url
-	 * @param int  $download_id
-	 * @param bool $activate
+	 * Activate or deactivate a license
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param int $license_id ID of license
+	 * @param string $url URL of site
+	 * @param int $download_id Download ID
+	 * @param bool $activate Optional. If true, license is activated, if false, license is deactivated.
 	 *
 	 * @return array|int|mixed|string|\WP_Error
 	 */

@@ -88,8 +88,11 @@ abstract class base {
 		if( ! is_wp_error( $request ) ){
 
 			if( 200 == wp_remote_retrieve_response_code( $request ) ) {
-				$results = wp_remote_retrieve_body( $request );
-				return json_decode( $results );
+				if( ! is_object( $results = json_decode( wp_remote_retrieve_body( $request ) ) ) ){
+					$results = wp_remote_retrieve_body( $request );
+				}
+
+				return $results;
 			}else{
 				$body = wp_remote_retrieve_body( $request );
 				if( is_string( $body ) && is_object( $json = json_decode( $body ) ) ){
