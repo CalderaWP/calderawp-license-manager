@@ -124,6 +124,10 @@ class ui extends base {
 			$template = str_replace( '{{' . $sub . '}}', $plugin->$sub, $template );
 		}
 
+		if( false == $license ){
+			$license = null;
+		}
+		
 		$button = self::button_markup( $plugin, $installed, $active, $license, $has_activations, $activations );
 
 

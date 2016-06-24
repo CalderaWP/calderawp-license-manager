@@ -53,7 +53,8 @@ class install {
 			}elseif ( filter_var( $input, FILTER_VALIDATE_URL ) ){
 				$installed = self::install_plugin( $input );
 				if( $installed ){
-					return;
+					activate_plugin( $installed );
+					cwp_license_manager_response( 200, 'caldera-forms', esc_html__( 'Plugin Installed.', 'calderawp-license-manager' ), false );
 				}else{
 					wp_die( $installed );
 				}
@@ -113,7 +114,7 @@ class install {
 	 *
 	 * @param string $download_link Link to zip to install from
 	 *
-	 * @return bool|\WP_Error
+	 * @return bool|\WP_Error|string If installed should return basename of plugin for activation.
 	 */
 	public static function install_plugin( $download_link ) {
 		include_once ABSPATH . 'wp-admin/includes/admin.php';
@@ -122,13 +123,22 @@ class install {
 		require_once ( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
 		include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
 
-		$upgrader = new \Plugin_Upgrader();
+		$upgrader =  new \Plugin_Upgrader();
 
 		$result = $upgrader->install( $download_link );
+
 		if ( is_wp_error( $result ) ){
 			return $result;
 		} elseif ( ! $result ) {
 			return new \WP_Error( 'plugin-install', __( 'Unknown error installing plugin.', 'calderawp-license-manager' ) );
+		}
+
+		$plugins = get_plugins();
+		foreach ( $plugins as $basename => $plugin ){
+			$parts = explode( '/', $basename );
+			if( $upgrader->result[ 'destination_name'] == $parts[0] ){
+				return $basename;
+			}
 		}
 		
 		return true;

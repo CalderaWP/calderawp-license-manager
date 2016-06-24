@@ -23,7 +23,7 @@ function cwp_license_manager_load_dismissible_notices(){
 }
 
 
-function cwp_license_manager_response( $code = 200, $type, $message = '', $error = false ){
+function cwp_license_manager_response( $code = 302, $type, $message = '', $error = false ){
 	status_header( $code );
 	$url = \calderawp\licensemanager\ui\ui::tab_url( $type );
 	if( ! empty( $message ) ){
@@ -34,7 +34,19 @@ function cwp_license_manager_response( $code = 200, $type, $message = '', $error
 		$url = add_query_arg( 'cwp-lm-error', 1, $url );
 	}
 
-	wp_redirect(  $url );
+	cwp_license_manager_redirect(  $url );
 	exit;
 }
 
+
+function cwp_license_manager_redirect( $location, $status = 302 ) {
+	if ( ! headers_sent() ) {
+		wp_redirect( $location, $status );
+		die();
+	}else {
+		die( '<script type="text/javascript">'
+		     . 'document.location = "' . str_replace( '&amp;', '&', esc_js( $location ) ) . '";'
+		     . '</script>' );
+	}
+
+}

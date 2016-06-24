@@ -163,13 +163,60 @@ class plugin {
 
 	}
 
-	public function install( $slug ){
-		$id =  $this->find_id( $slug );
+	/**
+	 * Find a plugin by CWP download ID
+	 * 
+	 * Not a terribly reliable method
+	 * 
+	 * @since 2.0.0
+	 * 
+	 * @param int $download_id ID of download
+	 *
+	 * @return bool|int|string
+	 */
+	public function find_basename( $download_id ){
+		$plugin = false;
+		$plugins = $this->plugins->get_plugins_array();
+		if( ! empty( $plugins[ 'cf' ] ) ){
+			$ids = array_keys( $plugins[ 'cf' ] );
+			if( in_array( $download_id, $ids  ) ){
+				$the_plugins = array_values( $plugins[ 'cf' ] );
+				$key = (int) array_search( (string) $download_id, $ids );
+				if( isset( $the_plugins[ $key ] ) ){
+					$plugin = $the_plugins[ $key ];
+				}
+				
+			}
+			
+		}
 
-	}
+		if( ! is_object( $plugin ) && ! empty( $plugins[ 'search' ] ) ){
+			$ids = array_keys( $plugins[ 'search' ] );
+			if( in_array( $download_id, $ids  ) ){
+				$the_plugins = array_values( $plugins[ 'search' ] );
+				$key = (int) array_search( (string) $download_id, $ids );
+				if( isset( $the_plugins[ $key ] ) ){
+					$plugin = $the_plugins[ $key ];
+				}
+				
+			}
 
-	protected function find_id( $slug ){
-		return 42;
+		}
+
+		if( is_object( $plugin ) && ! empty( $plugins[ 'installed' ] ) ){
+			$name = str_replace( 'Add-on', '', $plugin->name );
+			foreach ( $plugins[ 'installed' ] as $basename => $installed_plugin ){
+				$installed_name = $installed_plugin[ 'Name' ];
+				if( $name == $installed_name ){
+					return $basename;
+				}
+				
+			}
+			
+		}
+		
+		return false;
+
 	}
 
 	/**
@@ -193,6 +240,8 @@ class plugin {
 				foreach ( $all[ $key ] as $id => $item ){
 					if( is_object( $item ) && property_exists( $item, $name_field ) ){
 						$this->names[ $key ][ $id ] = sanitize_key( $item->$name_field );
+					}elseif ( is_array( $item ) && isset( $item[ $name_field ] ) ){
+						$this->names[ $key ][ $id ] = sanitize_key( $item[ $name_field ] );
 					}
 
 				}
@@ -202,7 +251,9 @@ class plugin {
 			}else{
 				$this->names[ $key ] = array();
 			}
+
 		}
+
 
 	}
 	
