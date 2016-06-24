@@ -23,9 +23,9 @@ class install {
 	const NONCE_ARG = 'cwp-lm-install-nonce';
 
 	/**
-	 * @param int $input For first request is license ID.
-	 * @param bool $download_id
-	 * @param bool $nonce
+	 * @param int $input For first request is license ID -- for second is file for download
+	 * @param bool|int  $download_id  Download ID
+	 * @param bool|string $nonce Nonce
 	 */
 	public static function do_install( $input, $download_id = false, $nonce = false ){
 		if( false == $nonce && isset( $_GET[ self::NONCE_ARG ]) ) {
