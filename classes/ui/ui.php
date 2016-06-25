@@ -157,7 +157,7 @@ class ui extends base {
 		if( ! $installed && null !== $license ){
 			$button = self::button(
 				sprintf( __( 'Install %s', 'calderawp-license-manager' ), $plugin->name ),
-				install::link( $license->license, $license->download, false ),
+				install::link( $license->license, $license->download, false, $license->code ),
 				true,
 				true
 			);
@@ -210,7 +210,7 @@ class ui extends base {
 	 */
 	protected static function install_button( $plugin, license $license = null, $right = false ){
 		if( null !== $license ){
-			$link = install::link( $license->license, $license->download, false );
+			$link = install::link( $license->license, $license->download, false, $license->code );
 			return self::button( 'Install', $link, $right, true );
 		}else{
 			$slug = 'caldera-forms';

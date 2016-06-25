@@ -22,7 +22,7 @@ class CalderaWP_License_Manager {
 
 
 	/**
-	 * Holds class isntance
+	 * Holds class instance
 	 *
 	 * @since 1.0.0
 	 *
@@ -124,13 +124,34 @@ class CalderaWP_License_Manager {
 	 */
 	public function activate_license( $name, $license ){
 		$plugin = $this->get_plugin( $name );
-		if( ! is_object( $plugin ) ){
+		if( ! is_array( $plugin ) ){
 			return false;
 		}
 		
 		$key_store = $this->key_store( $plugin );
-		return update_option( $key_store, $license );
-		
+		$updated = update_option( $key_store, $license );
+		return  $updated;
+
+	}
+
+	/**
+	 * Handles license activation for plugin RE this site, not remotely.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $name name of plugin. Must be in registered by this class.
+	 *
+	 * @return bool
+	 */
+	public function deactivate_license( $name ){
+		$plugin = $this->get_plugin( $name );
+		if( ! is_array( $plugin ) ){
+			return false;
+		}
+
+		$key_store = $this->key_store( $plugin );
+		return delete_option( $key_store );
+
 
 	}
 
@@ -144,7 +165,7 @@ class CalderaWP_License_Manager {
 	 * @return mixed
 	 */
 	protected function key_store( $plugin ){
-		$name = $plugin->name;
+		$name = $plugin[ 'name' ];
 		if( ! empty( $this->products[ $name ][ 'key_store' ] ) ){
 			return $this->products[ $name ][ 'key_store' ];
 		}

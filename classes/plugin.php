@@ -87,12 +87,17 @@ class plugin {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param string $name Plugin name
+	 * @param string $name_or_id Plugin name or license ID
 	 *
 	 * @return license|bool
 	 */
-	public function get_license( $name ){
-		$id = $this->has_license( $name );
+	public function get_license( $name_or_id ){
+		if ( ! is_numeric( $name_or_id ) ) {
+			$id = $this->has_license( $name_or_id );
+		}else{
+			$id = $name_or_id;
+		}
+		
 		if( $id ){
 
 			$licenses = $this->plugins->get_plugins( 'licensed' );
@@ -181,34 +186,8 @@ class plugin {
 	 * @return bool|int|string
 	 */
 	public function find_basename( $download_id ){
-		$plugin = false;
+		$plugin =  $this->get_plugin_by_id( $download_id );
 		$plugins = $this->plugins->get_plugins_array();
-		if( ! empty( $plugins[ 'cf' ] ) ){
-			$ids = array_keys( $plugins[ 'cf' ] );
-			if( in_array( $download_id, $ids  ) ){
-				$the_plugins = array_values( $plugins[ 'cf' ] );
-				$key = (int) array_search( (string) $download_id, $ids );
-				if( isset( $the_plugins[ $key ] ) ){
-					$plugin = $the_plugins[ $key ];
-				}
-				
-			}
-			
-		}
-
-		if( ! is_object( $plugin ) && ! empty( $plugins[ 'search' ] ) ){
-			$ids = array_keys( $plugins[ 'search' ] );
-			if( in_array( $download_id, $ids  ) ){
-				$the_plugins = array_values( $plugins[ 'search' ] );
-				$key = (int) array_search( (string) $download_id, $ids );
-				if( isset( $the_plugins[ $key ] ) ){
-					$plugin = $the_plugins[ $key ];
-				}
-				
-			}
-
-		}
-
 		if( is_object( $plugin ) && ! empty( $plugins[ 'installed' ] ) ){
 			$name = str_replace( 'Add-on', '', $plugin->name );
 			foreach ( $plugins[ 'installed' ] as $basename => $installed_plugin ){
@@ -289,5 +268,50 @@ class plugin {
 		}
 
 	}
-	
+
+	/**
+	 * Find plugin by CWP download ID
+	 * 
+	 * @since 2.0.0
+	 * 
+	 * @param int $download_id
+	 *
+	 * @return array|bool
+	 */
+	public function get_plugin_by_id( $download_id ) {
+		$plugin  = false;
+		$plugins = $this->plugins->get_plugins_array();
+		if ( ! empty( $plugins['cf'] ) ) {
+			$ids = array_keys( $plugins['cf'] );
+			if ( in_array( (string) $download_id, $ids ) ) {
+				$the_plugins = array_values( $plugins['cf'] );
+				$key         = (int) array_search( (string) $download_id, $ids );
+				if ( isset( $the_plugins[ $key ] ) ) {
+					$plugin = $the_plugins[ $key ];
+					return $plugin;
+				}
+
+			}
+
+		}
+
+		if ( ! is_object( $plugin ) && ! empty( $plugins['search'] ) ) {
+			$ids = array_keys( $plugins['search'] );
+			if ( in_array( $download_id, $ids ) ) {
+				$the_plugins = array_values( $plugins['search'] );
+				$key         = (int) array_search( (string) $download_id, $ids );
+				if ( isset( $the_plugins[ $key ] ) ) {
+					$plugin = $the_plugins[ $key ];
+
+					return $plugin;
+				}
+			}
+
+			
+
+		}
+
+		return false;
+	}
+
 }

@@ -22,6 +22,8 @@ class install {
 	
 	const NONCE_ARG = 'cwp-lm-install-nonce';
 
+	const CODE_ARG = 'cwp-lm-code';
+
 	/**
 	 * @param int $input For first request is license ID -- for second is file for download
 	 * @param bool|int  $download_id  Download ID
@@ -40,10 +42,20 @@ class install {
 		if( wp_verify_nonce( $nonce, self::ARG ) ){
 			//check if we have license ID not file (license id of 1 is a sign that we had a problem with URL encode on file path.
 			if( is_numeric( $input ) && 1 < absint( $input ) ){
+				$license = lm::get_instance()->plugin->get_license( $input );
+				
+				if( isset( $_GET[ self::CODE_ARG ] ) ){
+					$code = trim( strip_tags( $_GET[ self::CODE_ARG ] ) );
+				}elseif( is_object( $license ) ){
+					$code = $license->code;
+				}else{
+					$code = false;
+				}
+				
 				$file = self::get_download_link( $input, $download_id );
 				if( filter_var( $file, FILTER_VALIDATE_URL ) ){
 					
-					wp_safe_redirect( self::link( $file, $download_id, true )  );
+					wp_safe_redirect( self::link( $file, $download_id, true, $code )  );
 					exit;
 				}else{
 					cwp_license_manager_response( 403, esc_html__( 'Could not install. Please try again.', 'calderawp-license-manager' ), true );
@@ -52,9 +64,20 @@ class install {
 			//valid install file?
 			}elseif ( filter_var( $input, FILTER_VALIDATE_URL ) ){
 				$installed = self::install_plugin( $input );
-				if( $installed ){
+				if( $installed ) {
 					activate_plugin( $installed );
-					cwp_license_manager_response( 200, 'caldera-forms', esc_html__( 'Plugin Installed.', 'calderawp-license-manager' ), false );
+					if ( isset( $_GET[ self::CODE_ARG ] ) ) {
+						$plugin = lm::get_instance()->plugin->get_plugin_by_id( 607 );
+						
+						if ( is_object( $plugin ) ) {
+							$activation_link = code::link( $_GET[ self::CODE_ARG ], $plugin->name, 'activate' );
+							if( filter_var( $activation_link, FILTER_VALIDATE_URL ) ){
+								cwp_license_manager_redirect( $activation_link );
+							}
+						}
+
+					}
+
 				}else{
 					wp_die( $installed );
 				}
@@ -74,13 +97,14 @@ class install {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param int|string $input ID of licnese ($file should be false) or File URL ($file should be true)
+	 * @param int|string $input ID of license ($file should be false) or File URL ($file should be true)
 	 * @param int $download_id Download ID
 	 * @param bool $file Optional. If is link for file. Default is false
+	 * @param string|bool Optional. License code. Default is false.
 	 *
 	 * @return string
 	 */
-	public static function link( $input, $download_id, $file = false ){
+	public static function link( $input, $download_id, $file = false, $licence_code = false ){
 		if( $file ){
 			$input = urlencode( $input );
 		}else{
@@ -92,6 +116,10 @@ class install {
 			self::NONCE_ARG    => self::nonce(),
 			self::DOWNLOAD_ARG => absint( $download_id )
 		);
+
+		if( $licence_code ){
+			$args[ self::CODE_ARG ] = urlencode( $licence_code );
+		}
 		
 		return add_query_arg( $args, admin_url() );
 	}

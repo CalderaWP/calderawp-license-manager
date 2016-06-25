@@ -17,6 +17,7 @@ use calderawp\licensemanager\account\account;
 use calderawp\licensemanager\api\cwp;
 use calderawp\licensemanager\api\deactivate;
 use calderawp\licensemanager\api\sl;
+use calderawp\licensemanager\ui\code;
 use calderawp\licensemanager\ui\install;
 
 class lm extends base {
@@ -94,6 +95,8 @@ class lm extends base {
 			new \calderawp\licensemanager\ui\save();
 		}elseif( isset( $_GET[ deactivate::ARG ] ) ){
 			deactivate::do_deactivation();
+		}elseif ( isset( $_GET[ code::NAME_ARG ] ) ){
+			code::handle();
 		}
 	}
 
@@ -148,7 +151,7 @@ class lm extends base {
 	 */
 	public function init(){
 		if( true !== $this->loaded ){
-			add_action( 'admin_init', array( $this, 'listeners' ) );
+			add_action( 'admin_init', array( $this, 'listeners' ), 42 );
 			include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 			$this->account = new account( null );
 
@@ -159,8 +162,9 @@ class lm extends base {
 			$this->plugin = new plugin( $this->plugins );
 
 			\CalderaWP_License_Manager::get_instance();
-
+			
 			$this->loaded = true;
+			
 		}
 		
 	}
