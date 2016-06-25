@@ -256,10 +256,36 @@ class plugin {
 
 			}else{
 				$this->names[ $key ] = array();
-			}
+			}   
 
 		}
 
+
+	}
+
+	/**
+	 * Get WordPress dot Org slug for a plugin
+	 * 
+	 * @since 2.0.0
+	 * 
+	 * @param int $id CWP Download ID
+	 *
+	 * @return string|void Slug if found
+	 */
+	public function dot_org_slug( $id ){
+		$plugins = array(
+			8241 => 'caldera-forms-edd',
+			1934 => 'caldera-forms-run-action',
+			1923 => 'caldera-form-metabox',
+			1950 => 'slack-integration-for-caldera-forms',
+			1940 => 'verify-email-for-caldera-forms',
+			4960 => 'postmatic-for-caldera-forms',
+			3221 => 'conditional-fail-for-caldera-forms'
+		);
+		
+		if( isset( $plugins[ $id ] ) ){
+			return $plugins[ $id ];
+		}
 
 	}
 	

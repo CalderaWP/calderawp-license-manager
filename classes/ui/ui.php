@@ -93,13 +93,16 @@ class ui extends base {
 	 * @since 2.0.0
 	 *
 	 * @param \stdClass $plugin Plugin object
+	 * @param int $id CWP download ID
 	 *
 	 * @return mixed|string|void
 	 */
-	public static function plugin_view( $plugin ){
+	public static function plugin_view( $plugin, $id  ){
 		if( ! is_object( $plugin ) || ! property_exists( $plugin, 'name' ) ){
 			return;
 		}
+
+		$plugin->id = $id;
 
 		$activations = $active = $license = $has_license = $has_activations = false;
 		$installed = lm::get_instance()->plugin->is_installed( $plugin->name );
@@ -127,7 +130,7 @@ class ui extends base {
 		if( false == $license ){
 			$license = null;
 		}
-		
+
 		$button = self::button_markup( $plugin, $installed, $active, $license, $has_activations, $activations );
 
 
@@ -209,9 +212,14 @@ class ui extends base {
 			$link = install::link( $license->license, $license->download, false );
 			return self::button( 'Install', $link, $right, true );
 		}else{
+			$slug = 'caldera-forms';
+			$_slug = lm::get_instance()->plugin->dot_org_slug( $plugin->id );
+			if( is_string( $slug ) ){
+				$slug = $_slug;
+			}
 			$link = add_query_arg(
 				array(
-					'plugin'    => 'postmatic-for-caldera-forms',
+					'plugin'    => $slug,
 					'tab'       => 'plugin-information',
 					'TB_iframe' => true,
 					'width'     => 600,
@@ -266,8 +274,16 @@ class ui extends base {
 		return $template;
 
 	}
-	
-	
+
+	/**
+	 * Construct a license view
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param license $license
+	 *
+	 * @return mixed|string
+	 */
 	public static function license( license $license ){
 		ob_start();
 		include CALDERA_WP_LICENSE_MANAGER_PATH . 'ui/license.php';
@@ -275,7 +291,7 @@ class ui extends base {
 		$sites = esc_html__( 'License not active on any site', 'calderawp-license-manger' );
 		if( ! empty( $license->sites ) ){
 			$sites = array();
-			$pattern = '<li><a class="button right" href="%s" title="%s"><pre style="display: inline">%s</pre> %s</a></li>';
+			$pattern = '<li><a class="button" href="%s" title="%s"><pre style="display: inline">%s</pre> %s</a></li>';
 			foreach( $license->sites as $site ){
 				$sites[] = sprintf( $pattern,
 					esc_url( deactivate::link( $license->license, $license->download, home_url() ) ),
@@ -285,8 +301,8 @@ class ui extends base {
 				);
 			}
 
-			$sites = sprintf( '<ul class="sites"><h5>%s</h5>%s</ul>',
-				esc_html__( 'Active Sites', 'calderawp-license-manger' ),
+			$sites = sprintf( '<h5>%s</h5><ul class="sites">%s</ul>',
+				esc_html__( 'Sites License Is Active On', 'calderawp-license-manger' ),
 				implode( "\n\n", $sites )
 			);
 		}

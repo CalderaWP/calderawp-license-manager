@@ -15,8 +15,8 @@ if( ! defined( 'ABSPATH' ) ){
 
 $plugins = \calderawp\licensemanager\lm::get_instance()->plugins->get_plugins( 'cf' );
 if( is_array( $plugins ) && ! empty( $plugins )) {
-	foreach ( $plugins as $plugin ){
-		echo ui::plugin_view( $plugin );
+	foreach ( $plugins as $id => $plugin ){
+		echo ui::plugin_view( $plugin, $id );
 	}
 }
 
