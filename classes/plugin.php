@@ -262,6 +262,7 @@ class plugin {
 
 
 	}
+	
 
 	/**
 	 * Get WordPress dot Org slug for a plugin

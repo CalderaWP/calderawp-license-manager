@@ -158,6 +158,8 @@ class lm extends base {
 			$this->plugins = new plugins( $this->cwp_api, $this->sl_api, $this->account->get_token() );
 			$this->plugin = new plugin( $this->plugins );
 
+			\CalderaWP_License_Manager::get_instance();
+
 			$this->loaded = true;
 		}
 		

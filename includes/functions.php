@@ -50,3 +50,34 @@ function cwp_license_manager_redirect( $location, $status = 302 ) {
 	}
 
 }
+
+/**
+ * Register a plugin as a licence product.
+ *
+ * @since 0.0.1
+ *
+ */
+function cwp_license_manager_register_licensed_product( $params ){
+	$defaults = array(
+		'type'	=>	'plugin'
+	);
+	$params = array_merge( $defaults, (array) $params );
+	$register = CalderaWP_License_Manager::get_instance();
+	$register->register_product( $params );
+}
+
+
+/**
+ * Check if plugin has license active, if not return false and we will throw a nag
+ *
+ * @since 0.0.1
+ *
+ * @param $plugin
+ *
+ * @return bool
+ */
+function cwp_license_manager_is_product_licensed( $plugin ){
+	return   CalderaWP_License_Manager::get_instance()->is_license_active( $plugin );
+
+
+}

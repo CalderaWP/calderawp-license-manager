@@ -10,6 +10,7 @@
 add_action( 'plugins_loaded', function(){
 
 	require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'includes/functions.php' );
+	require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/CalderaWP_License_Manager.php' );
 
 	//require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/updater/class-updater.php' );
 	//require_once( CALDERA_WP_LICENSE_MANAGER_PATH . 'classes/updater/class-plugin-updates.php' );
