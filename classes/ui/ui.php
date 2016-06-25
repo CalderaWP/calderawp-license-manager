@@ -165,7 +165,7 @@ class ui extends base {
 		}elseif( $active ){
 			$button = self::button( __( 'Plugin Active', 'calderawp-license-manager' ), $plugin->link );
 		}else{
-			$price_html = esc_html__( 'Free', 'calderawp-license-manager' );
+			$price_html = esc_html__( 'Free: Learn More', 'calderawp-license-manager' );
 			$price = 0;
 			if( ! empty( $plugin->prices ) ){
 				foreach ( $plugin->prices as $v_price ) {
@@ -176,17 +176,18 @@ class ui extends base {
 			}
 
 			if( 0 != $price ){
-				$price_html = sprintf( '%s %s', esc_html__( 'From:', 'calderawp-license-manager' ), '$' . $price );
+				//$price_html = sprintf( '%s %s', esc_html__( 'Learn More', 'calderawp-license-manager' ), '$' . $price );
+				$price_html =  esc_html__( 'Learn More', 'calderawp-license-manager' );
 			}
 
 			
 			if( 0 == $price ){
 				$other = self::install_button( $plugin, null );
 			}elseif( is_object( $license ) ){
-					$other = self::install_button( $plugin, $license );
+				$other = self::install_button( $plugin, $license );
 
 			}else{
-				$other = '';
+				$other = self::buy_button( $plugin );
 			}
 
 			$button = self::button( $price_html, $plugin->link, true, false, $other );
@@ -320,6 +321,43 @@ class ui extends base {
 		}
 		
 		return $template;
+	}
+
+	/**
+	 * Create a buy button, adds to cart on CWP
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param \stdClass $plugin
+	 *
+	 * @return string
+	 */
+	protected static function buy_button( \stdClass $plugin ){
+
+		return sprintf( '<a target="_blank" href="%s" title="%s" class="button cwp-buy-button button-primary">%s</a>',
+			esc_url( self::buy_link( $plugin->id ) ),
+			esc_attr( sprintf( 'Click To Purchase %s', $plugin->name ), 'calderawp-license-manager' ),
+			esc_html__( 'Purchase', 'calderawp-license-manager' )
+		);
+
+
+	}
+
+	/**
+	 * Create the link to add to cart on cwp
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param int $id Download ID on CWP
+	 *
+	 * @return string
+	 */
+	protected static function buy_link( $id ){
+		return add_query_arg( array(
+			'edd_action' => 'add_to_cart',
+			'download_id' => absint( $id )
+		), 'https://calderawp.com/checkout' );
+		
 	}
 	
 }
