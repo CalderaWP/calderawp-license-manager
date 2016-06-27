@@ -141,7 +141,6 @@ class CalderaWP_License_Manager_Settings extends CalderaWP_License_Manager{
 		if ( defined( 'CFCORE_VER' ) ) {
 			$this->plugin_screen_hook_suffix['calderawp_license_manager'] = add_submenu_page(
 				'caldera-forms',
-				'options-general.php',
 				__( 'CalderaWP License Manager', 'calderawp-license-manger' ),
 				__( 'CalderaWP Licenses', 'calderawp-license-manger' ),
 				'manage_options', 'calderawp_license_manager',
