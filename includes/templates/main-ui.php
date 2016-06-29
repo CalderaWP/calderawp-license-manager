@@ -96,7 +96,18 @@
 	</h4>
 	<?php
 	// pull in the general settings template
-	include CALDERA_WP_LICENSE_MANAGER_PATH . 'includes/templates/beta-panel.php';
+	if(  defined( 'CFCORE_BASENAME' ) ){
+		include CALDERA_WP_LICENSE_MANAGER_PATH . 'includes/templates/beta-panel.php';
+	}else{
+		esc_html_e(  'Beta updates are available for Caldera Forms Only.', 'calderawp-license-manager'  );
+		printf( '<a href="https://CalderaWP.com/downloads/caldera-forms" target="_blank" title="%1s" ><img src="//200s1i13m4ae1a9s82cmbbxm-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/cf-banner.png" alt="%2s" style="%3s" /></a>',
+			esc_attr__( 'Learn More About Caldera Forms', 'calderawp-license-manger' ),
+			esc_attr__(  'Caldera Forms Banner', 'calderawp-license-manger' ),
+			'width:100%;height:auto;'
+
+		);
+	}
+
 	?>
 	</div>
 

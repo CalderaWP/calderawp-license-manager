@@ -1,4 +1,6 @@
 <?php
+use calderawp\helpers\vardump;
+
 $calderawp_license_manager = CalderaWP_License_Manager_Options::get_single( 'calderawp_license_manager' );
 
 ?>
