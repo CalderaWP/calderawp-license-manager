@@ -221,7 +221,7 @@ class plugin {
 				$name_field = 'name';
 			}
 
-			if( ! empty( $all[ $key ] ) ){
+			if( is_array( $all[ $key ] ) ){
 				foreach ( $all[ $key ] as $id => $item ){
 					if( is_object( $item ) && property_exists( $item, $name_field ) ){
 						$this->names[ $key ][ $id ] = sanitize_key( $item->$name_field );
