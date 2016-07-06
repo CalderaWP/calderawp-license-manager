@@ -13,13 +13,13 @@ if( ! defined( 'ABSPATH' ) ){
 }
 ?>
 
-<div class="panel license-panel" style="margin: 10px; width: 95%; float: left; overflow: auto; border: 1px solid rgba(0, 0, 0, 0.15); box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); background:#fff;position: relative; padding:12px;">
+<div class="cwp-lm-panel license-panel">
 	<div class="license-sites" style="padding-bottom: 25px;">
 		<h3>{{title}}</h3>
 		{{sites}}
 	</div>
 	<div style="clear: both"></div>
-	<div style="margin: 0px; padding: 6px 7px;">
+	<div class="cwp-lm-panel-footer">
 		{{install_here}}
 	</div>
 </div>

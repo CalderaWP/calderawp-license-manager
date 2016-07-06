@@ -10,7 +10,7 @@
  */
 namespace calderawp\licensemanager\ui;
 
-use calderawp\licensemanager\plugin;
+
 
 if( ! defined( 'ABSPATH' ) ){
 	exit;
@@ -31,6 +31,15 @@ if( isset( $_GET[ 'cwp-lm-message' ] ) ){
 
 
 ?>
+<style>
+    .cwp-lm-panel{
+        margin: 10px; width: 95%; float: left; overflow: auto; border: 1px solid rgba(0, 0, 0, 0.15); box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); background:#fff;position: relative; padding:12px;
+    }
+
+	.cwp-lm-panel-footer {
+		margin: 0px; padding: 6px 7px;
+	}
+</style>
 <div class="wrap cwp-license-manager">
     
 

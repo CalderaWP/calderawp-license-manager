@@ -47,11 +47,6 @@ class lm extends base {
 	protected $loaded;
 
 	/**
-	 * @var account
-	 */
-	protected $account;
-
-	/**
 	 * @var plugin
 	 */
 	protected $plugin;
@@ -126,10 +121,15 @@ class lm extends base {
 	 * @return bool|string
 	 */
 	public function get_token(){
-		$token = $this->account->get_token();
-		if ( ! empty($token ) ){
-			return $token;
+		return $this->get_stored_token();
+	}
+
+	public function get_display_name(){
+		$token = $this->get_stored_token( false );
+		if( is_object( $token ) && isset( $token->user_display_name ) ){
+			return $token->user_display_name;
 		}
+
 		return false;
 	}
 
@@ -146,6 +146,15 @@ class lm extends base {
 	}
 
 	/**
+	 * Clear details from remote site
+	 *
+	 * @since 2.0.0
+	 */
+	public function logout(){
+		update_option( self::plugin_slug . '_token', false );
+	}
+
+	/**
 	 * Init if not already
 	 * 
 	 * @since 2.0.0
@@ -155,12 +164,13 @@ class lm extends base {
 			add_action( 'admin_init', array( $this, 'listeners' ), 42 );
 			include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
-			$this->set_account();
+			$this->setup_account();
 
-			$this->sl_api = new sl( CALDERA_WP_LICENSE_MANAGER_API, $this->account->get_token() );
-			$this->cwp_api = new cwp( CALDERA_WP_LICENSE_MANAGER_API, $this->account->get_token()  );
+			$token =  $this->get_token();
+			$this->sl_api = new sl( CALDERA_WP_LICENSE_MANAGER_API, $token );
+			$this->cwp_api = new cwp( CALDERA_WP_LICENSE_MANAGER_API, $token  );
 
-			$this->plugins = new plugins( $this->cwp_api, $this->sl_api, $this->account->get_token() );
+			$this->plugins = new plugins( $this->cwp_api, $this->sl_api, $token );
 			$this->plugin = new plugin( $this->plugins );
 
 			\CalderaWP_License_Manager::get_instance();
@@ -172,17 +182,59 @@ class lm extends base {
 	}
 
 	/**
-	 * Set auth object and verify token
+	 * Setup and verify remote account
 	 *
 	 * @since 2.0.0
 	 */
-	protected function set_account(){
-		$this->account = new account( null );
-		$auth = new auth( $this->account->get_token() );
-		if( ! $auth->check_token() ){
-			$this->account->logout();
+	protected function setup_account(){
+		$token = $this->get_stored_token();
+
+		if( ! empty( $token ) ){
+			$auth = new auth( CALDERA_WP_LICENSE_MANAGER_API, $token );
+			if( ! $auth->check_token() ){
+
+			}
 		}
 
+
+
+	}
+
+	/**
+	 * Get our stored token
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param bool $return_string Optional. 
+	 *
+	 * @return bool|string|object
+	 */
+	protected function get_stored_token( $return_string = true ){
+		$token = get_option( self::plugin_slug . '_token' );
+		if( ! is_object( $token ) || ! isset( $token->token ) ){
+			return false;
+		}
+
+		if( $return_string ){
+			return $token->token;
+		}
+
+		return $token;
+	}
+
+	/**
+	 * Store token
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param \stdClass $token
+	 */
+	public function store_token( \stdClass $token ){
+		if( isset( $token->products ) ){
+			unset( $token->products );
+		}
+		
+		update_option( self::plugin_slug . '_token', $token );
 	}
 
 

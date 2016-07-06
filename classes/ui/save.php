@@ -48,10 +48,7 @@ class save{
 			$auth = new auth( CALDERA_WP_LICENSE_MANAGER_API );
 			$token = $auth->get_token( $_POST[ 'username' ], $_POST[ 'password' ] );
 			if( is_object( $token ) ){
-				lm::get_instance()->account->set_token( $token->token );
-				lm::get_instance()->account->set_token_cookie();
-				lm::get_instance()->account->set_displayname( $token->user_display_name );
-				lm::get_instance()->account->set_displayname_cookie();
+				lm::get_instance()->store_token( $token );
 				$this->response( 200, esc_html__( 'You are now logged in to CalderaWP', 'calderawp-license-manager' ) );
 				
 
@@ -66,7 +63,7 @@ class save{
 	}
 	
 	public function logout(){
-		lm::get_instance()->account->clear_cookies();
+		lm::get_instance()->account->logout();
 		$this->response( 200, esc_html__( 'You are now logged out of CalderaWP', 'calderawp-license-manager') );
 	}
 	
