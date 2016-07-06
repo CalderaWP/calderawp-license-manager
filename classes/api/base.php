@@ -23,6 +23,14 @@ abstract class base {
 	protected $token;
 
 	/**
+	 * The last status code returned by $this API cleint
+	 * 
+	 * @since 2.0.0
+	 * 
+	 * @var int
+	 */
+	protected $last_status = 0;
+	/**
 	 * base constructor.
 	 *
 	 * @since 2.0.0
@@ -86,7 +94,7 @@ abstract class base {
 		}
 
 		if( ! is_wp_error( $request ) ){
-
+			$this->last_status = wp_remote_retrieve_response_code( $request );
 			if( 200 == wp_remote_retrieve_response_code( $request ) ) {
 				if( ! is_object( $results = json_decode( wp_remote_retrieve_body( $request ) ) ) ){
 					$results = wp_remote_retrieve_body( $request );
@@ -111,14 +119,27 @@ abstract class base {
 
 		}
 
+		$this->last_status = 500;
+
 		return $request;
 
 	}
 
 	/**
+	 * Get the status code from last request
+	 * 
+	 * @since 2.0.0
+	 * 
+	 * @return int
+	 */
+	public function get_last_status(){
+		return $this->last_status;
+	}
+
+	/**
 	 * Authorization header
 	 * 
-	 * BTW: This is in a separate method to decouple this class from JWT if needed.
+	 * BTW: This is in a separate method to decouple subclass from JWT if needed.
 	 * 
 	 * @since 2.0.0
 	 * 

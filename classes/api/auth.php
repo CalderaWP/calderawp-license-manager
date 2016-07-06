@@ -31,4 +31,26 @@ class auth extends base {
 
 	}
 
+	/**
+	 * Validate saved token
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return bool
+	 */
+	public function check_token(){
+		if( ! is_string( $this->token ) ){
+			return false;
+		}
+
+		$this->request( 'jwt-auth/v1/token/validate', array(), 'POST' );
+
+		if( 200 == $this->get_last_status() ){
+			return true;
+		}
+
+		return false;
+
+	}
+
 }

@@ -14,6 +14,7 @@ namespace calderawp\licensemanager;
 
 use calderawp\licensemanager\account\account;
 
+use calderawp\licensemanager\api\auth;
 use calderawp\licensemanager\api\cwp;
 use calderawp\licensemanager\api\deactivate;
 use calderawp\licensemanager\api\sl;
@@ -153,7 +154,8 @@ class lm extends base {
 		if( true !== $this->loaded ){
 			add_action( 'admin_init', array( $this, 'listeners' ), 42 );
 			include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-			$this->account = new account( null );
+
+			$this->set_account();
 
 			$this->sl_api = new sl( CALDERA_WP_LICENSE_MANAGER_API, $this->account->get_token() );
 			$this->cwp_api = new cwp( CALDERA_WP_LICENSE_MANAGER_API, $this->account->get_token()  );
@@ -168,5 +170,20 @@ class lm extends base {
 		}
 		
 	}
+
+	/**
+	 * Set auth object and verify token
+	 *
+	 * @since 2.0.0
+	 */
+	protected function set_account(){
+		$this->account = new account( null );
+		$auth = new auth( $this->account->get_token() );
+		if( ! $auth->check_token() ){
+			$this->account->logout();
+		}
+
+	}
+
 
 }

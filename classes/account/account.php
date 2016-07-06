@@ -49,6 +49,11 @@ class account extends base {
 		}
 		return $this->displayname;
 	}
+
+	public function logout(){
+		$this->clear_cookies();
+		$this->token = false;
+	}
 	
 
 	protected function get_token_cookie(){
@@ -57,12 +62,10 @@ class account extends base {
 			$this->token =  isset( $_COOKIE[ self::plugin_slug ]) ? $cookie = $_COOKIE[ self::plugin_slug ] : $cookie = false;
 		}
 		
-		
-		
 	}
 
 	public function set_token_cookie(){
-		setcookie( self::plugin_slug, $this->token, time()+3600*24*100, COOKIEPATH, COOKIE_DOMAIN, false);
+		setcookie( self::plugin_slug, $this->token, time() + WEEK_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN, false);
 
 	}
 	
@@ -71,7 +74,7 @@ class account extends base {
 			return;
 		}
 		$key = $this->displayname_cookie_key();
-		setcookie( $key, $this->displayname, time()+3600*24*100, COOKIEPATH, COOKIE_DOMAIN, false);
+		setcookie( $key, $this->displayname, time()+ WEEK_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN, false);
 
 
 
