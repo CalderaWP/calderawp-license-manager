@@ -187,10 +187,11 @@ class CalderaWP_License_Manager {
 			$settings = CalderaWP_License_Manager::get_instance();
 
 			if( !empty( $settings->products[ $item ]['key_store'] ) ){
-				if( $license_data->license == 'valid' ){
+				if( $license_data->license == 'valid' || ( 'expired' == $license_data->license && empty( $license_data->expires ) ) ){
+					$license_data->license = 'valid';
 					update_option( $settings->products[ $item ]['key_store'], $license );
 				}else{
-					delete_option( $settings->products[ $item ]['key_store'], $license );
+					delete_option( $settings->products[ $item ]['key_store'] );
 				}
 			}
 		}
@@ -345,9 +346,10 @@ class CalderaWP_License_Manager {
 			if( $license_data->activations_left === 'unlimited' || $license_data->activations_left > 0 || $license_data->license == 'valid' ){
 				$class = 'notice-success';
 			}
-			if( $license_data->license == 'expired' ){
+			if( $license_data->license == 'expired' && ! empty( $license_data->expires )  ){
 				$class = 'notice-error';
 			}
+//			var_dump( $license_data );exit;
 
 			echo '<div class="notice ' . $class . '"><div style="padding:6px 6px 6px 0;">';
 			
