@@ -10,7 +10,7 @@
  * Plugin Name: CalderaWP License Manager
  * Plugin URI:  http://CalderaWP.com
  * Description: License manager for CalderaWP Plugins
- * Version:     1.2.6
+ * Version:     1.2.7
  * Author:      CalderaWP
  * Author URI:  http://CalderaWP.com
  * Text Domain: calderawp-license-manager
