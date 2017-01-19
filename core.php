@@ -1,16 +1,11 @@
 <?php
 /**
- * @package   CalderaWP_License_Manager
- * @author    David Cramer for CalderaWP LLC<David@CalderaWP.com>
- * @license   GPL-2.0+
- * @link
- * @copyright 2015 David Cramer for CalderaWP LLC<David@CalderaWP.com>
- *
+
  * @wordpress-plugin
  * Plugin Name: CalderaWP License Manager
  * Plugin URI:  http://CalderaWP.com
  * Description: License manager for CalderaWP Plugins
- * Version:     1.2.7
+ * Version:     1.2.8
  * Author:      CalderaWP
  * Author URI:  http://CalderaWP.com
  * Text Domain: calderawp-license-manager
@@ -30,7 +25,7 @@ if( defined( 'CALDERA_WP_LICENSE_MANAGER_VER' ) ){
 
 define( 'CALDERA_WP_LICENSE_MANAGER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'CALDERA_WP_LICENSE_MANAGER_URL', plugin_dir_url( __FILE__ ) );
-define( 'CALDERA_WP_LICENSE_MANAGER_VER', '1.2.7' );
+define( 'CALDERA_WP_LICENSE_MANAGER_VER', '1.2.8' );
 define( 'CALDERA_WP_LICENSE_MANAGER_BASENAME', plugin_basename( __FILE__ ) );
 
 // load internals
