@@ -506,23 +506,25 @@ class CalderaWP_License_Manager {
 		
 		if( !empty( $this->products ) ){
 			$plugins = $this->products;
-		
-			foreach( $plugins as $plugin_key=>$plugin ){
+			if( ! empty( $plugins ) ){
+				foreach( $plugins as $plugin_key=>$plugin ){
 
-				if( empty( $plugin['updater'] ) ){
-					continue;
+					if( empty( $plugin['updater'] ) ){
+						continue;
+					}
+
+
+					if( ! class_exists( 'foolic_update_checker_v1_5' ) && $plugin['updater'] == 'foo' ){
+						require_once( CALDERA_WP_LICENSE_MANAGER_PATH . "classes/class-updater-foo.php" );
+					}
+
+					// do actions
+					do_action( 'calderawp_license_manager_setup_update_check', $plugin );
+					do_action( 'calderawp_license_manager_setup_update_check-' . $plugin['updater'], $plugin );
+
 				}
-
-
-				if( ! class_exists( 'foolic_update_checker_v1_5' ) && $plugin['updater'] == 'foo' ){
-					require_once( CALDERA_WP_LICENSE_MANAGER_PATH . "classes/class-updater-foo.php" );
-				}
-
-				// do actions
-				do_action( 'calderawp_license_manager_setup_update_check', $plugin );
-				do_action( 'calderawp_license_manager_setup_update_check-' . $plugin['updater'], $plugin );
-
 			}
+
 
 		}
 
@@ -545,7 +547,7 @@ class CalderaWP_License_Manager {
 		//get the key
 		$plugin['license_key'] = trim( get_option( $plugin['key_store'] ) ); 
 		// setup the updater
-		new CWP_EDD_SL_Plugin_Updater( $plugin['url'], $plugin['file'], array(
+		new CWP_EDD_SL_Plugin_Updater( 'https://calderaforms.com', $plugin['file'], array(
 			'version'	=> $plugin['version'],
 			'license'	=> $plugin['license_key'],
 			'item_name'	=> $plugin['name'],

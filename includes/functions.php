@@ -21,6 +21,7 @@ function cwp_license_manager_register_licensed_product( $params ){
 		'type'	=>	'plugin'
 	);
 
+	$params[ 'url' ] = 'https://calderaforms.com';
 	$params = array_merge( $defaults, (array) $params );
 
 	$register = CalderaWP_License_Manager::get_instance();
