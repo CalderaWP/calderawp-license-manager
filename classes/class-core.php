@@ -624,7 +624,6 @@ class CalderaWP_License_Manager {
 		if( !isset( $this->products[ $params['name'] ] ) ){
 			$this->products[ $params['name'] ] = $params;
 		}
-
 	}
 
 	/**
