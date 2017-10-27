@@ -21,18 +21,3 @@ if( function_exists( 'cwp_license_manager_register_licensed_product' ) ){
 	cwp_license_manager_register_licensed_product( $product_params );
 }
 ```
-for FooPlugins
-```php
-if( function_exists( 'cwp_license_manager_register_licensed_product' ) ){
-	$product_params = array(
-		'name'		=>	'Plugin',
-		'slug'		=>	'plugin-slug',
-		'url'		=>	'http://fooplugins.com/api/my-plugin/check',
-		'type'		=>	'plugin',
-		'updater'	=>	'foo',
-		'version'	=>	'1.0.0',
-		'file'		=> __FILE__
-	);		
-	cwp_license_manager_register_licensed_product( $product_params );
-}
-```

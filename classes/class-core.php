@@ -79,24 +79,17 @@ class CalderaWP_License_Manager {
 		// add edd update check
 		add_action( 'calderawp_license_manager_setup_update_check-edd', array( $this, 'edd_update_setup' ) );
 
-		// add foo update check
-		add_action( 'calderawp_license_manager_setup_update_check-foo', array( $this, 'foo_update_setup' ) );
-
 		// add ajax action for checking a license
 		add_action( 'wp_ajax_calderawp_license_manager_check_license', array( $this, 'check_license') );
 
 		// add EDD actions
 		add_action( 'calderawp_license_manager_validate_key-edd', array( $this, 'check_edd_license') );
-		add_action( 'calderawp_license_manager_validate_key-foo', array( $this, 'check_foo_license') );
 
 		// activate EDD license key		
 		add_action( 'wp_ajax_cwp_license_manager_activate_edd_license', array( $this, 'activate_edd_license') );
 
 		// deactivate EDD license key		
 		add_action( 'wp_ajax_cwp_license_manager_deactivate_edd_license', array( $this, 'deactivate_edd_license') );
-
-		// deactivate Foo license key		
-		add_action( 'wp_ajax_calderawp_license_manager_deactivate_foo_license', array( $this, 'deactivate_foo_license') );
 
 		new CalderaWP_License_Manager_Plugin_Updates();
 	}
@@ -405,102 +398,6 @@ class CalderaWP_License_Manager {
 
 	}
 
-	/**
-	 * Check a Foo license
-	 *
-	 * @since 1.0.0
-	 *
-	 * @uses "calderawp_license_manager_validate_key-edd" action
-	 */
-	public function check_foo_license( $plugin ){
-		global $wp_version;
-
-
-		$params = array(
-			'body'       => array(
-				'action'  => 'validate',
-				'license' => $plugin['license'],
-				'site'    => home_url()
-			),
-			'timeout' => 45,
-			'user-agent' => 'WordPress/' . $wp_version . '; FooLicensing'
-		);
-		if( !empty( $_POST['autoload'] ) ){
-			$license_data = get_transient( sanitize_key( $plugin['license'] ) );
-		}
-		if( empty( $license_data ) ){
-			$response_raw = wp_remote_post( $plugin['url'] , $params );
-
-			if (is_wp_error($response_raw)) {
-				$error = $response_raw->get_error_message();
-				$this->output_json_error(__('An error occurred while trying to validate your license key', $this->plugin_slug),
-					$error);
-				exit;
-			} else if (wp_remote_retrieve_response_code($response_raw) != 200) {
-				$this->output_json_error(__('An error occurred while trying to validate your license key', $this->plugin_slug),
-					sprintf(__('The response code of [%s] was not expected', $this->plugin_slug), wp_remote_retrieve_response_code($response_raw)));
-				exit;
-			}
-			$license_data = json_decode( wp_remote_retrieve_body( $response_raw ) );
-			if( !empty( $_POST['autoload'] ) ){
-				set_transient( sanitize_key( sanitize_key( $plugin['license'] ) ), $license_data, 18000 ); // 5 min transient on autoloads
-			}
-		}
-		
-
-		if( is_object( $license_data ) ){
-			if( !empty( $license_data->response->valid ) ){
-				//var_dump( $license_data );
-				//die;
-				update_site_option( $plugin['slug'] . '_licensekey', $plugin['license'] );
-				echo '<div class="notice notice-success"><div style="padding:6px 6px 6px 0;">';
-
-					echo '<span style="width: 85px; display: inline-block;">' . __( 'Licensed For', 'calderawp-license-manager' ) . '</span><strong>' . $license_data->site . '</strong><br>';
-					echo '<span style="width: 85px; display: inline-block;">' . __( 'Activations', 'calderawp-license-manager' ) . '</span><strong>' . count( $license_data->domains ) . '</strong><br>';
-					echo '<span style="width: 85px; display: inline-block;">' . __( 'Expires', 'calderawp-license-manager' ) . '</span><strong>' . $license_data->expires . '</strong><br>';
-					
-					echo __( 'Detach at', 'calderawp-license-manager' ) . ' <a href="https://fooplugins.com/licenses/" target="_blank">https://fooplugins.com/licenses/</a> before removing license.';
-
-						echo '<div class="notice-footer" style="margin: 6px -18px -7px -12px; padding: 6px 12px; background: rgb(242, 242, 242) none repeat scroll 0% 0%; border-top: 1px solid rgb(223, 223, 223);">';
-
-						if( empty( $_POST['autoload'] ) ){
-							echo '<input type="hidden" name="' . $_POST['name'] . '" value="' . date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $license_data->expires ) ) . '">';
-							echo '<span data-autoload="true" data-before="blkbr_get_config_object" data-load-element="#calderawp_license_manager-save-indicator" data-callback="blkbr_handle_save" data-action="blkbr_save_config" class="wp-baldrick"></span>';
-						}
-						echo '<button type="button" data-confirm="' . esc_attr( __( 'Remove this license?', 'calderawp-license-manager' ) ) . '"  class="button wp-baldrick" data-id="' . esc_attr( $_POST['id'] ) . '" data-load-element="#key-loading-' . esc_attr( $_POST['id'] ) . '" data-key="' . esc_attr( $plugin['license'] ) . '" data-active-class="disabled" data-target="#license-info-' . esc_attr( $_POST['id'] ) . '" data-item="' . esc_attr( $plugin['name'] ) . '" data-url="' . $_POST['url'] . '" data-action="calderawp_license_manager_deactivate_foo_license">' . __( 'Remove License', 'calderawp_license_manager' ) . '</button>';
-						
-
-						echo '</div>';
-
-				echo '</div></div>';
-			}else{
-				delete_site_option( $plugin['slug'] . '_licensekey' );
-				echo '<div class="notice notice-error"><p>' . $license_data->response->message . '</p></div>';
-			}
-		}
-
-		exit;
-
-	}
-	/**
-	 * deactivate a foo license key via ajax
-	 *
-	 * @uses "wp_ajax_calderawp_license_manager_check_license" hook
-	 *
-	 * @since 0.0.1
-	 */
-	public function deactivate_foo_license(){
-
-		$item_name = trim( $_POST['item'] );
-
-		delete_site_option( $plugin['slug'] . '_licensekey', $plugin['license'] );
-
-		echo '<button type="button" class="button wp-baldrick" data-autoload="true" data-remove-element=".' . esc_attr( $_POST['id'] ) . '"></button>';
-		echo '<span data-autoload="true" data-before="blkbr_get_config_object" data-load-element="#calderawp_license_manager-save-indicator" data-callback="blkbr_handle_save" data-action="blkbr_save_config" class="wp-baldrick"></span>';
-
-
-		exit;
-	}
 	public function setup_updates(){
 
 		
@@ -511,11 +408,6 @@ class CalderaWP_License_Manager {
 
 					if( empty( $plugin['updater'] ) ){
 						continue;
-					}
-
-
-					if( ! class_exists( 'foolic_update_checker_v1_5' ) && $plugin['updater'] == 'foo' ){
-						require_once( CALDERA_WP_LICENSE_MANAGER_PATH . "classes/class-updater-foo.php" );
 					}
 
 					// do actions
@@ -555,37 +447,6 @@ class CalderaWP_License_Manager {
 		) );
 	}
 
-	/**
-	 * Prepare to update via Foo
-	 *
-	 * @since 0.0.1
-	 *
-	 * @param array $plugin
-	 */
-	public function foo_update_setup( $plugin ){
-		// foo requires a slug
-		if( empty( $plugin['slug'] ) ){
-			return;
-		}
-
-		// include the updater
-		if( ! class_exists( 'foolic_update_checker_v1_5' ) ){
-			require_once( CALDERA_WP_LICENSE_MANAGER_PATH . "classes/class-updater-foo.php" );
-		}
-
-		// get the key
-		$plugin['license_key'] = get_site_option( $plugin['slug'] . '_licensekey' );
-
-		// setup the updater
-		//initialize plugin update checks with fooplugins.com
-		new foolic_update_checker_v1_5(
-			$plugin['file'], //the plugin file
-			$plugin['url'], //the URL to check for updates
-			$plugin['slug'], //the plugin slug
-			$plugin['license_key']
-		);
-
-	}
 
 	/**
 	 * Sets up possible things to update
