@@ -535,7 +535,7 @@ class CalderaWP_License_Manager {
 		if( false !== strpos( $screen->base, 'calderawp_license_manager' ) ){
 
 			//Add CF Core jQuery 1.12 script
-			if( defined( 'CFCORE_URL' ) && file_exists(CFCORE_PATH . "assets/build/js/jquery-12-4.min.js") ) {
+			if( defined('CFCORE_URL') && get_bloginfo('version') >= "5.6" && CFCORE_VER > "1.9.2" ) {
 				wp_enqueue_script( "jqueryOneTwelve-license-manager",  CFCORE_URL . "assets/build/js/jquery-12-4.min.js");
 			}
 
