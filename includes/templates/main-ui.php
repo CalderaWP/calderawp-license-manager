@@ -36,8 +36,8 @@
 		<!--
 		<li class="calderawp_license_manager-nav-tab" style="margin-left: 4px">
 			<?php printf( 'See your purchase history at %s', sprintf(
-					'<a href="https://calderawp.com/checkout/purchase-history/" title=%2s" target="_blank">CalderaWP.com/checkout/purchase-history</a>',
-						__( 'CalderaWP Purchase History', 'calderawp-license-manager' )
+					'<a href="https://calderaforms.com/account/" title=%2s" target="_blank">https://calderaforms.com/account/</a>',
+						__( 'CalderaForms Purchase History', 'calderawp-license-manager' )
 					)
 				);
 			?>
