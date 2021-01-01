@@ -535,7 +535,9 @@ class CalderaWP_License_Manager {
 		if( false !== strpos( $screen->base, 'calderawp_license_manager' ) ){
 
 			//Add CF Core jQuery 1.12 script
-			wp_enqueue_script( "jqueryOneTwelve",  CFCORE_URL . "assets/build/js/jquery-12-4.min.js");
+			if( defined( 'CFCORE_URL' ) && file_exists(CFCORE_PATH . "assets/build/js/jquery-12-4.min.js") ) {
+				wp_enqueue_script( "jqueryOneTwelve-license-manager",  CFCORE_URL . "assets/build/js/jquery-12-4.min.js");
+			}
 
 			wp_enqueue_style( 'calderawp_license_manager-core-style', CALDERA_WP_LICENSE_MANAGER_URL . '/assets/css/styles.css' );
 			wp_enqueue_style( 'calderawp_license_manager-baldrick-modals', CALDERA_WP_LICENSE_MANAGER_URL . '/assets/css/modals.css' );
