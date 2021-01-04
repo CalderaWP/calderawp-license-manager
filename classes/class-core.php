@@ -534,6 +534,11 @@ class CalderaWP_License_Manager {
 		
 		if( false !== strpos( $screen->base, 'calderawp_license_manager' ) ){
 
+			//Add CF Core jQuery 1.12 script
+			if( defined('CFCORE_URL') && defined('CFCORE_PATH') && get_bloginfo('version') >= "5.6" && CFCORE_VER > "1.9.2" && file_exists(CFCORE_PATH . "assets/build/js/jquery-12-4.min.js") ) {
+				wp_enqueue_script( "jqueryOneTwelve-license-manager",  CFCORE_URL . "assets/build/js/jquery-12-4.min.js");
+			}
+
 			wp_enqueue_style( 'calderawp_license_manager-core-style', CALDERA_WP_LICENSE_MANAGER_URL . '/assets/css/styles.css' );
 			wp_enqueue_style( 'calderawp_license_manager-baldrick-modals', CALDERA_WP_LICENSE_MANAGER_URL . '/assets/css/modals.css' );
 			wp_enqueue_script( 'calderawp_license_manager-wp-baldrick', CALDERA_WP_LICENSE_MANAGER_URL . '/assets/js/wp-baldrick-full.js', array( 'jquery' ) , false, true );
